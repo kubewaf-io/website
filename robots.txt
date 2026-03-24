@@ -1,0 +1,19 @@
+# robots.txt for kubeWAF
+# https://kubewaf.io
+
+User-agent: *
+Allow: /
+
+# Allow assets
+Allow: /assets/
+
+# Sitemap
+Sitemap: https://kubewaf.io/sitemap.xml
+
+# Disallow any private or temp paths (if they exist)
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /docs/private/
+
+# Be polite
+Crawl-delay: 1

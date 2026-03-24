@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kubeWAF - Kubernetes-native WAF</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/logo-icon.svg">
+    <link rel="icon" type="image/png" href="/assets/logo-icon.png">
+    <link rel="apple-touch-icon" href="/assets/logo-icon.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
@@ -142,8 +148,8 @@
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center gap-x-8 lg:gap-x-10 text-sm font-medium">
                     <a href="https://github.com/kubewaf-io/kubewaf" target="_blank" class="nav-link text-slate-300 hover:text-white">GitHub</a>
-                    <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" class="nav-link text-slate-300 hover:text-white">Documentation</a>
-                    <a href="https://github.com/kubewaf-io/kubewaf/tree/main/config/samples" target="_blank" class="nav-link text-slate-300 hover:text-white">Examples</a>
+                    <a href="https://github.com/kubewaf-io/kubewaf/blob/master/README.md" target="_blank" class="nav-link text-slate-300 hover:text-white">Documentation</a>
+                    <a href="https://github.com/kubewaf-io/kubewaf/tree/master/config/samples" target="_blank" class="nav-link text-slate-300 hover:text-white">Examples</a>
                     <div class="px-5 py-2 bg-amber-400 text-slate-950 text-xs font-semibold tracking-wider rounded-2xl shadow-lg shadow-amber-500/30 ring-1 ring-amber-400/50">
                         WIP
                     </div>
@@ -166,9 +172,9 @@
                 <div class="flex flex-col gap-y-6 text-base font-medium px-2">
                     <a href="https://github.com/kubewaf-io/kubewaf" target="_blank" 
                        class="nav-link text-slate-300 hover:text-white py-2">GitHub</a>
-                    <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" 
+                    <a href="https://github.com/kubewaf-io/kubewaf/blob/master/README.md" target="_blank" 
                        class="nav-link text-slate-300 hover:text-white py-2">Documentation</a>
-                    <a href="https://github.com/kubewaf-io/kubewaf/tree/main/config/samples" target="_blank" 
+                    <a href="https://github.com/kubewaf-io/kubewaf/tree/master/config/samples" target="_blank" 
                        class="nav-link text-slate-300 hover:text-white py-2">Examples</a>
                     
                     <div class="pt-4 border-t border-slate-700">
@@ -184,7 +190,7 @@
     <!-- Hero -->
     <header class="hero-bg pt-20 md:pt-24 pb-20 md:pb-32">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div class="mx-auto flex items-center justify-center gap-x-6 mb-12">
+            <div class="mx-auto flex items-center justify-center gap-x-6 mb-16 md:mb-20">
                 <img src="assets/logo-icon.svg" alt="kubeWAF" class="h-20 sm:h-24 lg:h-28 w-auto hero-logo">
                 <span class="logo-font text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter text-white glow-text">kubeWAF</span>
             </div>
@@ -198,21 +204,21 @@
                 using native Kubernetes CRDs.
             </p>
             
-            <div class="flex items-center justify-center gap-x-5">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-x-5 w-full max-w-md mx-auto">
                 <a href="https://github.com/kubewaf-io/kubewaf" target="_blank"
-                   class="btn-primary px-10 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-lg rounded-3xl flex items-center gap-x-2">
+                   class="btn-primary px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-base sm:text-lg rounded-3xl flex items-center justify-center gap-x-2 w-full sm:w-auto">
                     View on GitHub
                     <span class="text-xl">→</span>
                 </a>
-                <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" 
-                   class="px-10 py-4 border border-slate-700 hover:border-slate-400 font-medium rounded-3xl text-lg transition-all">
+                <a href="https://github.com/kubewaf-io/kubewaf/blob/master/README.md" target="_blank" 
+                   class="px-8 py-4 border border-slate-700 hover:border-slate-400 font-medium rounded-3xl text-base sm:text-lg transition-all w-full sm:w-auto">
                     Read the documentation
                 </a>
             </div>
             
-            <div class="mt-16 inline-flex items-center gap-x-2 text-sm text-amber-400 bg-slate-900/80 backdrop-blur-md px-6 py-3 rounded-3xl border border-amber-500/30 shadow-xl shadow-amber-900/50">
-                <div class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-                Currently in WIP • Expected first stable release start of Q2
+            <div class="mt-16 inline-flex items-center gap-x-3 text-sm text-amber-400 bg-slate-900/90 backdrop-blur-md px-8 py-4 rounded-3xl border border-amber-500/30 shadow-2xl shadow-amber-950/50">
+                <div class="w-3 h-3 bg-amber-400 rounded-full animate-pulse flex-shrink-0 mt-0.5"></div>
+                <span class="font-medium">Currently in WIP • Expected first stable release start of Q2 2026</span>
             </div>
         </div>
     </header>
@@ -282,12 +288,8 @@
     <!-- WIP notice -->
     <section class="py-20 bg-slate-950 border-t border-b border-slate-800">
         <div class="max-w-3xl mx-auto px-8 text-center animate-on-scroll">
-            <div class="inline-flex items-center rounded-full bg-amber-400/10 border border-amber-400/30 px-5 py-1.5 text-amber-400 text-sm font-medium mb-8">
-                WIP
-            </div>
             <p class="text-slate-400 text-lg max-w-md mx-auto leading-relaxed">
-                Developed by <span class="text-white font-medium">Buzz-IT GmbH</span> in Bern, Switzerland.<br>
-                Expected first stable release at the start of Q2 2025.
+                Developed by <span class="text-white font-medium">Buzz-IT GmbH</span> in Bern, Switzerland.
             </p>
             
             <a href="mailto:hello@kubewaf.io" 
@@ -304,6 +306,9 @@
             <div class="inline-flex items-center rounded-full bg-slate-800 px-4 py-1 text-xs tracking-widest text-emerald-400 mb-6">
                 THANKS TO
             </div>
+            <p class="text-slate-400 text-sm mt-3 mb-8 max-w-md mx-auto">
+                kubeWAF would not be possible without these outstanding open source projects
+            </p>
             <div class="flex flex-wrap justify-center items-center gap-x-10 gap-y-6 text-sm">
                 <a href="https://github.com/corazawaf/coraza" target="_blank" 
                    class="flex items-center gap-x-2 text-slate-300 hover:text-white transition-colors group">
@@ -321,9 +326,6 @@
                     <span>OWASP CRS</span>
                 </a>
             </div>
-            <p class="text-slate-500 text-xs mt-10">
-                kubeWAF would not be possible without these outstanding open source projects
-            </p>
         </div>
     </section>
 
@@ -341,13 +343,13 @@
                 
                 <div class="flex gap-x-8 text-sm">
                     <a href="https://github.com/kubewaf-io/kubewaf" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
-                    <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" class="hover:text-slate-200 transition-colors">Documentation</a>
+                    <a href="https://github.com/kubewaf-io/kubewaf/blob/master/README.md" target="_blank" class="hover:text-slate-200 transition-colors">Documentation</a>
                     <a href="https://github.com/kubewaf-io/kubewaf/issues" target="_blank" class="hover:text-slate-200 transition-colors">Issues</a>
                     <a href="mailto:hello@kubewaf.io" class="hover:text-slate-200 transition-colors">Contact</a>
                 </div>
                 
                 <div class="text-xs">
-                    © 2025 Buzz-IT GmbH. All rights reserved.
+                    © 2026 Buzz-IT GmbH. All rights reserved.
                 </div>
             </div>
         </div>
