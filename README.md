@@ -16,7 +16,7 @@ python3 -m http.server 8080
 ## Tech
 - Tailwind CSS via CDN (no build step)
 - Single HTML file
-- Uses provided logos in `assets/` (`logo.png`, `logo_with_name.png`, `logo_with_name.svg`)
+- Uses provided logos in `assets/` (`logo-icon.png`, `logo-full.png`, `logo-icon.svg`, `logo-full.svg`)
 
 Target audience: Kubernetes + WAF technical users.
 

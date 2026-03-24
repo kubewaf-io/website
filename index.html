@@ -31,6 +31,9 @@
             transform: translateY(-8px);
             box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
         }
+        .hero-logo {
+            filter: brightness(1.15) saturate(1.3) drop-shadow(0 0 30px rgb(165 243 252 / 0.6)) drop-shadow(0 25px 50px rgb(0 0 0 / 0.5));
+        }
         .btn-primary {
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
@@ -45,7 +48,7 @@
     <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
             <div class="flex items-center gap-x-3">
-                <img src="assets/logo.png" alt="kubeWAF" class="h-9 w-auto">
+                <img src="assets/logo-icon.png" alt="kubeWAF" class="h-9 w-auto">
                 <span class="logo-font text-3xl font-semibold tracking-tighter text-white">kubeWAF</span>
             </div>
             
@@ -63,7 +66,10 @@
     <!-- Hero -->
     <header class="hero-bg pt-24 pb-32">
         <div class="max-w-5xl mx-auto px-8 text-center">
-            <img src="assets/logo_with_name.png" alt="kubeWAF" class="mx-auto h-32 mb-12 opacity-90">
+            <div class="mx-auto flex items-center justify-center gap-x-6 mb-12">
+                <img src="assets/logo-icon.png" alt="kubeWAF" class="h-28 w-auto hero-logo">
+                <span class="logo-font text-7xl font-semibold tracking-tighter text-white">kubeWAF</span>
+            </div>
             
             <h1 class="text-6xl md:text-7xl font-semibold tracking-tighter text-white mb-8 logo-font leading-none">
                 Kubernetes-native<br>Web Application Firewall
@@ -175,10 +181,10 @@
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-y-8">
                 <div class="flex items-center gap-x-6">
-                    <img src="assets/logo.png" alt="kubeWAF" class="h-7 opacity-75">
+                    <img src="assets/logo-icon.png" alt="kubeWAF" class="h-7 opacity-75">
                     <div>
                         Made with ❤️ in Bern, Switzerland by 
-                        <a href="https://buzz-it.ch" target="_blank" class="text-white hover:text-emerald-400 transition-colors">Buzz-IT GmbH</a>
+                        <a href="https://kubewaf.io" target="_blank" class="text-white hover:text-emerald-400 transition-colors">Buzz-IT GmbH</a>
                     </div>
                 </div>
                 
