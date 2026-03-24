@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kubeWAF - Kubernetes-native WAF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+        }
+        .logo-font { 
+            font-family: 'Space Grotesk', sans-serif; 
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+        }
+        .nav-link {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-link:hover {
+            color: white;
+            transform: translateY(-1px);
+        }
+        .feature-card {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+        .btn-primary {
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgb(16 185 129);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+    <!-- Navbar -->
+    <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-x-3">
+                <img src="assets/logo.png" alt="kubeWAF" class="h-9 w-auto">
+                <span class="logo-font text-3xl font-semibold tracking-tighter text-white">kubeWAF</span>
+            </div>
+            
+            <div class="flex items-center gap-x-10 text-sm font-medium">
+                <a href="https://github.com/kubewaf-io/kubewaf" target="_blank" class="nav-link text-slate-300 hover:text-white">GitHub</a>
+                <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" class="nav-link text-slate-300 hover:text-white">Documentation</a>
+                <a href="https://github.com/kubewaf-io/kubewaf/tree/main/config/samples" target="_blank" class="nav-link text-slate-300 hover:text-white">Examples</a>
+                <div class="px-5 py-2 bg-emerald-400 text-slate-950 text-xs font-semibold tracking-wider rounded-2xl">
+                    BETA
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero-bg pt-24 pb-32">
+        <div class="max-w-5xl mx-auto px-8 text-center">
+            <img src="assets/logo_with_name.png" alt="kubeWAF" class="mx-auto h-32 mb-12 opacity-90">
+            
+            <h1 class="text-6xl md:text-7xl font-semibold tracking-tighter text-white mb-8 logo-font leading-none">
+                Kubernetes-native<br>Web Application Firewall
+            </h1>
+            
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+                Protect your Kubernetes workloads with ModSecurity and OWASP Core Rule Set (CRS) 
+                using native Kubernetes CRDs.
+            </p>
+            
+            <div class="flex items-center justify-center gap-x-5">
+                <a href="https://github.com/kubewaf-io/kubewaf" target="_blank"
+                   class="btn-primary px-10 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-lg rounded-3xl flex items-center gap-x-2">
+                    View on GitHub
+                    <span class="text-xl">→</span>
+                </a>
+                <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" 
+                   class="px-10 py-4 border border-slate-700 hover:border-slate-400 font-medium rounded-3xl text-lg transition-all">
+                    Read the documentation
+                </a>
+            </div>
+            
+            <div class="mt-16 inline-flex items-center gap-x-2 text-sm text-emerald-400 bg-slate-900 px-6 py-3 rounded-3xl border border-emerald-500/20">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                Currently in Beta • Expect breaking changes
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section class="py-28 bg-slate-900">
+        <div class="max-w-6xl mx-auto px-8">
+            <div class="text-center mb-20">
+                <div class="inline-flex items-center rounded-full bg-slate-800 px-4 py-1 text-xs tracking-widest text-emerald-400 mb-4">
+                    SECURE • NATIVE • POWERFUL
+                </div>
+                <h2 class="text-5xl font-semibold tracking-tight text-white mb-4">Built for Kubernetes</h2>
+                <p class="text-slate-400 max-w-md mx-auto text-lg">
+                    Define WAF rules using Kubernetes-native CRDs. No more managing complex config files.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-slate-950 border border-slate-800 rounded-3xl p-10">
+                    <div class="text-emerald-400 text-5xl mb-6">🔌</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Native CRDs</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Manage SecRules, SecActions and CRS policies directly in Kubernetes using 
+                        <code class="text-emerald-300 bg-slate-900 px-2 py-0.5 rounded">SecRule</code> and 
+                        <code class="text-emerald-300 bg-slate-900 px-2 py-0.5 rounded">SecAction</code> resources.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-slate-950 border border-slate-800 rounded-3xl p-10">
+                    <div class="text-emerald-400 text-5xl mb-6">🛡️</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-white">OWASP CRS Ready</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Full support for the OWASP Core Rule Set. Import, customize and manage CRS rules 
+                        as Kubernetes resources.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-slate-950 border border-slate-800 rounded-3xl p-10">
+                    <div class="text-emerald-400 text-5xl mb-6">⚡</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-white">ModSecurity Powered</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Powered by ModSecurity / Coraza. Battle-tested WAF engine with full SecLang compatibility.
+                    </p>
+                </div>
+
+                <div class="feature-card bg-slate-950 border border-slate-800 rounded-3xl p-10">
+                    <div class="text-emerald-400 text-5xl mb-6">🌐</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Envoy Gateway</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Native integration as Envoy Gateway WAF policies using Kubernetes Gateway API.
+                        Apply rules at the gateway level.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-slate-950 border border-slate-800 rounded-3xl p-10 lg:col-span-2 xl:col-span-1">
+                    <div class="text-emerald-400 text-5xl mb-6">📦</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-white">Sidecar WAF</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Deploy as a sidecar container next to your application pods. 
+                        Fine-grained per-workload protection using Coraza or ModSecurity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta notice -->
+    <section class="py-20 bg-slate-950 border-t border-b border-slate-800">
+        <div class="max-w-3xl mx-auto px-8 text-center">
+            <h2 class="text-4xl font-semibold mb-6 text-white">This is a Beta version</h2>
+            <p class="text-slate-400 text-lg max-w-md mx-auto leading-relaxed">
+                Developed by <span class="text-white font-medium">Buzz-IT GmbH</span> in Bern, Switzerland.<br>
+                Expect breaking changes in future releases.
+            </p>
+            <div class="mt-12 text-sm text-slate-500">
+                kubeWAF.io • Bern, Switzerland • 
+                <a href="mailto:hello@kubewaf.io" class="text-emerald-400 hover:text-emerald-300 transition-colors">hello@kubewaf.io</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 text-slate-400">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-y-8">
+                <div class="flex items-center gap-x-6">
+                    <img src="assets/logo.png" alt="kubeWAF" class="h-7 opacity-75">
+                    <div>
+                        Made with ❤️ in Bern, Switzerland by 
+                        <a href="https://buzz-it.ch" target="_blank" class="text-white hover:text-emerald-400 transition-colors">Buzz-IT GmbH</a>
+                    </div>
+                </div>
+                
+                <div class="flex gap-x-8 text-sm">
+                    <a href="https://github.com/kubewaf-io/kubewaf" target="_blank" class="hover:text-slate-200 transition-colors">GitHub</a>
+                    <a href="https://github.com/kubewaf-io/kubewaf/blob/main/README.md" target="_blank" class="hover:text-slate-200 transition-colors">Documentation</a>
+                    <a href="https://github.com/kubewaf-io/kubewaf/issues" target="_blank" class="hover:text-slate-200 transition-colors">Issues</a>
+                    <a href="mailto:hello@kubewaf.io" class="hover:text-slate-200 transition-colors">Contact</a>
+                </div>
+                
+                <div class="text-xs">
+                    © 2025 Buzz-IT GmbH. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        tailwind.config = {
+            content: [],
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+</body>
+</html>
