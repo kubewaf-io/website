@@ -249,15 +249,19 @@
     <!-- WIP notice -->
     <section class="py-20 bg-slate-950 border-t border-b border-slate-800">
         <div class="max-w-3xl mx-auto px-8 text-center animate-on-scroll">
-            <h2 class="text-4xl font-semibold mb-6 text-white section-header glow-text">This is a Work in Progress</h2>
+            <div class="inline-flex items-center rounded-full bg-amber-400/10 border border-amber-400/30 px-5 py-1.5 text-amber-400 text-sm font-medium mb-8">
+                WIP
+            </div>
             <p class="text-slate-400 text-lg max-w-md mx-auto leading-relaxed">
                 Developed by <span class="text-white font-medium">Buzz-IT GmbH</span> in Bern, Switzerland.<br>
                 Expected first stable release at the start of Q2 2025.
             </p>
-            <div class="mt-12 text-sm text-slate-500">
-                kubeWAF.io • Bern, Switzerland • 
-                <a href="mailto:hello@kubewaf.io" class="text-emerald-400 hover:text-emerald-300 transition-colors">hello@kubewaf.io</a>
-            </div>
+            
+            <a href="mailto:hello@kubewaf.io" 
+               class="mt-10 inline-flex items-center gap-x-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-8 py-4 rounded-3xl transition-all group">
+                <span class="text-xl group-hover:rotate-12 transition-transform">✉️</span>
+                hello@kubewaf.io
+            </a>
         </div>
     </section>
 
