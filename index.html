@@ -605,8 +605,12 @@
                     const formData = new FormData(form);
                     const data = Object.fromEntries(formData);
                     
-                    // Debug: log what we're sending (check browser console)
+                    // Ensure form-name is set correctly for Netlify
+                    data['form-name'] = 'newsletter';
+                    
+                    // Debug: log what we're sending (check browser console after submit)
                     console.log('Submitting form data:', data);
+                    console.log('Payload string:', new URLSearchParams(data).toString());
                     
                     const response = await fetch('/', {
                         method: 'POST',
@@ -616,13 +620,13 @@
                         body: new URLSearchParams(data).toString(),
                     });
                     
-                    if (response.ok) {
+                    if (response.ok || response.status === 303) {
                         // Hide form and show success
                         form.style.display = 'none';
                         successDiv.classList.remove('hidden');
                         console.log('%c✅ Newsletter signup successful!', 'color: #10b981;');
                     } else {
-                        throw new Error('Submission failed');
+                        throw new Error(`Submission failed with status ${response.status}`);
                     }
                 } catch (error) {
                     console.error('Error:', error);
