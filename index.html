@@ -3,12 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kubeWAF - Kubernetes-native WAF</title>
+    <title>kubeWAF - Kubernetes Native WAF | ModSecurity &amp; OWASP CRS</title>
     
-    <!-- Favicon -->
+    <!-- SEO Meta -->
+    <meta name="description" content="kubeWAF: Kubernetes-native Web Application Firewall powered by ModSecurity and OWASP Core Rule Set. Manage WAF policies with native CRDs. Secure your K8s workloads effortlessly.">
+    <meta name="keywords" content="kubernetes waf, k8s waf, kubernetes web application firewall, modsecurity kubernetes, owasp crs kubernetes, envoy gateway waf, coraza, kubewaf, k8s security">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="author" content="Buzz-IT GmbH">
+    <meta name="theme-color" content="#10b981">
+    <link rel="canonical" href="https://kubewaf.io/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="kubeWAF - Kubernetes Native WAF | ModSecurity &amp; OWASP CRS">
+    <meta property="og:description" content="kubeWAF: Kubernetes-native Web Application Firewall powered by ModSecurity and OWASP Core Rule Set. Manage WAF policies with native CRDs. Secure your K8s workloads effortlessly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kubewaf.io/">
+    <meta property="og:image" content="https://kubewaf.io/assets/logo-full.png">
+    <meta property="og:site_name" content="kubeWAF">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="kubeWAF - Kubernetes Native WAF | ModSecurity &amp; OWASP CRS">
+    <meta name="twitter:description" content="Kubernetes-native Web Application Firewall with ModSecurity, OWASP CRS and native Kubernetes CRDs.">
+    <meta name="twitter:image" content="https://kubewaf.io/assets/logo-full.png">
+    <meta name="twitter:creator" content="@kubewaf">
+    
+    <!-- Favicon Optimized -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/svg+xml" href="/assets/logo-icon.svg">
-    <link rel="icon" type="image/png" href="/assets/logo-icon.png">
-    <link rel="apple-touch-icon" href="/assets/logo-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -34,6 +59,23 @@
                 linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
             background-size: 40px 40px;
             opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: relative;
+            overflow: hidden;
+        }
+        .bg-grid::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
             pointer-events: none;
             z-index: 0;
         }
@@ -133,6 +175,70 @@
         .stagger-3 { transition-delay: 300ms; }
         .stagger-4 { transition-delay: 400ms; }
     </style>
+
+    <!-- Structured Data / Schema.org for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://kubewaf.io/#organization",
+          "name": "Buzz-IT GmbH",
+          "url": "https://kubewaf.io",
+          "logo": "https://kubewaf.io/assets/logo-full.png",
+          "description": "Developers of kubeWAF - Kubernetes-native Web Application Firewall",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Bern",
+            "addressCountry": "CH"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "hello@kubewaf.io"
+          },
+          "sameAs": [
+            "https://github.com/kubewaf-io"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "name": "kubeWAF",
+          "url": "https://kubewaf.io",
+          "description": "Kubernetes-native Web Application Firewall",
+          "publisher": {
+            "@id": "https://kubewaf.io/#organization"
+          }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "kubeWAF",
+          "description": "Kubernetes-native Web Application Firewall powered by ModSecurity and OWASP Core Rule Set using native CRDs.",
+          "url": "https://kubewaf.io",
+          "codeRepository": "https://github.com/kubewaf-io/kubewaf",
+          "applicationCategory": "SecurityApplication",
+          "operatingSystem": "Kubernetes",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "author": {
+            "@id": "https://kubewaf.io/#organization"
+          },
+          "license": "https://github.com/kubewaf-io/kubewaf/blob/master/LICENSE",
+          "featureList": [
+            "Native Kubernetes CRDs",
+            "ModSecurity and Coraza support",
+            "Full OWASP Core Rule Set integration",
+            "Envoy Gateway integration",
+            "Sidecar deployment"
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body class="bg-slate-950 text-slate-200">
     <!-- Navbar -->
@@ -141,7 +247,7 @@
             <div class="flex justify-between items-center py-4 lg:py-5">
                 <!-- Logo -->
                 <div class="flex items-center gap-x-3">
-                    <img src="assets/logo-icon.svg" alt="kubeWAF" class="h-8 w-auto lg:h-9">
+                    <img src="assets/logo-icon.svg" alt="kubeWAF logo icon" class="h-8 w-auto lg:h-9" width="36" height="36">
                     <span class="logo-font text-2xl lg:text-3xl font-semibold tracking-tighter text-white">kubeWAF</span>
                 </div>
                 
@@ -191,7 +297,7 @@
     <header class="hero-bg pt-20 md:pt-24 pb-20 md:pb-32">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="mx-auto flex items-center justify-center gap-x-6 mb-16 md:mb-20">
-                <img src="assets/logo-icon.svg" alt="kubeWAF" class="h-20 sm:h-24 lg:h-28 w-auto hero-logo">
+                <img src="assets/logo-icon.svg" alt="kubeWAF Kubernetes WAF logo" class="h-20 sm:h-24 lg:h-28 w-auto hero-logo" width="120" height="120" loading="eager">
                 <span class="logo-font text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter text-white glow-text">kubeWAF</span>
             </div>
             
@@ -223,9 +329,10 @@
         </div>
     </header>
 
+    <main>
     <!-- Features -->
-    <section class="py-28 bg-slate-900">
-        <div class="max-w-6xl mx-auto px-8">
+    <section class="py-28 bg-slate-900 bg-grid">
+        <div class="max-w-6xl mx-auto px-8 relative z-10">
             <div class="text-center mb-20 animate-on-scroll">
                 <div class="inline-flex items-center rounded-full bg-slate-800 px-4 py-1 text-xs tracking-widest text-emerald-400 mb-4">
                     SECURE • NATIVE • POWERFUL
@@ -286,8 +393,8 @@
     </section>
 
     <!-- WIP notice -->
-    <section class="py-20 bg-slate-950 border-t border-b border-slate-800">
-        <div class="max-w-3xl mx-auto px-8 text-center animate-on-scroll">
+    <section class="py-20 bg-slate-950 border-t border-b border-slate-800 bg-grid">
+        <div class="max-w-3xl mx-auto px-8 text-center animate-on-scroll relative z-10">
             <p class="text-slate-400 text-lg max-w-md mx-auto leading-relaxed">
                 Developed by <span class="text-white font-medium">Buzz-IT GmbH</span> in Bern, Switzerland.
             </p>
@@ -301,8 +408,8 @@
     </section>
 
     <!-- Thanks -->
-    <section class="py-16 bg-slate-900 border-t border-slate-800">
-        <div class="max-w-4xl mx-auto px-8 text-center animate-on-scroll">
+    <section class="py-16 bg-slate-900 border-t border-slate-800 bg-grid">
+        <div class="max-w-4xl mx-auto px-8 text-center animate-on-scroll relative z-10">
             <div class="inline-flex items-center rounded-full bg-slate-800 px-4 py-1 text-xs tracking-widest text-emerald-400 mb-6">
                 THANKS TO
             </div>
@@ -328,13 +435,14 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="bg-black py-16 text-slate-400">
         <div class="max-w-7xl mx-auto px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-y-8">
                 <div class="flex items-center gap-x-6">
-                    <img src="assets/logo-icon.svg" alt="kubeWAF" class="h-7 opacity-75">
+                    <img src="assets/logo-icon.svg" alt="kubeWAF logo" class="h-7 opacity-75" width="28" height="28">
                     <div>
                         Made with ❤️ in Bern, Switzerland by 
                         <a href="https://kubewaf.io" target="_blank" class="text-white hover:text-emerald-400 transition-colors">Buzz-IT GmbH</a>

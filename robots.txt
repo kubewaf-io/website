@@ -3,17 +3,18 @@
 
 User-agent: *
 Allow: /
-
-# Allow assets
 Allow: /assets/
+
+# Specific for Googlebot (Google respects most directives)
+User-agent: Googlebot
+Allow: /
 
 # Sitemap
 Sitemap: https://kubewaf.io/sitemap.xml
 
-# Disallow any private or temp paths (if they exist)
+# Disallow private paths
 Disallow: /.git/
 Disallow: /.github/
 Disallow: /docs/private/
 
-# Be polite
-Crawl-delay: 1
+# Note: Googlebot ignores Crawl-delay. Use Search Console for crawl rate.
