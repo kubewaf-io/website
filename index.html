@@ -596,10 +596,9 @@
                 const originalText = submitBtn.textContent;
                 const emailInput = document.getElementById('email-input');
                 
-                // Disable form
+                // Disable only the button (disabling input removes it from FormData!)
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Subscribing...';
-                emailInput.disabled = true;
                 
                 try {
                     const formData = new FormData(form);
@@ -632,11 +631,10 @@
                     console.error('Error:', error);
                     alert('Oops! Something went wrong. Please try again or email hello@kubewaf.io');
                 } finally {
-                    // Reset button (if error)
+                    // Reset button only on error
                     if (form.style.display !== 'none') {
                         submitBtn.disabled = false;
                         submitBtn.textContent = originalText;
-                        emailInput.disabled = false;
                     }
                 }
             });
