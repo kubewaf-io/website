@@ -410,7 +410,7 @@
                 and other important announcements.
             </p>
             
-            <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="max-w-md mx-auto">
+            <form name="newsletter" method="POST" action="/" data-netlify="true" data-netlify-honeypot="bot-field" class="max-w-md mx-auto">
                 <input type="hidden" name="form-name" value="newsletter">
                 
                 <!-- Honeypot -->
@@ -423,6 +423,7 @@
                         type="email" 
                         name="email" 
                         id="email-input"
+                        autocomplete="email"
                         placeholder="your@email.com"
                         required 
                         class="flex-1 bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-3xl px-7 py-4 text-base placeholder:text-slate-500 focus:outline-none transition-colors">
@@ -602,10 +603,17 @@
                 
                 try {
                     const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+                    
+                    // Debug: log what we're sending (check browser console)
+                    console.log('Submitting form data:', data);
                     
                     const response = await fetch('/', {
                         method: 'POST',
-                        body: formData,
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(data).toString(),
                     });
                     
                     if (response.ok) {
