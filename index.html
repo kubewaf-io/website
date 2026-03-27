@@ -392,18 +392,60 @@
         </div>
     </section>
 
-    <!-- WIP notice -->
-    <section class="py-20 bg-slate-950 border-t border-b border-slate-800 bg-grid">
-        <div class="max-w-3xl mx-auto px-8 text-center animate-on-scroll relative z-10">
-            <p class="text-slate-400 text-lg max-w-md mx-auto leading-relaxed">
-                Developed by <span class="text-white font-medium">Buzz-IT GmbH</span> in Bern, Switzerland.
+    <!-- Stable Release Signup -->
+    <section class="py-24 bg-slate-950 border-t border-b border-slate-800 bg-grid">
+        <div class="max-w-2xl mx-auto px-8 text-center animate-on-scroll relative z-10">
+            <div class="inline-flex items-center gap-x-2 bg-amber-500/10 text-amber-400 px-5 py-1.5 rounded-3xl text-sm font-medium mb-6">
+                <span class="relative flex h-3 w-3">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-400"></span>
+                </span>
+                STABLE RELEASE
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-semibold tracking-tighter text-white mb-6 logo-font">Get notified when we launch</h2>
+            
+            <p class="text-xl text-slate-400 max-w-md mx-auto mb-10">
+                Join the mailing list for updates on the stable release (expected Q2 2026) 
+                and other important announcements.
             </p>
             
-            <a href="mailto:hello@kubewaf.io" 
-               class="mt-10 inline-flex items-center gap-x-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold px-8 py-4 rounded-3xl transition-all group">
-                <span class="text-xl group-hover:rotate-12 transition-transform">✉️</span>
-                hello@kubewaf.io
-            </a>
+            <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="max-w-md mx-auto">
+                <input type="hidden" name="form-name" value="newsletter">
+                
+                <!-- Honeypot -->
+                <div class="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input 
+                        type="email" 
+                        name="email" 
+                        id="email-input"
+                        placeholder="your@email.com"
+                        required 
+                        class="flex-1 bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-3xl px-7 py-4 text-base placeholder:text-slate-500 focus:outline-none transition-colors">
+                    <button 
+                        type="submit"
+                        id="submit-btn"
+                        class="btn-primary px-10 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-base rounded-3xl flex-shrink-0 transition-all">
+                        Subscribe
+                    </button>
+                </div>
+                
+                <p class="text-xs text-slate-500 mt-6 flex items-center justify-center gap-x-2">
+                    <span class="text-emerald-400">🔒</span> 
+                    We respect your inbox. Unsubscribe anytime.
+                </p>
+            </form>
+            
+            <div id="form-success" class="hidden mt-8 p-6 bg-emerald-900/20 border border-emerald-500/30 rounded-3xl">
+                <div class="flex items-center justify-center gap-x-3 text-emerald-400">
+                    <span class="text-2xl">🎉</span>
+                    <p class="font-medium">Thank you! You'll be the first to know about the stable release.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -540,10 +582,59 @@
             });
         }
 
+        // Newsletter signup form with AJAX submission for better UX
+        function setupNewsletterForm() {
+            const form = document.querySelector('form[name="newsletter"]');
+            const successDiv = document.getElementById('form-success');
+            if (!form) return;
+            
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                const emailInput = document.getElementById('email-input');
+                
+                // Disable form
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Subscribing...';
+                emailInput.disabled = true;
+                
+                try {
+                    const formData = new FormData(form);
+                    
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    
+                    if (response.ok) {
+                        // Hide form and show success
+                        form.style.display = 'none';
+                        successDiv.classList.remove('hidden');
+                        console.log('%c✅ Newsletter signup successful!', 'color: #10b981;');
+                    } else {
+                        throw new Error('Submission failed');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Oops! Something went wrong. Please try again or email hello@kubewaf.io');
+                } finally {
+                    // Reset button (if error)
+                    if (form.style.display !== 'none') {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        emailInput.disabled = false;
+                    }
+                }
+            });
+        }
+
         // Initialize when loaded
         window.addEventListener('load', () => {
             handleScrollAnimations();
             setupMobileMenu();
+            setupNewsletterForm();
             
             // Optional: Add active nav link highlight on scroll (future proof)
             console.log('%c🚀 kubeWAF website enhanced with cool animations!', 'color: #10b981; font-family: monospace;');
