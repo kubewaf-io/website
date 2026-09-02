@@ -1,0 +1,21 @@
+// kubeWAF design tokens — calm navy chrome + teal accent (docs/security product feel)
+
+// Accent used for buttons, links, focus, and small highlights — not full navbar fills.
+$primary: #0f766e !default;      // teal-700 (white text ≈ 5.5:1)
+$secondary: #334155 !default;    // slate-700
+$success: #059669 !default;
+$info: #0284c8 !default;
+$warning: #d97706 !default;
+$danger: #dc2626 !default;
+$dark: #0b1220 !default;         // deep navy for chrome / footer / hero
+$light: #f8fafc !default;
+
+// Brand links in light mode (avoid Bootstrap default blue)
+$link-color: #0f766e !default;
+$link-hover-color: #115e59 !default; // teal-800
+$code-color: #0f766e !default;
+
+// Typography — technical, quieter than Open Sans
+$td-enable-google-fonts: true !default;
+$google_font_name: "Source Sans 3" !default;
+$google_font_family: "Source+Sans+3:300,400,500,600,700" !default;

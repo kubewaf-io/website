@@ -1,0 +1,934 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="http://localhost:1313/docs/concepts/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Concepts | kubeWAF</title>
+<meta name="description" content="Learn how kubeWAF models WAF policy and enforces it in the data plane.">
+<meta property="og:url" content="http://localhost:1313/docs/concepts/">
+  <meta property="og:site_name" content="kubeWAF">
+  <meta property="og:title" content="Concepts">
+  <meta property="og:description" content="Learn how kubeWAF models WAF policy and enforces it in the data plane.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Concepts">
+  <meta itemprop="description" content="Learn how kubeWAF models WAF policy and enforces it in the data plane.">
+  <meta itemprop="wordCount" content="24">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Concepts">
+  <meta name="twitter:description" content="Learn how kubeWAF models WAF policy and enforces it in the data plane.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<script defer
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand navbar-brand--wordmark" href="/"><span class="navbar-brand__logo navbar-logo" aria-hidden="true"><svg width="213.20622" height="225.15996" viewBox="0 0 213.20622 225.15996" id="svg27" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004 14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188z" id="path2"/><defs id="defs3"><linearGradient id="gradient_0" gradientUnits="userSpaceOnUse" x1="589.20081" y1="512.99628" x2="473.38596" y2="388.51822" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0A0C4F" id="stop2"/><stop offset="1" stop-color="#424C6F" id="stop3"/></linearGradient></defs><path fill="url(#gradient_0)" d="m146.13586 3.6211486c14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188.579-.989-.35-3.624-.685-5.088 3.1519998-3.601 8.4379998-6.474 11.7719998-10.964 3.511-4.728 5.299-9.939 8.869-14.283 1.33-1.618 1.625-1.858 2.935-3.791 1.796 15.303 3.771 27.301 11.548 41.106 13.404 23.794 38.907 40.066 64.864998 47.128 27.544-10.416 57.667-29.432 67.578-58.957 8.793-26.197 8.932-61.471001 9.499-89.134001-17.076-8.488-32.759-11.597-50.901-15.833l-.126-.497c-1.374-.767-3.677-.688-5.525-.919l.764-1.178c-.587-1.575-1.504-1.835-3.084-3.068-9.059.323-21.261-.311-30.474998-.565 1.929-.296 3.998-.437 5.952998-.616l-.14-.096c6.957-.98 12.41-.539 19.168-.463 4.19.048 14.55.918 17.224-2.371 2.818-3.467 8.229-8.143 8.254-12.8900004-1.412-2.418-1.036-2.038.24-4.344z" id="path3" style="fill:url(#gradient_0)"/><path fill="#151a56" d="m140.89786 206.83415 2.842.098c1.306 1.205.891.843 1.195 3.095-2.621-.593-3.366-.476-4.037-3.193z" id="path4"/><defs id="defs5"><linearGradient id="gradient_1" gradientUnits="userSpaceOnUse" x1="483.04602" y1="411.67349" x2="428.73672" y2="346.27155" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#404872" id="stop4"/><stop offset="1" stop-color="#5C638E" id="stop5"/></linearGradient></defs><path fill="url(#gradient_1)" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004-1.276 2.306-1.652 1.926-.24 4.344-.025 4.7470004-5.436 9.4230004-8.254 12.8900004-2.674 3.289-13.034 2.419-17.224 2.371-6.758-.076-12.211-.517-19.168.463l.14.096c-1.954998.179-4.023998.32-5.952998.616 9.213998.254 21.415998.888 30.474998.565 1.58 1.233 2.497 1.493 3.084 3.068l-.764 1.178c1.848.231 4.151.152 5.525.919l.126.497c-8.914-.925-16.804-2.06-25.819-2.27-21.555998-.5-61.921998 7.853-79.789998 19.033-.107 12.39.254 24.78 1.082 37.143.425 5.977 1.803 16.338001 1.938 21.784001-1.31 1.933-1.605 2.173-2.935 3.791-3.57 4.344-5.358 9.555-8.869 14.283-3.334 4.49-8.62 7.363-11.7719998 10.964.335 1.464 1.264 4.099.685 5.088z" id="path5" style="fill:url(#gradient_1)"/><defs id="defs7"><linearGradient id="gradient_2" gradientUnits="userSpaceOnUse" x1="554.13184" y1="491.51929" x2="456.88196" y2="380.24194" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0C0F4D" id="stop6"/><stop offset="1" stop-color="#50597D" id="stop7"/></linearGradient></defs><path fill="url(#gradient_2)" d="m46.459862 53.001149c38.293.588 73.198998 14.136 97.676998 44.661 8.014 9.994001 17.46 27.879001 19.116 40.659001-2.767 4.997-9.384 13.211-13.174 17.527-3.151 3.452-5.084 5.489-8.592 8.527-3.549-22.113-10.347-39.586-26.174-55.94C96.179862 88.665149 69.149862 78.193149 41.785862 77.806149c-.562-8.163-.672-16.21-1.39-24.439z" id="path7" style="fill:url(#gradient_2)"/><defs id="defs9"><linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="531.65125" y1="508.89108" x2="449.51163" y2="423.61743" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0D114E" id="stop8"/><stop offset="1" stop-color="#40486E" id="stop9"/></linearGradient></defs><path fill="url(#gradient_3)" d="m42.262862 89.112149c45.934-.866 82.826998 30.710001 87.945998 76.825001.247 2.222.42 4.456.611 6.683l-6.23 3.427c-5.431 2.765-11.039 5.572-16.894 7.311-6.631-35.416-24.351998-63.049-63.311998-65.17-.954-9.866-1.793-19.172001-2.121-29.076001z" id="path9" style="fill:url(#gradient_3)"/><defs id="defs11"><linearGradient id="gradient_4" gradientUnits="userSpaceOnUse" x1="555.38397" y1="458.08862" x2="518.14459" y2="365.63565" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#13184A" id="stop10"/><stop offset="1" stop-color="#454D77" id="stop11"/></linearGradient></defs><path fill="url(#gradient_4)" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343 16.075.106 40.719 7.133 55.579 13.522-.047 20.932-1.039 41.851-2.974 62.694001-16.209-33.277001-40.661-56.289001-76.064998-68.406001-5.876-1.979-11.87-3.588-17.947-4.817 5.561-1.166 12.429-2.071 18.133-2.65z" id="path11" style="fill:url(#gradient_4)"/><path fill="#464b75" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343l-.882.036c-7.937.374-13.967 5.056-19.234998 1.156-.916-.678-2.019-.729-3.157-.849z" id="path12"/><defs id="defs13"><linearGradient id="gradient_5" gradientUnits="userSpaceOnUse" x1="375.65991" y1="706.92682" x2="292.69623" y2="613.95709"><stop offset="0" stop-color="#567BED" id="stop12"/><stop offset="1" stop-color="#7AA1F6" id="stop13"/></linearGradient></defs></svg></span><span class="navbar-brand__name" aria-label="kubeWAF">
+      <span class="navbar-brand__kube">kube</span><span class="navbar-brand__waf">WAF</span>
+    </span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/home/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/engines/"><span>Engines</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/docs/concepts/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Concepts</h1>
+<div class="lead">Learn how kubeWAF models WAF policy and enforces it in the data plane.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-bacb349d58ae06921b14e272cd7596e7">Why kubeWAF?</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-9004f4faf5641acdda1d39005d798406">Core Concepts</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-50d925a344acf61d73d7b57e419faceb">Architecture</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>The Concepts section explains the abstractions kubeWAF uses — <code>SecRule</code>, <code>RuleSet</code>, <code>WAF</code>,
+engines, providers — and how control plane and data plane fit together.</p>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="">
+    
+	<h1 id="pg-bacb349d58ae06921b14e272cd7596e7">1 - Why kubeWAF?</h1>
+    <div class="lead">Why a Kubernetes-native WAF with structured CRDs and multi-gateway data plane</div>
+	<p>A natural question is: <em>why not hand-write Envoy Wasm config / EnvoyFilter /
+CiliumEnvoyConfig?</em> kubeWAF still produces low-level Envoy config — but that is
+the wrong abstraction for most engineers.</p>
+<h2 id="structured-rules-with-separation-of-duties">Structured rules with separation of duties</h2>
+<p>When developers edit raw Envoy extension config, the entire WAF policy lives as
+one opaque blob: SecLang strings escaped inside Wasm JSON, mixed with image
+URLs, filter order, and route attachment.</p>
+<p><strong>Unreviewable.</strong> Rules buried in JSON strings are hard to diff and easy to break.</p>
+<p><strong>No organizational boundary.</strong> Whoever can edit the policy owns every rule and
+every route.</p>
+<p>kubeWAF makes rules <strong>structured, namespaced CRDs</strong>:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Who</th>
+          <th>Owns</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>App teams</td>
+          <td><code>SecRule</code> in their namespace</td>
+      </tr>
+      <tr>
+          <td>Platform</td>
+          <td><code>RuleSet</code>, <code>allowedRules</code>, <code>WAF</code> attachment</td>
+      </tr>
+  </tbody>
+</table>
+<p>Only <code>RuleSet</code>s attach to a <code>WAF</code>. Structure and access control reinforce each other.</p>
+<h2 id="one-rule-model-many-gateways">One rule model, many gateways</h2>
+<pre class="mermaid">flowchart LR
+  R[SecRule / RuleSet] --&gt; W[WAF]
+  W --&gt; EG[Envoy Gateway]
+  W --&gt; IST[Istio]
+  W --&gt; CIL[Cilium]</pre>
+<p>The same RuleSets push over <strong>ECDS</strong> to Envoy Gateway, Istio, or Cilium. Only
+the thin <strong>slot</strong> differs. The WAF engine is <strong>modsecurity-proxy-wasm</strong> (with
+optional <strong>pow-proxy-wasm</strong> challenge). See <a href="/docs/concepts/architecture/">Architecture</a>.</p>
+<h2 id="hot-rule-updates-without-rewriting-platform-yaml">Hot rule updates without rewriting platform YAML</h2>
+<p>Rule changes publish a new ECDS snapshot. Platform slot objects are <strong>not</strong>
+rewritten on every SecRule edit — so GitOps noise stays low and Envoy reloads
+only extension config.</p>
+<h2 id="operator-owned-defaults">Operator-owned defaults</h2>
+<p>kubeWAF injects correct CRS ordering, hosts <strong>modsecurity-proxy-wasm</strong> (and
+optional challenge wasm), and wires providers so app teams never hand-roll
+bootstrap footguns (“403 everything”, missing paranoia thresholds, wrong
+directive order).</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/docs/concepts/architecture/">Architecture</a></li>
+<li><a href="../operator">Guides</a></li>
+<li><a href="/docs/tasks/dataplane-ecds/">Data plane (ECDS)</a></li>
+<li><a href="/docs/tasks/challenge/">Challenge</a> · <a href="/docs/tasks/engine/">Engine</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-9004f4faf5641acdda1d39005d798406">2 - Core Concepts</h1>
+    <div class="lead">SecRule, RuleSet, WAF, WAFInstance, and how they relate</div>
+	<p>This page explains the fundamental building blocks of kubeWAF.</p>
+<h2 id="secrule">SecRule</h2>
+<p>A <code>SecRule</code> is the atomic unit of protection. It describes a single security check using ModSecurity SecLang concepts:</p>
+<ul>
+<li><strong>Variables</strong> (what to inspect)</li>
+<li><strong>Operator</strong> (how to compare)</li>
+<li><strong>Actions</strong> (what to do on match)</li>
+<li><strong>Metadata</strong> (id, phase, message, tags, severity)</li>
+</ul>
+<p>Example (simplified):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secLangRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">100100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">variables</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>{<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ARGS_GET }]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">name: rx, value</span><span class="p">:</span><span class="w"> </span><span class="l">&lt;script&gt; }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">disruptive</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">deny }</span><span class="w">
+</span></span></span></code></pre></div><p>See the full <a href="/docs/reference/seclang-structure/">SecLang YAML structure reference</a>.</p>
+<h2 id="ruleset">RuleSet</h2>
+<p>A <code>RuleSet</code> is a <strong>named, reusable collection</strong> of rules.</p>
+<p>Instead of listing hundreds of individual rules on every policy attachment, you create a <code>RuleSet</code> once and reference it from <code>WAF</code>.</p>
+<p>Key capabilities:</p>
+<ul>
+<li>Direct name references</li>
+<li>Label selector references (<code>matchLabels</code>)</li>
+<li>Cross-namespace references (subject to <code>allowedRules</code> policy)</li>
+<li>Recursive RuleSet references (RuleSet → RuleSet)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">payment-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">allowedRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Same         </span><span class="w"> </span><span class="c"># or &#34;All&#34; or &#34;Selector&#34;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="waf">WAF</h2>
+<p><code>WAF</code> is the <strong>primary way</strong> to enforce rules on live traffic.</p>
+<p>It:</p>
+<ol>
+<li>Resolves <code>ruleRefs</code> into SecLang</li>
+<li>Runs <strong>modsecurity-proxy-wasm</strong> (optional <strong>pow-proxy-wasm</strong> challenge first)</li>
+<li>Publishes ECDS resources</li>
+<li>Installs a <strong>provider-specific slot</strong> so Envoy loads those configs</li>
+</ol>
+<pre class="mermaid">flowchart LR
+  WAF --&gt; M[modsecurity-proxy-wasm]
+  WAF --&gt; CH[optional challenge&lt;br/&gt;pow-proxy-wasm]
+  CH --&gt; M
+  WAF --&gt; P{provider}
+  P --&gt;|EnvoyGateway| EG[Extension Server]
+  P --&gt;|Istio| EF[EnvoyFilter]
+  P --&gt;|Cilium| CEC[CiliumEnvoyConfig]</pre>
+<p>Important fields:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Field</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>parentRefs</code></td>
+          <td>Gateway API targets (Gateway, HTTPRoute, …)</td>
+      </tr>
+      <tr>
+          <td><code>provider.type</code></td>
+          <td><code>EnvoyGateway</code> · <code>Istio</code> · <code>Cilium</code> · <code>Auto</code></td>
+      </tr>
+      <tr>
+          <td><code>engine</code></td>
+          <td>WAF Wasm implementation (<code>ModSecurity</code>)</td>
+      </tr>
+      <tr>
+          <td><code>challenge</code></td>
+          <td>Optional PoW filter before WAF</td>
+      </tr>
+      <tr>
+          <td><code>ruleRefs</code></td>
+          <td>RuleSets only</td>
+      </tr>
+      <tr>
+          <td><code>crsEnable</code> / <code>crs</code></td>
+          <td>OWASP CRS + declarative tuning</td>
+      </tr>
+      <tr>
+          <td><code>wasmHTTP</code> / <code>wasmSHA256</code></td>
+          <td>Override WAF binary fetch</td>
+      </tr>
+  </tbody>
+</table>
+<p>See <a href="/docs/reference/crds/waf/">WAF CRD</a>, <a href="/docs/tasks/engine/">engine</a>, <a href="/docs/tasks/challenge/">challenge</a>, <a href="/docs/tasks/dataplane-ecds/">Data plane</a>.</p>
+<h2 id="wafinstance-future">WAFInstance (Future)</h2>
+<p><code>WAFInstance</code> is intended for a <strong>standalone WAF proxy</strong> or <strong>sidecar</strong>, independent of an external gateway product.</p>
+<p>Today the controller only performs reference resolution. Full workload deployment is under development.</p>
+<h2 id="rule-reference-resolution">Rule reference resolution</h2>
+<p>When you reference a <code>RuleSet</code>, the resolver:</p>
+<ol>
+<li>Recursively expands nested RuleSets</li>
+<li>Collects matching <code>SecRule</code> / <code>SecAction</code> resources</li>
+<li>Validates namespace policies (<code>allowedRules</code>)</li>
+<li>Creates back-references (leader path)</li>
+<li>Sets <code>ReferencesResolved</code></li>
+</ol>
+<p>Non-leader pods use a <strong>read-only</strong> resolve path to keep ECDS warm without fighting over finalizers.</p>
+<h2 id="phases">Phases</h2>
+<p>Like classic ModSecurity, rules run in phases:</p>
+<ul>
+<li><strong>Phase 1</strong> — Request headers (very early)</li>
+<li><strong>Phase 2</strong> — Request body</li>
+<li><strong>Phase 3</strong> — Response headers</li>
+<li><strong>Phase 4</strong> — Response body</li>
+<li><strong>Phase 5</strong> — Logging</li>
+</ul>
+<p>Most application-level rules live in phase 2.</p>
+<h2 id="portable-config">Portable config</h2>
+<p>Authors never write Envoy JSON. The operator builds a <strong>PortableConfig</strong> with an ordered
+<code>Filters</code> list (optional challenge, then WAF) shared by every provider. That is what
+ECDS serves and what slots point at.</p>
+<h2 id="engines-monorepo">Engines (monorepo)</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Capability</th>
+          <th>kubeWAF docs</th>
+          <th>Engine project</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>WAF evaluation</td>
+          <td><a href="/docs/tasks/engine/">WAF engine</a></td>
+          <td><a href="../modsecurity-proxy-wasm">modsecurity-proxy-wasm</a></td>
+      </tr>
+      <tr>
+          <td>PoW challenge</td>
+          <td><a href="/docs/tasks/challenge/">Challenge</a></td>
+          <td><a href="../pow-proxy-wasm">pow-proxy-wasm</a></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="next">Next</h2>
+<ul>
+<li><a href="/docs/concepts/architecture/">Architecture</a></li>
+<li><a href="../operator">Guides</a></li>
+<li><a href="/docs/tasks/writing-rules/">Writing rules</a></li>
+<li>Providers: <a href="/docs/tasks/envoy-gateway/">Envoy Gateway</a> · <a href="/docs/tasks/istio/">Istio</a> · <a href="/docs/tasks/cilium/">Cilium</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-50d925a344acf61d73d7b57e419faceb">3 - Architecture</h1>
+    <div class="lead">Control plane, data plane, ECDS, and high availability</div>
+	<p><strong>kubeWAF</strong> is a Kubernetes operator that turns structured security CRDs into live
+WAF configuration on Envoy-based data planes. Evaluation runs in
+<strong>modsecurity-proxy-wasm</strong>; you can optionally put <strong>pow-proxy-wasm</strong> (PoW challenge)
+in front via <a href="/docs/tasks/challenge/"><code>spec.challenge</code></a>.</p>
+<p>Configuration is pushed over Envoy’s <strong>Extension Config Discovery Service (ECDS)</strong>;
+each gateway product only receives a thin <strong>filter slot</strong>.</p>
+<h2 id="big-picture">Big picture</h2>
+<pre class="mermaid">flowchart TB
+  subgraph authors[&#34;Authors (GitOps)&#34;]
+    SR[SecRule / SecAction]
+    RS[RuleSet]
+    WAF[WAF]
+  end
+
+  subgraph operator[&#34;kubeWAF Operator (1..N replicas)&#34;]
+    direction TB
+    LEAD[Leader-elected controllers&lt;br/&gt;status · finalizers · platform slots]
+    SYNC[Dataplane sync on every pod&lt;br/&gt;read-only resolve]
+    ECDS[ECDS gRPC :18001]
+    WASM[Wasm HTTP :18002]
+    EGEXT[EG Extension Server :5005]
+    RES[RuleRefResolver]
+  end
+
+  subgraph slots[&#34;Platform filter slots&#34;]
+    EG[Envoy Gateway&lt;br/&gt;Extension Server hooks]
+    IST[Istio&lt;br/&gt;EnvoyFilter]
+    CIL[Cilium&lt;br/&gt;CiliumEnvoyConfig]
+  end
+
+  subgraph dataplane[&#34;Envoy data plane&#34;]
+    ENV[Envoy proxy]
+    COR[modsecurity-proxy-wasm]
+  end
+
+  SR --&gt; RS --&gt; WAF
+  WAF --&gt; LEAD
+  WAF --&gt; SYNC
+  LEAD --&gt; RES
+  SYNC --&gt; RES
+  RES --&gt; ECDS
+  SYNC --&gt; EGEXT
+  LEAD --&gt; EG &amp; IST &amp; CIL
+  ECDS --&gt; ENV
+  WASM --&gt; ENV
+  EG &amp; IST &amp; CIL --&gt; ENV
+  ENV --&gt; COR</pre>
+<h2 id="control-plane-vs-data-plane">Control plane vs data plane</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Plane</th>
+          <th>Responsibility</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Kubernetes API</strong></td>
+          <td>Desired state: rules, sets, attachment (<code>WAF</code>)</td>
+      </tr>
+      <tr>
+          <td><strong>kubeWAF operator</strong></td>
+          <td>Resolve rules → SecLang → portable config; multi-module wasm serve; ECDS; provider slots</td>
+      </tr>
+      <tr>
+          <td><strong>Gateway control plane</strong></td>
+          <td>Routing, TLS, listeners (Envoy Gateway / Istio / Cilium)</td>
+      </tr>
+      <tr>
+          <td><strong>Envoy + Wasm engines</strong></td>
+          <td>Challenge (optional) then modsecurity-proxy-wasm evaluates traffic</td>
+      </tr>
+  </tbody>
+</table>
+<p>kubeWAF <strong>does not</strong> replace the gateway’s ADS (LDS/RDS/CDS). It only owns
+<strong>extension config</strong> (ECDS) and installs a small filter that points at that ECDS
+resource.</p>
+<h2 id="operator-internals">Operator internals</h2>
+<pre class="mermaid">flowchart LR
+  subgraph every[&#34;Every replica&#34;]
+    A[ECDS server]
+    B[Wasm HTTP server]
+    C[EG Extension Server]
+    D[Dataplane sync controller&lt;br/&gt;NeedLeaderElection=false]
+  end
+
+  subgraph leader[&#34;Leader only&#34;]
+    E[WAF controller]
+    F[RuleSet / SecRule controllers]
+    G[Inventory metrics]
+  end
+
+  D --&gt;|Resolve &#43; Upsert| A
+  D --&gt;|Index WAF| C
+  E --&gt;|Resolve &#43; lock &#43; status| API[(Kubernetes API)]
+  E --&gt;|EnvoyFilter / CEC| API
+  E --&gt;|Upsert| A
+  E --&gt;|Index| C</pre>
+<h3 id="why-this-split">Why this split?</h3>
+<p>Envoy (and Envoy Gateway) load-balance against the operator <strong>Service</strong>. If only
+the leader held ECDS config, non-leader pods would return empty snapshots and
+requests would fail or bypass WAF randomly. Dataplane servers and the sync
+controller therefore run on <strong>every</strong> pod; Kubernetes <strong>writes</strong> stay on the leader.</p>
+<h2 id="portable-config-artifact">Portable config artifact</h2>
+<p>After rule resolution, every path produces the same intermediate object — now with
+an <strong>ordered filter list</strong> (optional Challenge, then WAF engine):</p>
+<pre class="mermaid">flowchart TB
+  WAF[WAF CR] --&gt; B[BuildFromWAF]
+  RS[RuleSet graph] --&gt; R[RuleRefResolver]
+  R --&gt; RULES[SecLang strings]
+  RULES --&gt; B
+  B --&gt; P[PortableConfig]
+  P --&gt; F1[Filter: challenge&lt;br/&gt;pow-proxy-wasm]
+  P --&gt; F2[Filter: WAF&lt;br/&gt;modsecurity-proxy-wasm]
+  F1 --&gt; ECDS[ECDS TypedExtensionConfigs]
+  F2 --&gt; ECDS
+  P --&gt; SLOT[Provider slot installer]
+
+  subgraph engines[&#34;Monorepo Wasm modules&#34;]
+    M[modsecurity-proxy-wasm]
+    CH[pow-proxy-wasm]
+  end
+  F2 -.-&gt; M
+  F1 -.-&gt; CH</pre>
+<p>The ECDS resource type is always:</p>
+<p><code>type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm</code></p>
+<p>with modsecurity-proxy-wasm plugin JSON of the form
+(see <a href="https://github.com/kubewaf-io/kubewaf/blob/main/schemas/waf-plugin-config.json"><code>schemas/waf-plugin-config.json</code></a>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mode&#34;</span><span class="p">:</span> <span class="s2">&#34;kubewaf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config_id&#34;</span><span class="p">:</span> <span class="s2">&#34;kubewaf/shop/shop-waf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;allow_fallback&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;default_directives&#34;</span><span class="p">:</span> <span class="s2">&#34;default&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;directives_map&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;default&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Include @kubewaf-defaults&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;SecRuleEngine On&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;SecDebugLogLevel 3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Include @crs-setup-conf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;Include @owasp_crs/*.conf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;...&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;metric_labels&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;waf_namespace&#34;</span><span class="p">:</span> <span class="s2">&#34;shop&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;waf_name&#34;</span><span class="p">:</span> <span class="s2">&#34;shop-waf&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;engine&#34;</span><span class="p">:</span> <span class="s2">&#34;modsecurity&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;owner&#34;</span><span class="p">:</span> <span class="s2">&#34;modsecurity-proxy-wasm&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;team&#34;</span><span class="p">:</span> <span class="s2">&#34;payments&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;metrics&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;enabled&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;per_rule_id&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nt">&#34;rule_tags&#34;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;block&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;message&#34;</span><span class="p">:</span> <span class="s2">&#34;blocked by kubeWAF&#34;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="end-to-end-request-path">End-to-end request path</h2>
+<pre class="mermaid">sequenceDiagram
+  participant C as Client
+  participant E as Envoy
+  participant W as modsecurity-proxy-wasm
+  participant U as Upstream
+  participant K as kubeWAF ECDS
+
+  Note over E,K: At startup / config reload
+  E-&gt;&gt;K: StreamExtensionConfigs (gRPC)
+  K--&gt;&gt;E: TypedExtensionConfig kubewaf/ns/name
+  E-&gt;&gt;E: Fetch .wasm from operator :18002
+
+  C-&gt;&gt;E: HTTP request
+  E-&gt;&gt;W: on_request_headers / body
+  alt Rule deny / anomaly threshold
+    W--&gt;&gt;E: local reply 403
+    E--&gt;&gt;C: 403 Forbidden
+  else Allow
+    E-&gt;&gt;U: proxy request
+    U--&gt;&gt;E: response
+    E-&gt;&gt;W: on_response_*
+    E--&gt;&gt;C: response
+  end</pre>
+<h2 id="multi-provider-slots">Multi-provider slots</h2>
+<pre class="mermaid">flowchart TB
+  PC[PortableConfig &#43; ECDS]
+
+  PC --&gt; EG
+  PC --&gt; IST
+  PC --&gt; CIL
+
+  subgraph EG[&#34;provider: EnvoyGateway&#34;]
+    EG1[EG calls Extension Server :5005]
+    EG2[PostHTTPListenerModify&lt;br/&gt;insert config_discovery filter]
+    EG3[PostTranslateModify&lt;br/&gt;add kubewaf_ecds cluster]
+    EG1 --&gt; EG2 --&gt; EG3
+  end
+
+  subgraph IST[&#34;provider: Istio&#34;]
+    IST1[Create EnvoyFilter]
+    IST2[CLUSTER: kubewaf_ecds]
+    IST3[HTTP_FILTER INSERT_BEFORE router&lt;br/&gt;config_discovery → ECDS]
+    IST1 --&gt; IST2 --&gt; IST3
+  end
+
+  subgraph CIL[&#34;provider: Cilium&#34;]
+    CIL1[Create CiliumEnvoyConfig]
+    CIL2[Attach to Service]
+    CIL3[Resources: ECDS &#43; wasm clusters]
+    CIL1 --&gt; CIL2 --&gt; CIL3
+  end</pre>
+<table>
+  <thead>
+      <tr>
+          <th>Provider</th>
+          <th>Slot resource</th>
+          <th>How filter is installed</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>EnvoyGateway</strong></td>
+          <td>(none owned by kubeWAF)</td>
+          <td>EG Extension Server hooks mutate xDS</td>
+      </tr>
+      <tr>
+          <td><strong>Istio</strong></td>
+          <td><code>EnvoyFilter</code></td>
+          <td><code>config_discovery</code> → external ECDS</td>
+      </tr>
+      <tr>
+          <td><strong>Cilium</strong></td>
+          <td><code>CiliumEnvoyConfig</code></td>
+          <td>CEC clusters + attachment to Service</td>
+      </tr>
+  </tbody>
+</table>
+<p>See <a href="/docs/tasks/dataplane-ecds/">Data plane (ECDS)</a> for configuration details.</p>
+<h2 id="core-crds">Core CRDs</h2>
+<table>
+  <thead>
+      <tr>
+          <th>CRD</th>
+          <th>Purpose</th>
+          <th>Maturity</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>SecRule</code></td>
+          <td>Individual security rule (structured YAML)</td>
+          <td>Stable</td>
+      </tr>
+      <tr>
+          <td><code>RuleSet</code></td>
+          <td>Named collection (selectors, recursion, <code>allowedRules</code>)</td>
+          <td>Stable</td>
+      </tr>
+      <tr>
+          <td><code>WAF</code></td>
+          <td>Attach RuleSets to a gateway provider + push ECDS</td>
+          <td>Stable</td>
+      </tr>
+      <tr>
+          <td><code>WAFInstance</code></td>
+          <td>Standalone proxy / sidecar (future)</td>
+          <td>Planned</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="data-flow-lifecycle">Data flow (lifecycle)</h2>
+<pre class="mermaid">stateDiagram-v2
+  [*] --&gt; Author: create SecRule
+  Author --&gt; Aggregate: create RuleSet
+  Aggregate --&gt; Attach: create WAF
+  Attach --&gt; Resolve: RuleRefResolver
+  Resolve --&gt; Publish: ECDS Upsert
+  Publish --&gt; Slot: ensure platform slot
+  Slot --&gt; Enforce: Envoy &#43; modsecurity-proxy-wasm
+  Enforce --&gt; Publish: SecRule/RuleSet change&lt;br/&gt;new ECDS version
+  Attach --&gt; [*]: delete WAF&lt;br/&gt;ECDS delete &#43; slot GC</pre>
+<ol>
+<li><strong>Author</strong> — <code>SecRule</code> / <code>SecAction</code> (or CRS converter).</li>
+<li><strong>Aggregate</strong> — <code>RuleSet</code> selects rules (names or labels).</li>
+<li><strong>Attach</strong> — <code>WAF</code> references RuleSets and a provider.</li>
+<li><strong>Resolve</strong> — flatten graph, enforce namespace policy, back-references (leader).</li>
+<li><strong>Publish</strong> — every pod updates its ECDS snapshot.</li>
+<li><strong>Slot</strong> — leader ensures EnvoyFilter / CEC / EG index.</li>
+<li><strong>Enforce</strong> — modsecurity-proxy-wasm evaluates traffic.</li>
+</ol>
+<p>Rule content changes bump the <strong>ECDS snapshot only</strong>; platform slots are not rewritten unless provider or ECDS endpoint settings change.</p>
+<h2 id="operator-ports-and-service">Operator ports and Service</h2>
+<pre class="mermaid">flowchart LR
+  subgraph svc[&#34;Service: release-ecds&#34;]
+    P1[&#34;:18001 ECDS gRPC&#34;]
+    P2[&#34;:5005 EG Extension Server&#34;]
+    P3[&#34;:18002 Wasm HTTP&#34;]
+  end
+
+  ENV[Envoy] --&gt;|extension config| P1
+  ENV --&gt;|GET /wasm/...| P3
+  EGCTL[Envoy Gateway control plane] --&gt;|xDS hooks| P2</pre>
+<table>
+  <thead>
+      <tr>
+          <th>Port</th>
+          <th>Protocol</th>
+          <th>Consumers</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>18001</strong></td>
+          <td>gRPC ECDS</td>
+          <td>Envoy (<code>kubewaf_ecds</code> cluster)</td>
+      </tr>
+      <tr>
+          <td><strong>5005</strong></td>
+          <td>gRPC EG extension API</td>
+          <td>Envoy Gateway only</td>
+      </tr>
+      <tr>
+          <td><strong>18002</strong></td>
+          <td>HTTP</td>
+          <td>Envoy fetching the <code>.wasm</code> binary</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="security-model">Security model</h2>
+<ul>
+<li>Rules are <strong>namespaced</strong>.</li>
+<li><code>RuleSet.allowedRules</code> controls who may contribute rules (<code>Same</code> / <code>All</code> / <code>Selector</code>).</li>
+<li>Only <code>RuleSet</code>s attach to a <code>WAF</code> (not raw <code>SecRule</code>s).</li>
+<li>Platform teams own RuleSets + WAF attachment; app teams own SecRules in their namespace.</li>
+</ul>
+<h2 id="status-and-conditions">Status and conditions</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get waf -o wide
+</span></span><span class="line"><span class="cl">kubectl describe waf shop-waf
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th>Field / condition</th>
+          <th>Meaning</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Ready</code></td>
+          <td>ECDS published and slot ensured</td>
+      </tr>
+      <tr>
+          <td><code>ReferencesResolved</code></td>
+          <td>All RuleSet refs resolved</td>
+      </tr>
+      <tr>
+          <td><code>status.provider</code></td>
+          <td><code>EnvoyGateway</code> / <code>Istio</code> / <code>Cilium</code></td>
+      </tr>
+      <tr>
+          <td><code>status.engine</code></td>
+          <td>Active WAF engine (e.g. <code>ModSecurity</code>)</td>
+      </tr>
+      <tr>
+          <td><code>status.challengeEnabled</code></td>
+          <td>PoW filter installed</td>
+      </tr>
+      <tr>
+          <td><code>status.ecdsResourceName</code></td>
+          <td>e.g. <code>kubewaf/shop/shop-waf</code></td>
+      </tr>
+      <tr>
+          <td><code>status.ecdsVersion</code></td>
+          <td>Snapshot generation counter</td>
+      </tr>
+      <tr>
+          <td><code>status.slotKind</code></td>
+          <td><code>ExtensionServer</code> / <code>EnvoyFilter</code> / <code>CiliumEnvoyConfig</code></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="current-limitations">Current limitations</h2>
+<ul>
+<li><code>WAFInstance</code> does not yet deploy proxies.</li>
+<li>No validating admission webhooks yet.</li>
+<li>Cilium full L7 filter-chain merge depends on the cluster’s Envoy build (CEC slot is always created).</li>
+<li>Envoy Gateway requires <code>extensionManager</code> configured to call kubeWAF.</li>
+</ul>
+<h2 id="related-projects">Related projects</h2>
+<ul>
+<li><a href="/docs/tasks/engine/">WAF engine (kubeWAF)</a> · <a href="../modsecurity-proxy-wasm">modsecurity-proxy-wasm</a></li>
+<li><a href="/docs/tasks/challenge/">PoW challenge (kubeWAF)</a> · <a href="../pow-proxy-wasm">pow-proxy-wasm</a></li>
+<li><a href="https://gateway.envoyproxy.io/">Envoy Gateway</a></li>
+<li><a href="https://istio.io/latest">Istio EnvoyFilter</a></li>
+<li><a href="https:/.cilium.io/en/stable/network/servicemesh/envoy/">Cilium Envoy</a></li>
+<li><a href="https://coreruleset.org/">OWASP CRS</a></li>
+</ul>
+<h2 id="next">Next</h2>
+<ul>
+<li><a href="../operator">Guides</a></li>
+<li><a href="/docs/tasks/dataplane-ecds/">Data plane (ECDS)</a></li>
+<li><a href="/docs/tasks/envoy-gateway/">Envoy Gateway</a> · <a href="/docs/tasks/istio/">Istio</a> · <a href="/docs/tasks/cilium/">Cilium</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/kubewaf" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="X / Twitter" aria-label="X / Twitter">
+    <a target="_blank" rel="noopener" href="https://x.com/kubewaf" aria-label="X / Twitter">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="pow-proxy-wasm" aria-label="pow-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/pow-proxy-wasm" aria-label="pow-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Website repo" aria-label="Website repo">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/website" aria-label="Website repo">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2026
+    <span class="td-footer__authors">Buzz-IT GmbH and kubeWAF contributors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script defer src="/js/click-to-copy.js" crossorigin="anonymous"></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

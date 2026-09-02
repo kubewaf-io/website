@@ -1,0 +1,182 @@
+baseURL = "https://kubewaf.io/"
+title = "kubeWAF"
+
+# Docsy via npm — same pattern as kubernetes/website
+theme = ["docsy"]
+themesDir = "node_modules"
+
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+enableRobotsTXT = true
+enableGitInfo = false
+disableKinds = ["taxonomy"]
+timeZone = "UTC"
+timeout = "120s"
+
+ignoreFiles = ["\\.git$"]
+
+# Homepage is content/en/_index.html. Hugo 0.162+ denies text/html
+# content unless allowlisted (GHSA-c54g-xjwj-8g82).
+[security]
+  allowContent = ['.*']
+
+[caches]
+  [caches.assets]
+    dir = ":cacheDir/_gen"
+    maxAge = -1
+  [caches.images]
+    dir = ":cacheDir/_images"
+    maxAge = -1
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      table = true
+      typographer = false
+    [markup.goldmark.parser]
+      attribute = true
+      autoHeadingID = true
+      autoHeadingIDType = "github"
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    style = "github"
+    noClasses = false
+    tabWidth = 2
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+[imaging]
+  resampleFilter = "CatmullRom"
+  quality = 75
+  anchor = "smart"
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "print"]
+  page = ["HTML"]
+
+[outputFormats]
+  [outputFormats.PRINT]
+    baseName = "index"
+    isHTML = true
+    mediaType = "text/html"
+    path = "_print"
+    permalinkable = false
+
+[params]
+  copyright = "Buzz-IT GmbH and kubeWAF contributors"
+  version = "0.1.0-beta.1"
+  archived_version = false
+  url_latest_version = "https://kubewaf.io"
+  github_repo = "https://github.com/kubewaf-io/kubewaf"
+  github_project_repo = "https://github.com/kubewaf-io/kubewaf"
+  github_branch = "main"
+  offlineSearch = true
+  description = "Kubernetes-native Web Application Firewall — ModSecurity, OWASP CRS, Envoy Wasm"
+  time_format_blog = "Monday, January 02, 2006"
+  time_format_default = "January 02, 2006"
+
+  [params.mermaid]
+    enable = true
+    version = "11"
+    theme = "neutral"
+
+  [params.ui]
+    sidebar_menu_compact = false
+    sidebar_menu_foldable = true
+    sidebar_search_disable = false
+    breadcrumb_disable = false
+    navbar_logo = true
+    footer_about_enable = true
+    showLightDarkModeMenu = true
+    ul_show = 2
+    # Solid navy navbar on home (custom hero handles the brand surface)
+    navbar_translucent_over_cover_disable = true
+
+    [params.ui.feedback]
+      enable = false
+
+# Top nav: Documentation lands on the portal card grid, not the thin section index
+[[menu.main]]
+  name = "Documentation"
+  url = "/docs/home/"
+  weight = 10
+[[menu.main]]
+  name = "Engines"
+  url = "/engines/"
+  weight = 20
+
+  [params.links]
+    [[params.links.user]]
+      name = "GitHub"
+      url = "https://github.com/kubewaf-io/kubewaf"
+      icon = "fab fa-github"
+      desc = "kubeWAF operator source"
+    [[params.links.user]]
+      name = "X / Twitter"
+      url = "https://x.com/kubewaf"
+      icon = "fab fa-x-twitter"
+      desc = "Follow kubeWAF"
+    [[params.links.developer]]
+      name = "modsecurity-proxy-wasm"
+      url = "https://github.com/kubewaf-io/modsecurity-proxy-wasm"
+      icon = "fab fa-github"
+      desc = "WAF engine"
+    [[params.links.developer]]
+      name = "pow-proxy-wasm"
+      url = "https://github.com/kubewaf-io/pow-proxy-wasm"
+      icon = "fab fa-github"
+      desc = "PoW challenge filter"
+    [[params.links.developer]]
+      name = "Website repo"
+      url = "https://github.com/kubewaf-io/website"
+      icon = "fab fa-github"
+      desc = "This documentation site"
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    title = "kubeWAF"
+    contentDir = "content/en"
+    [languages.en.params]
+      description = "Kubernetes-native Web Application Firewall"
+
+# Only vendor mounts — do NOT remount layouts/static or Docsy shortcodes break.
+# Project layouts/ still override theme via classic Hugo theme merge.
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.110.0"
+
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
+  [[module.mounts]]
+    source = "node_modules/bootstrap"
+    target = "assets/vendor/bootstrap"
+  [[module.mounts]]
+    source = "node_modules/@fortawesome/fontawesome-free"
+    target = "assets/vendor/Font-Awesome"
+  [[module.mounts]]
+    source = "node_modules/@fortawesome/fontawesome-free/webfonts"
+    target = "static/webfonts"
+  [[module.mounts]]
+    source = "node_modules/docsy/assets/_vendor/bootstrap/scss"
+    target = "assets/vendor/bootstrap/scss/vendor"

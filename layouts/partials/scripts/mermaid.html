@@ -1,0 +1,70 @@
+{{/* Override Docsy mermaid partial for Hugo >= 0.141 (Resource.Err removed).
+   Theme follows light/dark mode; diagrams re-render on theme toggle. */}}
+{{ $version := .Site.Params.mermaid.version | default "11" -}}
+{{ $cdnurl := printf "https://cdn.jsdelivr.net/npm/mermaid@%s/dist/mermaid.esm.min.mjs" $version -}}
+
+<script type="module" async>
+  import mermaid from "{{ $cdnurl }}";
+
+  (function ($) {
+    if ($('.mermaid').length == 0) {
+      mermaid.initialize({ startOnLoad: false });
+      return;
+    }
+
+    var params = {{ with .Site.Params.mermaid }}{{ . | jsonify | safeJS }}{{ else }}{}{{- end }};
+
+    function isDark() {
+      return document.documentElement.getAttribute('data-bs-theme') === 'dark';
+    }
+
+    function buildSettings() {
+      var settings = Object.assign({}, params);
+      settings.startOnLoad = true;
+      settings.securityLevel = settings.securityLevel || 'strict';
+      if (isDark()) {
+        settings.theme = 'dark';
+        settings.themeVariables = Object.assign({}, settings.themeVariables || {}, {
+          darkMode: true,
+          background: '#1b1f22',
+          primaryColor: '#134e4a',
+          primaryTextColor: '#e2e8f0',
+          primaryBorderColor: '#2dd4bf',
+          lineColor: '#94a3b8',
+          secondaryColor: '#0f172a',
+          tertiaryColor: '#1e293b',
+          fontFamily: 'Source Sans 3, system-ui, sans-serif'
+        });
+      } else {
+        settings.theme = params.theme || 'neutral';
+        settings.themeVariables = Object.assign({}, settings.themeVariables || {}, {
+          darkMode: false,
+          primaryColor: '#ccfbf1',
+          primaryTextColor: '#0b1220',
+          primaryBorderColor: '#0f766e',
+          lineColor: '#64748b',
+          secondaryColor: '#f1f5f9',
+          tertiaryColor: '#e2e8f0',
+          fontFamily: 'Source Sans 3, system-ui, sans-serif'
+        });
+      }
+      return settings;
+    }
+
+    mermaid.initialize(buildSettings());
+
+    const lightDarkModeThemeChangeHandler = function (mutationsList, observer) {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-bs-theme') {
+          location.reload();
+        }
+      }
+    };
+
+    const observer = new MutationObserver(lightDarkModeThemeChangeHandler);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-bs-theme']
+    });
+  })(jQuery);
+</script>

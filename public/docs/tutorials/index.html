@@ -1,0 +1,441 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="alternate" type="text/html" href="http://localhost:1313/docs/tutorials/_print/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Tutorials | kubeWAF</title>
+<meta name="description" content="Guided end-to-end learning paths for kubeWAF.">
+<meta property="og:url" content="http://localhost:1313/docs/tutorials/">
+  <meta property="og:site_name" content="kubeWAF">
+  <meta property="og:title" content="Tutorials">
+  <meta property="og:description" content="Guided end-to-end learning paths for kubeWAF.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Tutorials">
+  <meta itemprop="description" content="Guided end-to-end learning paths for kubeWAF.">
+  <meta itemprop="wordCount" content="21">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Tutorials">
+  <meta name="twitter:description" content="Guided end-to-end learning paths for kubeWAF.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<script defer
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand navbar-brand--wordmark" href="/"><span class="navbar-brand__logo navbar-logo" aria-hidden="true"><svg width="213.20622" height="225.15996" viewBox="0 0 213.20622 225.15996" id="svg27" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004 14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188z" id="path2"/><defs id="defs3"><linearGradient id="gradient_0" gradientUnits="userSpaceOnUse" x1="589.20081" y1="512.99628" x2="473.38596" y2="388.51822" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0A0C4F" id="stop2"/><stop offset="1" stop-color="#424C6F" id="stop3"/></linearGradient></defs><path fill="url(#gradient_0)" d="m146.13586 3.6211486c14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188.579-.989-.35-3.624-.685-5.088 3.1519998-3.601 8.4379998-6.474 11.7719998-10.964 3.511-4.728 5.299-9.939 8.869-14.283 1.33-1.618 1.625-1.858 2.935-3.791 1.796 15.303 3.771 27.301 11.548 41.106 13.404 23.794 38.907 40.066 64.864998 47.128 27.544-10.416 57.667-29.432 67.578-58.957 8.793-26.197 8.932-61.471001 9.499-89.134001-17.076-8.488-32.759-11.597-50.901-15.833l-.126-.497c-1.374-.767-3.677-.688-5.525-.919l.764-1.178c-.587-1.575-1.504-1.835-3.084-3.068-9.059.323-21.261-.311-30.474998-.565 1.929-.296 3.998-.437 5.952998-.616l-.14-.096c6.957-.98 12.41-.539 19.168-.463 4.19.048 14.55.918 17.224-2.371 2.818-3.467 8.229-8.143 8.254-12.8900004-1.412-2.418-1.036-2.038.24-4.344z" id="path3" style="fill:url(#gradient_0)"/><path fill="#151a56" d="m140.89786 206.83415 2.842.098c1.306 1.205.891.843 1.195 3.095-2.621-.593-3.366-.476-4.037-3.193z" id="path4"/><defs id="defs5"><linearGradient id="gradient_1" gradientUnits="userSpaceOnUse" x1="483.04602" y1="411.67349" x2="428.73672" y2="346.27155" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#404872" id="stop4"/><stop offset="1" stop-color="#5C638E" id="stop5"/></linearGradient></defs><path fill="url(#gradient_1)" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004-1.276 2.306-1.652 1.926-.24 4.344-.025 4.7470004-5.436 9.4230004-8.254 12.8900004-2.674 3.289-13.034 2.419-17.224 2.371-6.758-.076-12.211-.517-19.168.463l.14.096c-1.954998.179-4.023998.32-5.952998.616 9.213998.254 21.415998.888 30.474998.565 1.58 1.233 2.497 1.493 3.084 3.068l-.764 1.178c1.848.231 4.151.152 5.525.919l.126.497c-8.914-.925-16.804-2.06-25.819-2.27-21.555998-.5-61.921998 7.853-79.789998 19.033-.107 12.39.254 24.78 1.082 37.143.425 5.977 1.803 16.338001 1.938 21.784001-1.31 1.933-1.605 2.173-2.935 3.791-3.57 4.344-5.358 9.555-8.869 14.283-3.334 4.49-8.62 7.363-11.7719998 10.964.335 1.464 1.264 4.099.685 5.088z" id="path5" style="fill:url(#gradient_1)"/><defs id="defs7"><linearGradient id="gradient_2" gradientUnits="userSpaceOnUse" x1="554.13184" y1="491.51929" x2="456.88196" y2="380.24194" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0C0F4D" id="stop6"/><stop offset="1" stop-color="#50597D" id="stop7"/></linearGradient></defs><path fill="url(#gradient_2)" d="m46.459862 53.001149c38.293.588 73.198998 14.136 97.676998 44.661 8.014 9.994001 17.46 27.879001 19.116 40.659001-2.767 4.997-9.384 13.211-13.174 17.527-3.151 3.452-5.084 5.489-8.592 8.527-3.549-22.113-10.347-39.586-26.174-55.94C96.179862 88.665149 69.149862 78.193149 41.785862 77.806149c-.562-8.163-.672-16.21-1.39-24.439z" id="path7" style="fill:url(#gradient_2)"/><defs id="defs9"><linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="531.65125" y1="508.89108" x2="449.51163" y2="423.61743" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0D114E" id="stop8"/><stop offset="1" stop-color="#40486E" id="stop9"/></linearGradient></defs><path fill="url(#gradient_3)" d="m42.262862 89.112149c45.934-.866 82.826998 30.710001 87.945998 76.825001.247 2.222.42 4.456.611 6.683l-6.23 3.427c-5.431 2.765-11.039 5.572-16.894 7.311-6.631-35.416-24.351998-63.049-63.311998-65.17-.954-9.866-1.793-19.172001-2.121-29.076001z" id="path9" style="fill:url(#gradient_3)"/><defs id="defs11"><linearGradient id="gradient_4" gradientUnits="userSpaceOnUse" x1="555.38397" y1="458.08862" x2="518.14459" y2="365.63565" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#13184A" id="stop10"/><stop offset="1" stop-color="#454D77" id="stop11"/></linearGradient></defs><path fill="url(#gradient_4)" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343 16.075.106 40.719 7.133 55.579 13.522-.047 20.932-1.039 41.851-2.974 62.694001-16.209-33.277001-40.661-56.289001-76.064998-68.406001-5.876-1.979-11.87-3.588-17.947-4.817 5.561-1.166 12.429-2.071 18.133-2.65z" id="path11" style="fill:url(#gradient_4)"/><path fill="#464b75" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343l-.882.036c-7.937.374-13.967 5.056-19.234998 1.156-.916-.678-2.019-.729-3.157-.849z" id="path12"/><defs id="defs13"><linearGradient id="gradient_5" gradientUnits="userSpaceOnUse" x1="375.65991" y1="706.92682" x2="292.69623" y2="613.95709"><stop offset="0" stop-color="#567BED" id="stop12"/><stop offset="1" stop-color="#7AA1F6" id="stop13"/></linearGradient></defs></svg></span><span class="navbar-brand__name" aria-label="kubeWAF">
+      <span class="navbar-brand__kube">kube</span><span class="navbar-brand__waf">WAF</span>
+    </span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/home/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/engines/"><span>Engines</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            <div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ms-3 fas fa-bars" type="button" data-bs-toggle="collapse" data-bs-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="td-sidebar-nav collapse foldable-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pe-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docs-li">
+  <a href="/docs/" class="align-left ps-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-docs"><span class="">Documentation</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docshome-li">
+  <input type="checkbox" id="m-docshome-check"/>
+  <label for="m-docshome-check"><a href="/docs/home/" title="kubeWAF Documentation" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docshome"><span class="">Documentation Home</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docssetup-li">
+  <input type="checkbox" id="m-docssetup-check"/>
+  <label for="m-docssetup-check"><a href="/docs/setup/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docssetup"><span class="">Setup</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docssetupquickstart-li">
+  <input type="checkbox" id="m-docssetupquickstart-check"/>
+  <label for="m-docssetupquickstart-check"><a href="/docs/setup/quickstart/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docssetupquickstart"><span class="">Quick Start</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docssetupinstallation-li">
+  <input type="checkbox" id="m-docssetupinstallation-check"/>
+  <label for="m-docssetupinstallation-check"><a href="/docs/setup/installation/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docssetupinstallation"><span class="">Installation</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsconcepts-li">
+  <input type="checkbox" id="m-docsconcepts-check"/>
+  <label for="m-docsconcepts-check"><a href="/docs/concepts/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsconcepts"><span class="">Concepts</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptswhy-kubewaf-li">
+  <input type="checkbox" id="m-docsconceptswhy-kubewaf-check"/>
+  <label for="m-docsconceptswhy-kubewaf-check"><a href="/docs/concepts/why-kubewaf/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptswhy-kubewaf"><span class="">Why kubeWAF?</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptscore-concepts-li">
+  <input type="checkbox" id="m-docsconceptscore-concepts-check"/>
+  <label for="m-docsconceptscore-concepts-check"><a href="/docs/concepts/core-concepts/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptscore-concepts"><span class="">Core Concepts</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsconceptsarchitecture-li">
+  <input type="checkbox" id="m-docsconceptsarchitecture-check"/>
+  <label for="m-docsconceptsarchitecture-check"><a href="/docs/concepts/architecture/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsconceptsarchitecture"><span class="">Architecture</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docstasks-li">
+  <input type="checkbox" id="m-docstasks-check"/>
+  <label for="m-docstasks-check"><a href="/docs/tasks/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docstasks"><span class="">Tasks</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstaskswriting-rules-li">
+  <input type="checkbox" id="m-docstaskswriting-rules-check"/>
+  <label for="m-docstaskswriting-rules-check"><a href="/docs/tasks/writing-rules/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstaskswriting-rules"><span class="">Writing Security Rules</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksusing-crs-li">
+  <input type="checkbox" id="m-docstasksusing-crs-check"/>
+  <label for="m-docstasksusing-crs-check"><a href="/docs/tasks/using-crs/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksusing-crs"><span class="">OWASP Core Rule Set (CRS)</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksrulesets-li">
+  <input type="checkbox" id="m-docstasksrulesets-check"/>
+  <label for="m-docstasksrulesets-check"><a href="/docs/tasks/rulesets/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksrulesets"><span class="">Using RuleSets</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstaskschallenge-li">
+  <input type="checkbox" id="m-docstaskschallenge-check"/>
+  <label for="m-docstaskschallenge-check"><a href="/docs/tasks/challenge/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstaskschallenge"><span class="">Proof-of-Work challenge</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksengine-li">
+  <input type="checkbox" id="m-docstasksengine-check"/>
+  <label for="m-docstasksengine-check"><a href="/docs/tasks/engine/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksengine"><span class="">WAF engine</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksdataplane-ecds-li">
+  <input type="checkbox" id="m-docstasksdataplane-ecds-check"/>
+  <label for="m-docstasksdataplane-ecds-check"><a href="/docs/tasks/dataplane-ecds/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksdataplane-ecds"><span class="">Data plane (ECDS)</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksenvoy-gateway-li">
+  <input type="checkbox" id="m-docstasksenvoy-gateway-check"/>
+  <label for="m-docstasksenvoy-gateway-check"><a href="/docs/tasks/envoy-gateway/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksenvoy-gateway"><span class="">Envoy Gateway</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksistio-li">
+  <input type="checkbox" id="m-docstasksistio-check"/>
+  <label for="m-docstasksistio-check"><a href="/docs/tasks/istio/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksistio"><span class="">Istio</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstaskscilium-li">
+  <input type="checkbox" id="m-docstaskscilium-check"/>
+  <label for="m-docstaskscilium-check"><a href="/docs/tasks/cilium/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstaskscilium"><span class="">Cilium</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstasksobservability-li">
+  <input type="checkbox" id="m-docstasksobservability-check"/>
+  <label for="m-docstasksobservability-check"><a href="/docs/tasks/observability/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstasksobservability"><span class="">Observability &amp; Metrics</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstaskstroubleshooting-li">
+  <input type="checkbox" id="m-docstaskstroubleshooting-check"/>
+  <label for="m-docstaskstroubleshooting-check"><a href="/docs/tasks/troubleshooting/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstaskstroubleshooting"><span class="">Troubleshooting</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docstutorials-li">
+  <input type="checkbox" id="m-docstutorials-check" checked/>
+  <label for="m-docstutorials-check"><a href="/docs/tutorials/" class="align-left ps-0  active td-sidebar-link td-sidebar-link__section" id="m-docstutorials"><span class="td-sidebar-nav-active-item">Tutorials</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docstutorialsprotect-a-service-li">
+  <input type="checkbox" id="m-docstutorialsprotect-a-service-check"/>
+  <label for="m-docstutorialsprotect-a-service-check"><a href="/docs/tutorials/protect-a-service/" title="Protect a service end to end" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docstutorialsprotect-a-service"><span class="">Protect a service</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsreference-li">
+  <input type="checkbox" id="m-docsreference-check"/>
+  <label for="m-docsreference-check"><a href="/docs/reference/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsreference"><span class="">Reference</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceseclang-structure-li">
+  <input type="checkbox" id="m-docsreferenceseclang-structure-check"/>
+  <label for="m-docsreferenceseclang-structure-check"><a href="/docs/reference/seclang-structure/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsreferenceseclang-structure"><span class="">SecLang YAML Structure</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsreferencecrds-li">
+  <input type="checkbox" id="m-docsreferencecrds-check"/>
+  <label for="m-docsreferencecrds-check"><a href="/docs/reference/crds/" title="Custom Resources" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docsreferencecrds"><span class="">CRDs</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecrdssecrule-li">
+  <input type="checkbox" id="m-docsreferencecrdssecrule-check"/>
+  <label for="m-docsreferencecrdssecrule-check"><a href="/docs/reference/crds/secrule/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsreferencecrdssecrule"><span class="">SecRule</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecrdsruleset-li">
+  <input type="checkbox" id="m-docsreferencecrdsruleset-check"/>
+  <label for="m-docsreferencecrdsruleset-check"><a href="/docs/reference/crds/ruleset/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsreferencecrdsruleset"><span class="">RuleSet</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecrdswaf-li">
+  <input type="checkbox" id="m-docsreferencecrdswaf-check"/>
+  <label for="m-docsreferencecrdswaf-check"><a href="/docs/reference/crds/waf/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsreferencecrdswaf"><span class="">WAF</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferencecrdswafinstance-li">
+  <input type="checkbox" id="m-docsreferencecrdswafinstance-check"/>
+  <label for="m-docsreferencecrdswafinstance-check"><a href="/docs/reference/crds/wafinstance/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsreferencecrdswafinstance"><span class="">WAFInstance</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsreferenceseclang-crs-gaps-li">
+  <input type="checkbox" id="m-docsreferenceseclang-crs-gaps-check"/>
+  <label for="m-docsreferenceseclang-crs-gaps-check"><a href="/docs/reference/seclang-crs-gaps/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docsreferenceseclang-crs-gaps"><span class="">SecLang CRS Gaps</span></a></label>
+  
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docscontribute-li">
+  <input type="checkbox" id="m-docscontribute-check"/>
+  <label for="m-docscontribute-check"><a href="/docs/contribute/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docscontribute"><span class="">Contribute</span></a></label>
+  
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscontributecontributing-li">
+  <input type="checkbox" id="m-docscontributecontributing-check"/>
+  <label for="m-docscontributecontributing-check"><a href="/docs/contribute/contributing/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docscontributecontributing"><span class="">Contributing</span></a></label>
+  
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docscontributeai-li">
+  <input type="checkbox" id="m-docscontributeai-check"/>
+  <label for="m-docscontributeai-check"><a href="/docs/contribute/ai/" class="align-left ps-0  td-sidebar-link td-sidebar-link__section" id="m-docscontributeai"><span class="">AI Assistance</span></a></label>
+  
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscontributeaikubewaf-secrule-expert-li">
+  <input type="checkbox" id="m-docscontributeaikubewaf-secrule-expert-check"/>
+  <label for="m-docscontributeaikubewaf-secrule-expert-check"><a href="/docs/contribute/ai/kubewaf-secrule-expert/" class="align-left ps-0  td-sidebar-link td-sidebar-link__page" id="m-docscontributeaikubewaf-secrule-expert"><span class="">SecRule Expert Prompt</span></a></label>
+  
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            <div class="td-page-meta ms-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/kubewaf-io/website/tree/main/content/en/docs/tutorials/_index.md" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/kubewaf-io/website/edit/main/content/en/docs/tutorials/_index.md" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/kubewaf-io/website/issues/new?title=Tutorials" class="td-page-meta--issue td-page-meta__issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  <a href="https://github.com/kubewaf-io/kubewaf/issues/new" class="td-page-meta--project td-page-meta__project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
+  <a id="print" href="/docs/tutorials/_print/"><i class="fa-solid fa-print fa-fw"></i> Print entire section</a>
+
+</div>
+
+            
+            
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="/docs/">Documentation</a></li>
+  <li class="breadcrumb-item active" aria-current="page">
+    Tutorials</li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>Tutorials</h1>
+  <div class="lead">Guided end-to-end learning paths for kubeWAF.</div>
+	<header class="article-meta">
+		
+</header>
+	<p>Tutorials walk through complete scenarios. Prefer these when you are new to kubeWAF;
+use <a href="/docs/tasks/">Tasks</a> when you already know the goal.</p>
+
+  <div class="section-index">
+    
+    
+    <hr class="panel-line">
+        <div class="entry">
+                <h5>
+                    <a href="/docs/tutorials/protect-a-service/">Protect a service end to end</a>
+                </h5>
+                <p>Tutorial: install kubeWAF, enable CRS, and protect an HTTP service behind Envoy Gateway</p>
+            </div>
+        </div>
+</div>
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/kubewaf" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="X / Twitter" aria-label="X / Twitter">
+    <a target="_blank" rel="noopener" href="https://x.com/kubewaf" aria-label="X / Twitter">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="pow-proxy-wasm" aria-label="pow-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/pow-proxy-wasm" aria-label="pow-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Website repo" aria-label="Website repo">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/website" aria-label="Website repo">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2026
+    <span class="td-footer__authors">Buzz-IT GmbH and kubeWAF contributors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script defer src="/js/click-to-copy.js" crossorigin="anonymous"></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

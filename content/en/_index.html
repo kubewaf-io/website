@@ -1,0 +1,307 @@
+---
+title: kubeWAF
+linkTitle: Home
+description: Kubernetes-native Web Application Firewall powered by ModSecurity and OWASP CRS
+---
+
+<section class="hero-k8s">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="hero-brand mb-3">
+          <img class="hero-brand__mark" src="/images/logo-icon.svg" width="72" height="76" alt="" decoding="async" />
+          <span class="hero-brand__wordmark" aria-label="kubeWAF">
+            <span class="wm-kube">kube</span><span class="wm-waf">WAF</span>
+          </span>
+        </div>
+        <h1 class="display-4 mb-3">Kubernetes-native WAF</h1>
+        <p class="lead mb-4">
+          Block SQLi, XSS, and abusive traffic at the gateway — without a separate WAF
+          appliance or hand-edited ModSecurity configs. One GitOps policy model, enforced
+          in Envoy Wasm across Envoy Gateway, Istio, and Cilium.
+        </p>
+        <div class="hero-ctas d-flex flex-wrap gap-2">
+          <a class="btn btn-lg btn-primary" href="#protect-your-app">
+            Protect your app <i class="fas fa-arrow-right ms-2"></i>
+          </a>
+          <a class="btn btn-lg btn-outline-hero" href="/docs/get-started/quickstart/">
+            Quick start <i class="fas fa-rocket ms-2"></i>
+          </a>
+          <a class="btn btn-lg btn-outline-hero" href="/docs/home/">
+            Documentation
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-aside">
+        <div class="hero-install" data-install-strip>
+          <div class="hero-install__meta">
+            <span class="hero-install__label">Install with Helm</span>
+            <a class="hero-install__docs" href="/docs/platform/installation/">Full install guide →</a>
+          </div>
+          <div class="hero-install__strip">
+            <pre class="hero-install__code" tabindex="0"><code id="hero-install-cmd">helm install kubewaf oci://ghcr.io/kubewaf-io/charts/kubewaf \
+  --namespace kubewaf-system --create-namespace \
+  --version v0.1.0-beta.1</code></pre>
+            <button type="button" class="hero-install__copy" data-copy-target="hero-install-cmd" aria-label="Copy install command">
+              <i class="fa-solid fa-copy" aria-hidden="true"></i>
+              <span class="hero-install__copy-label">Copy</span>
+            </button>
+          </div>
+          <p class="hero-install__hint">Operator install · Wasm from image <code>/wasm</code></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="home-features">
+  <div class="container">
+    <div class="section-label">Why kubeWAF</div>
+    <h2 class="h3">Policy as code. Enforcement at the edge.</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-tile">
+          <div class="feature-icon"><i class="fa-solid fa-file-code"></i></div>
+          <h3>Policy as Kubernetes YAML</h3>
+          <p>
+            Security rules live next to your apps in Git — reviewable PRs, no opaque
+            ModSecurity config files on disk.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-tile">
+          <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h3>Reusable rule packs</h3>
+          <p>
+            Share OWASP CRS and custom rules across namespaces. Compose what each
+            service needs without copy-paste.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-tile">
+          <div class="feature-icon"><i class="fa-solid fa-network-wired"></i></div>
+          <h3>Works with your gateway</h3>
+          <p>
+            Same WAF policy whether you run Envoy Gateway, Istio, or Cilium — attach
+            once, protect traffic at the edge.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="home-protect" id="protect-your-app">
+  <div class="container">
+    <div class="section-label">For application developers</div>
+    <h2 class="h3 mb-2">Protect your app in three steps</h2>
+    <p class="home-protect__lead">
+      Assume the platform team already installed kubeWAF. You only need YAML next to your
+      service — no ModSecurity config files, no cluster-wide install.
+    </p>
+
+    <ol class="home-protect__steps row g-3 list-unstyled mb-4">
+      <li class="col-md-4">
+        <div class="home-protect__step">
+          <span class="home-protect__num" aria-hidden="true">1</span>
+          <h3 class="h5">Write a rule</h3>
+          <p>Block scanners, SQLi probes, or any pattern you care about as a <code>SecRule</code>.</p>
+        </div>
+      </li>
+      <li class="col-md-4">
+        <div class="home-protect__step">
+          <span class="home-protect__num" aria-hidden="true">2</span>
+          <h3 class="h5">Bundle a RuleSet</h3>
+          <p>Group rules (and optionally enable OWASP CRS) so each service picks what it needs.</p>
+        </div>
+      </li>
+      <li class="col-md-4">
+        <div class="home-protect__step">
+          <span class="home-protect__num" aria-hidden="true">3</span>
+          <h3 class="h5">Attach a WAF</h3>
+          <p>Point <code>targetRef</code> at your Gateway or HTTPRoute — traffic is filtered at the edge.</p>
+        </div>
+      </li>
+    </ol>
+
+    <div class="home-protect__panel">
+      <div class="home-protect__panel-head">
+        <div>
+          <span class="home-protect__panel-label">Example policy</span>
+          <p class="home-protect__panel-desc mb-0">
+            Drop into your app namespace. Rename <code>my-app-route</code> to your HTTPRoute
+            (or switch <code>kind</code> to <code>Gateway</code>).
+          </p>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-primary home-protect__copy" data-copy-target="app-protect-yaml" aria-label="Copy example policy">
+          <i class="fa-solid fa-copy me-1" aria-hidden="true"></i>
+          <span class="home-protect__copy-label">Copy YAML</span>
+        </button>
+      </div>
+      <pre class="home-protect__code"><code id="app-protect-yaml">apiVersion: seclang.kubewaf.io/v1beta1
+kind: SecRule
+metadata:
+  name: block-bad-user-agent
+  namespace: my-app
+  labels:
+    app: my-app
+spec:
+  metadata:
+    id: 100001
+    phase: "1"
+    message: "Blocked malicious User-Agent"
+    severity: "ERROR"
+  match:
+  - collections:
+    - name: REQUEST_HEADERS
+      arguments: [User-Agent]
+    operator:
+      name: rx
+      value: (?:nikto|sqlmap|nessus|openvas)
+  actions:
+    disruptive:
+      disruptiveActionType: deny
+    data:
+    - dataActionType: status
+      value: "403"
+---
+apiVersion: waf.kubewaf.io/v1beta1
+kind: RuleSet
+metadata:
+  name: my-app-rules
+  namespace: my-app
+spec:
+  ruleRefs:
+  - kind: SecRule
+    group: seclang.kubewaf.io
+    version: v1beta1
+    selector:
+      matchLabels:
+        app: my-app
+---
+apiVersion: waf.kubewaf.io/v1beta1
+kind: WAF
+metadata:
+  name: my-app-waf
+  namespace: my-app
+spec:
+  mode: Blocking
+  provider:
+    type: EnvoyGateway   # or Istio / Cilium
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: my-app-route
+  ruleRefs:
+  - kind: RuleSet
+    name: my-app-rules
+    namespace: my-app
+  crsEnable: false
+  logLevel: 1</code></pre>
+    </div>
+
+    <div class="home-protect__verify row g-3 mt-3">
+      <div class="col-md-6">
+        <div class="home-protect__verify-card">
+          <h3 class="h6">Prove it works</h3>
+          <pre class="home-protect__code home-protect__code--sm"><code># Allowed
+curl -s -o /dev/null -w "%{http_code}\n" -H "Host: my-app.example" \
+  http://&lt;gateway&gt;/health
+
+# Blocked (expect 403)
+curl -s -o /dev/null -w "%{http_code}\n" -H "Host: my-app.example" \
+  -H "User-Agent: sqlmap/1.0" http://&lt;gateway&gt;/</code></pre>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="home-protect__verify-card">
+          <h3 class="h6">Next for app teams</h3>
+          <ul class="home-protect__links">
+            <li><a href="/docs/users/protect-a-service/">Tutorial: protect a service end to end</a></li>
+            <li><a href="/docs/security/writing-rules/">Write custom SecRules</a></li>
+            <li><a href="/docs/security/using-crs/">Enable &amp; tune OWASP CRS</a></li>
+            <li><a href="/docs/platform/troubleshooting/">Debug unexpected 403s</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="home-roots">
+  <div class="container">
+    <div class="section-label">Go deeper</div>
+    <h2 class="h3 mb-4">Documentation roots</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <a class="root-tile" href="/docs/home/">
+          <div class="root-icon"><i class="fa-solid fa-book"></i></div>
+          <h3>kubeWAF documentation</h3>
+          <p>
+            Operator docs: setup, concepts, tasks, tutorials, CRD reference, and contributing.
+          </p>
+          <span class="root-cta">Open docs →</span>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a class="root-tile" href="/engines/">
+          <div class="root-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Engines documentation</h3>
+          <p>
+            Wasm engines: modsecurity-proxy-wasm and pow-proxy-wasm — configuration and standalone use.
+          </p>
+          <span class="root-cta">Browse engines →</span>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a class="root-tile" href="https://github.com/kubewaf-io/kubewaf">
+          <div class="root-icon"><i class="fa-brands fa-github"></i></div>
+          <h3>Source code</h3>
+          <p>
+            Operator, samples, e2e matrix, and release artifacts on GitHub.
+          </p>
+          <span class="root-cta">View on GitHub →</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  function bindCopy(btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-copy-target");
+      var el = document.getElementById(id);
+      if (!el) return;
+      var text = el.textContent.replace(/\n{2,}/g, "\n").trim();
+      var label =
+        btn.querySelector(".hero-install__copy-label") ||
+        btn.querySelector(".home-protect__copy-label");
+      var defaultLabel = label ? label.textContent : "Copy";
+      var done = function () {
+        if (label) label.textContent = "Copied";
+        btn.classList.add("is-copied");
+        setTimeout(function () {
+          if (label) label.textContent = defaultLabel.indexOf("YAML") >= 0 ? "Copy YAML" : "Copy";
+          btn.classList.remove("is-copied");
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () {});
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
+  }
+  document.querySelectorAll("[data-copy-target]").forEach(bindCopy);
+})();
+</script>

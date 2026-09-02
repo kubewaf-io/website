@@ -1,0 +1,1094 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="http://localhost:1313/docs/users/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Application teams | kubeWAF</title>
+<meta name="description" content="Protect your services with a WAF resource — attach gateways, consume RuleSets, and optional challenges.">
+<meta property="og:url" content="http://localhost:1313/docs/users/">
+	<meta property="og:site_name" content="kubeWAF">
+	<meta property="og:title" content="Application teams">
+	<meta property="og:description" content="Protect your services with a WAF resource — attach gateways, consume RuleSets, and optional challenges.">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="website">
+
+	<meta itemprop="name" content="Application teams">
+	<meta itemprop="description" content="Protect your services with a WAF resource — attach gateways, consume RuleSets, and optional challenges.">
+	<meta itemprop="wordCount" content="154">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Application teams">
+	<meta name="twitter:description" content="Protect your services with a WAF resource — attach gateways, consume RuleSets, and optional challenges.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<script defer
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand navbar-brand--wordmark" href="/"><span class="navbar-brand__logo navbar-logo" aria-hidden="true"><svg width="213.20622" height="225.15996" viewBox="0 0 213.20622 225.15996" id="svg27" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004 14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188z" id="path2"/><defs id="defs3"><linearGradient id="gradient_0" gradientUnits="userSpaceOnUse" x1="589.20081" y1="512.99628" x2="473.38596" y2="388.51822" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0A0C4F" id="stop2"/><stop offset="1" stop-color="#424C6F" id="stop3"/></linearGradient></defs><path fill="url(#gradient_0)" d="m146.13586 3.6211486c14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188.579-.989-.35-3.624-.685-5.088 3.1519998-3.601 8.4379998-6.474 11.7719998-10.964 3.511-4.728 5.299-9.939 8.869-14.283 1.33-1.618 1.625-1.858 2.935-3.791 1.796 15.303 3.771 27.301 11.548 41.106 13.404 23.794 38.907 40.066 64.864998 47.128 27.544-10.416 57.667-29.432 67.578-58.957 8.793-26.197 8.932-61.471001 9.499-89.134001-17.076-8.488-32.759-11.597-50.901-15.833l-.126-.497c-1.374-.767-3.677-.688-5.525-.919l.764-1.178c-.587-1.575-1.504-1.835-3.084-3.068-9.059.323-21.261-.311-30.474998-.565 1.929-.296 3.998-.437 5.952998-.616l-.14-.096c6.957-.98 12.41-.539 19.168-.463 4.19.048 14.55.918 17.224-2.371 2.818-3.467 8.229-8.143 8.254-12.8900004-1.412-2.418-1.036-2.038.24-4.344z" id="path3" style="fill:url(#gradient_0)"/><path fill="#151a56" d="m140.89786 206.83415 2.842.098c1.306 1.205.891.843 1.195 3.095-2.621-.593-3.366-.476-4.037-3.193z" id="path4"/><defs id="defs5"><linearGradient id="gradient_1" gradientUnits="userSpaceOnUse" x1="483.04602" y1="411.67349" x2="428.73672" y2="346.27155" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#404872" id="stop4"/><stop offset="1" stop-color="#5C638E" id="stop5"/></linearGradient></defs><path fill="url(#gradient_1)" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004-1.276 2.306-1.652 1.926-.24 4.344-.025 4.7470004-5.436 9.4230004-8.254 12.8900004-2.674 3.289-13.034 2.419-17.224 2.371-6.758-.076-12.211-.517-19.168.463l.14.096c-1.954998.179-4.023998.32-5.952998.616 9.213998.254 21.415998.888 30.474998.565 1.58 1.233 2.497 1.493 3.084 3.068l-.764 1.178c1.848.231 4.151.152 5.525.919l.126.497c-8.914-.925-16.804-2.06-25.819-2.27-21.555998-.5-61.921998 7.853-79.789998 19.033-.107 12.39.254 24.78 1.082 37.143.425 5.977 1.803 16.338001 1.938 21.784001-1.31 1.933-1.605 2.173-2.935 3.791-3.57 4.344-5.358 9.555-8.869 14.283-3.334 4.49-8.62 7.363-11.7719998 10.964.335 1.464 1.264 4.099.685 5.088z" id="path5" style="fill:url(#gradient_1)"/><defs id="defs7"><linearGradient id="gradient_2" gradientUnits="userSpaceOnUse" x1="554.13184" y1="491.51929" x2="456.88196" y2="380.24194" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0C0F4D" id="stop6"/><stop offset="1" stop-color="#50597D" id="stop7"/></linearGradient></defs><path fill="url(#gradient_2)" d="m46.459862 53.001149c38.293.588 73.198998 14.136 97.676998 44.661 8.014 9.994001 17.46 27.879001 19.116 40.659001-2.767 4.997-9.384 13.211-13.174 17.527-3.151 3.452-5.084 5.489-8.592 8.527-3.549-22.113-10.347-39.586-26.174-55.94C96.179862 88.665149 69.149862 78.193149 41.785862 77.806149c-.562-8.163-.672-16.21-1.39-24.439z" id="path7" style="fill:url(#gradient_2)"/><defs id="defs9"><linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="531.65125" y1="508.89108" x2="449.51163" y2="423.61743" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0D114E" id="stop8"/><stop offset="1" stop-color="#40486E" id="stop9"/></linearGradient></defs><path fill="url(#gradient_3)" d="m42.262862 89.112149c45.934-.866 82.826998 30.710001 87.945998 76.825001.247 2.222.42 4.456.611 6.683l-6.23 3.427c-5.431 2.765-11.039 5.572-16.894 7.311-6.631-35.416-24.351998-63.049-63.311998-65.17-.954-9.866-1.793-19.172001-2.121-29.076001z" id="path9" style="fill:url(#gradient_3)"/><defs id="defs11"><linearGradient id="gradient_4" gradientUnits="userSpaceOnUse" x1="555.38397" y1="458.08862" x2="518.14459" y2="365.63565" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#13184A" id="stop10"/><stop offset="1" stop-color="#454D77" id="stop11"/></linearGradient></defs><path fill="url(#gradient_4)" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343 16.075.106 40.719 7.133 55.579 13.522-.047 20.932-1.039 41.851-2.974 62.694001-16.209-33.277001-40.661-56.289001-76.064998-68.406001-5.876-1.979-11.87-3.588-17.947-4.817 5.561-1.166 12.429-2.071 18.133-2.65z" id="path11" style="fill:url(#gradient_4)"/><path fill="#464b75" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343l-.882.036c-7.937.374-13.967 5.056-19.234998 1.156-.916-.678-2.019-.729-3.157-.849z" id="path12"/><defs id="defs13"><linearGradient id="gradient_5" gradientUnits="userSpaceOnUse" x1="375.65991" y1="706.92682" x2="292.69623" y2="613.95709"><stop offset="0" stop-color="#567BED" id="stop12"/><stop offset="1" stop-color="#7AA1F6" id="stop13"/></linearGradient></defs></svg></span><span class="navbar-brand__name" aria-label="kubeWAF">
+      <span class="navbar-brand__kube">kube</span><span class="navbar-brand__waf">WAF</span>
+    </span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/home/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/engines/"><span>Engines</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/docs/users/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Application teams</h1>
+<div class="lead">Protect your services with a WAF resource — attach gateways, consume RuleSets, and optional challenges.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-bed306305b75013b8f9db4356408e2d1">Protect a service end to end</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-6bcd3c275bcd322520b29e85e0e1f4ef">Using RuleSets</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-e284e6729abba829f8041e8e43ce1abf">PhraseList and IPList</a></li>
+
+
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-d2b6aa89fd8d4ce9c2ed524c0c1971ba">Proof-of-Work challenge</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>You own an application (or a set of services) and need HTTP protection in front of it.
+The platform team has already installed kubeWAF; you author <strong><code>WAF</code></strong> (and sometimes
+<strong>RuleSet</strong>) resources in your namespace.</p>
+
+
+<div class="pageinfo pageinfo-primary">
+<p><strong>Writing custom SecRules or designing org-wide rule packs?</strong> See
+<a href="/docs/security/">Security team</a>.<br>
+<strong>Installing the operator or wiring Istio/Envoy Gateway?</strong> See
+<a href="/docs/platform/">Platform</a>.</p>
+
+</div>
+
+<h2 id="what-you-own">What you own</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Goal</th>
+					<th>Page</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>End-to-end first protection</td>
+					<td><a href="/docs/users/protect-a-service/">Protect a service</a></td>
+			</tr>
+			<tr>
+					<td>Group and attach rules</td>
+					<td><a href="/docs/users/rulesets/">Using RuleSets</a></td>
+			</tr>
+			<tr>
+					<td>Custom phrase / IP list files</td>
+					<td><a href="/docs/users/data-files/">Phrase &amp; IP lists</a></td>
+			</tr>
+			<tr>
+					<td>Dry-run a request</td>
+					<td><a href="/docs/platform/observability/probes/">Probes</a></td>
+			</tr>
+			<tr>
+					<td>Metrics and eval traces</td>
+					<td><a href="/docs/platform/observability/">Observability</a></td>
+			</tr>
+			<tr>
+					<td>Bot / scraper friction</td>
+					<td><a href="/docs/users/challenge/">Proof-of-work challenge</a></td>
+			</tr>
+	</tbody>
+</table>
+<p>Platform installs the operator (and optional <code>kubewaf-crs</code>). Security owns
+<a href="/docs/security/using-crs/">OWASP CRS</a> attach and tuning.</p>
+<h2 id="recommended-path">Recommended path</h2>
+<ol>
+<li>Confirm the operator is installed (<a href="/docs/platform/installation/">Installation</a> if you also run the cluster).</li>
+<li>Follow <a href="/docs/users/protect-a-service/">Protect a service</a> or <a href="/docs/get-started/quickstart/">Quick start</a>.</li>
+<li>Attach shared packs via <a href="/docs/users/rulesets/">RuleSets</a>. For a CRS baseline, ask
+security (or follow <a href="/docs/security/using-crs/">OWASP CRS</a>).</li>
+<li>Optional: <a href="/docs/users/challenge/">Challenge</a> in front of expensive WAF evaluation.</li>
+</ol>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-bed306305b75013b8f9db4356408e2d1">1 - Protect a service end to end</h1>
+    <div class="lead">Tutorial: attach a WAF and Path B CRS to an HTTP service behind Envoy Gateway</div>
+	<p>This tutorial walks through protecting a simple HTTP service with kubeWAF and Envoy Gateway.
+The <strong>platform team</strong> installs the operator (and optional <code>kubewaf-crs</code>). You attach a <code>WAF</code> and confirm it is Ready.</p>
+<h2 id="objectives">Objectives</h2>
+<ul>
+<li>Deploy a sample backend and HTTPRoute</li>
+<li>Attach <code>ruleset-api</code> (from <code>kubewaf-crs</code>) on a <code>WAF</code></li>
+<li>Confirm benign traffic is allowed; start in DetectionOnly, then Blocking if you want denies</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Platform has installed kubeWAF (<a href="/docs/platform/installation/">Installation</a>) and wired Envoy Gateway (<a href="/docs/platform/providers/envoy-gateway/">provider guide</a>)</li>
+<li><code>kubewaf-crs</code> is installed if you want <code>ruleset-api</code> (same <a href="/docs/platform/installation/#crs-as-kubernetes-objects-optional">installation</a> page)</li>
+<li><code>kubectl</code> in a namespace you can write <code>WAF</code> / <code>HTTPRoute</code> objects</li>
+</ul>
+<h2 id="steps">Steps</h2>
+<h3 id="1-deploy-a-sample-application">1. Deploy a sample application</h3>
+<p>Deploy any HTTP echo or demo service in a namespace you control, and expose it with an
+<code>HTTPRoute</code> (or Gateway API route your provider uses).</p>
+<h3 id="2-attach-a-waf">2. Attach a WAF</h3>
+<p><code>ruleset-api</code> is on by default in the <code>kubewaf-crs</code> chart:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">WAF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">DetectionOnly     </span><span class="w"> </span><span class="c"># observe first; set Blocking to deny</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">EnvoyGateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targetRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ruleset-api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paranoiaLevel</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span></code></pre></div><p>Exact fields: <a href="/docs/reference/crds/waf/">WAF CRD</a>, <a href="/docs/security/using-crs/">OWASP CRS</a>.</p>
+<h3 id="3-send-test-traffic">3. Send test traffic</h3>
+<ol>
+<li><strong>Benign GET</strong> — expect <code>200</code> from the backend.</li>
+<li><strong>Attack-like query</strong> (classic XSS/SQLi) — DetectionOnly still returns <code>200</code> and scores.
+Set <code>mode: Blocking</code> when you want a 403.</li>
+</ol>
+<p>Check operator and Envoy logs if results are unexpected:
+<a href="/docs/platform/troubleshooting/">Troubleshooting</a>.</p>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><a href="/docs/security/writing-rules/">Write custom SecRules</a></li>
+<li><a href="/docs/users/challenge/">Add a PoW challenge</a></li>
+<li><a href="/docs/platform/dataplane-ecds/">Wire Istio or Cilium</a></li>
+<li>Engine deep-dives: <a href="/engines/">Engines docs</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-6bcd3c275bcd322520b29e85e0e1f4ef">2 - Using RuleSets</h1>
+    <div class="lead">Group, reuse, and compose rules across namespaces</div>
+	<p><code>RuleSet</code> is the central abstraction for organizing and reusing security rules.</p>
+<h2 id="why-rulesets-exist">Why RuleSets Exist</h2>
+<p>Without RuleSets you would have to list every individual <code>SecRule</code> on every <code>WAF</code>. RuleSets give you:</p>
+<ul>
+<li>Logical grouping (&quot;payment protection&quot;, &quot;API baseline&quot;, &quot;strict mode&quot;)</li>
+<li>Label-based selection (add a rule → automatically appears in all matching RuleSets)</li>
+<li>Namespace boundaries and delegation</li>
+<li>Recursive composition</li>
+</ul>
+<h2 id="basic-ruleset">Basic RuleSet</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">api-baseline</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">platform-security</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">waf.kubewaf.io/profile</span><span class="p">:</span><span class="w"> </span><span class="l">api-baseline</span><span class="w">
+</span></span></span></code></pre></div><p>Any <code>SecRule</code> that carries the label <code>waf.kubewaf.io/profile: api-baseline</code> will be included.</p>
+<h2 id="packaging-phraselist--iplist">Packaging PhraseList / IPList</h2>
+<p>When rules use <code>@pmFromFile</code> or <code>@ipMatchFromFile</code>, optionally declare the
+lists on the RuleSet so packaging fails early if they are missing or not Ready.
+This does <strong>not</strong> inject unused files — only basenames present in SecLang are
+shipped in <code>data_files</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">... ]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">phraseListRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">team-scanners</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ipListRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">edge-ip-blocklist</span><span class="w">
+</span></span></span></code></pre></div><p>See <a href="/docs/users/data-files/">Phrase &amp; IP lists</a>.</p>
+<h2 id="direct-references-vs-selectors">Direct References vs Selectors</h2>
+<p>You can mix both styles:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-admin-bruteforce         </span><span class="w"> </span><span class="c"># direct name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">production</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">team</span><span class="p">:</span><span class="w"> </span><span class="l">payments</span><span class="w">
+</span></span></span></code></pre></div><p><strong>Important</strong>: When using <code>name</code>, the namespace defaults to the RuleSet's own namespace unless you specify <code>namespace:</code>.</p>
+<h2 id="namespace-policies-allowedrules">Namespace Policies (<code>allowedRules</code>)</h2>
+<p>By default a RuleSet can only reference rules in the <strong>same namespace</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">allowedRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Same</span><span class="w">
+</span></span></span></code></pre></div><p>Other options:</p>
+<ul>
+<li><code>from: All</code> — any namespace (use with caution)</li>
+<li><code>from: Selector</code> + <code>selector</code> — only namespaces matching the label selector</li>
+</ul>
+<p>This is the same model used by the Kubernetes Gateway API.</p>
+<p>Example of a cluster-wide platform RuleSet:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">allowedRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Selector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">security.kubewaf.io/trusted</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span></span></span></code></pre></div><h2 id="composing-rulesets-ruleset--ruleset">Composing RuleSets (RuleSet → RuleSet)</h2>
+<p>RuleSets can reference other RuleSets:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Base profile</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">base</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">platform</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">... many rules ... ]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Strict profile = base + extra rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">strict</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">platform</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">base</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l">strict-only</span><span class="w">
+</span></span></span></code></pre></div><p>When a <code>WAF</code> references <code>strict</code>, the resolver automatically flattens everything into one list of rules.</p>
+<h2 id="inspecting-resolution">Inspecting Resolution</h2>
+<p>The operator writes rich status:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl describe ruleset strict
+</span></span></code></pre></div><p>Look for:</p>
+<ul>
+<li><code>status.conditions[ReferencesResolved]</code></li>
+<li><code>status.ruleRefs[]</code> — the concrete list of resolved rules</li>
+</ul>
+<p>If any reference cannot be resolved (wrong name, namespace policy violation, missing resource), the condition will be <code>False</code> and the <code>WAF</code> will also surface the problem.</p>
+<h2 id="best-practices-for-platform-teams">Best Practices for Platform Teams</h2>
+<ol>
+<li><strong>Create a small number of curated profiles</strong> instead of letting every team build their own RuleSets.</li>
+<li><strong>Use labels consistently</strong> on all rules (<code>app</code>, <code>env</code>, <code>paranoia-level</code>, <code>owner</code>).</li>
+<li><strong>Keep RuleSets small and composable</strong> — prefer composition over giant monolithic lists.</li>
+<li><strong>Protect your RuleSets</strong> with RBAC so only security engineers can modify baseline profiles.</li>
+</ol>
+<h2 id="example-multi-tenant-setup">Example: Multi-Tenant Setup</h2>
+<pre tabindex="0"><code>Namespace: platform-security
+  RuleSet &#34;baseline&#34; (allowed from all)
+  RuleSet &#34;ecommerce&#34; (references baseline + extra)
+
+Namespace: team-payments
+  SecRule &#34;rate-limit-payments&#34; (labeled for ecommerce)
+
+Namespace: team-inventory
+  SecRule &#34;block-old-browsers&#34;
+</code></pre><p>A <code>WAF</code> in the payments namespace can reference the platform <code>ecommerce</code> RuleSet and automatically gets both the baseline and the team-specific rules.</p>
+<h2 id="next">Next</h2>
+<p>Learn how to <a href="/docs/security/using-crs/">enable the OWASP Core Rule Set</a> on top of (or instead of) your custom RuleSets.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-e284e6729abba829f8041e8e43ce1abf">3 - PhraseList and IPList</h1>
+    <div class="lead">Ship custom @pmFromFile and @ipMatchFromFile data via PhraseList and IPList</div>
+	<p>Custom SecLang rules often need <strong>external list files</strong>: scanner User-Agents
+(<code>@pmFromFile</code>) or client IP blocklists (<code>@ipMatchFromFile</code>). In kubeWAF those
+bodies are Kubernetes resources — not hand-mounted files on Envoy.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Resource</th>
+					<th>Operator</th>
+					<th>Content</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="/docs/reference/crds/phraselist/"><strong>PhraseList</strong></a></td>
+					<td><code>@pmFromFile</code> / <code>@pmf</code></td>
+					<td>Phrase tokens (one per line)</td>
+			</tr>
+			<tr>
+					<td><a href="/docs/reference/crds/iplist/"><strong>IPList</strong></a></td>
+					<td><code>@ipMatchFromFile</code> / <code>@ipMatchF</code></td>
+					<td>IPs and CIDRs (one per line)</td>
+			</tr>
+	</tbody>
+</table>
+<p>Stock OWASP CRS <code>*.data</code> files remain <strong>embedded</strong> (operator pack + wasm). You
+only create PhraseList/IPList for <strong>custom</strong> basenames (or intentional CRS overrides).</p>
+
+
+<div class="alert alert-info" role="alert">
+<h4 class="alert-heading">Always on</h4>
+
+    List injection into plugin <code>data_files</code> is <strong>always
+enabled</strong> for the WAF engine
+on the dataplane path.
+
+</div>
+
+<h2 id="end-to-end-flow">End-to-end flow</h2>
+<pre class="mermaid">flowchart LR
+  PL[PhraseList / IPList] --&gt; OP[Operator]
+  SR[SecRule basename] --&gt; OP
+  OP --&gt; DF[plugin data_files]
+  DF --&gt; WASM[modsecurity-proxy-wasm]</pre>
+<ol>
+<li>Create a <strong>PhraseList</strong> or <strong>IPList</strong> with <code>spec.fileName</code> ending in <code>.data</code>.</li>
+<li>Write a <strong>SecRule</strong> whose operator value equals that basename.</li>
+<li>Package the SecRule in a <strong>RuleSet</strong> (optional <code>phraseListRefs</code> / <code>ipListRefs</code>).</li>
+<li>Attach the RuleSet from a <strong>WAF</strong> with the product WAF in the <strong>same namespace</strong>.</li>
+<li>Operator resolves Ready lists → injects <code>data_files</code> → publishes ECDS.</li>
+</ol>
+<h2 id="phraselist-example">PhraseList example</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PhraseList</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">team-scanners</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">shop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">fileName</span><span class="p">:</span><span class="w"> </span><span class="l">team-scanners.data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    evil-scanner-bot
+</span></span></span><span class="line"><span class="cl"><span class="sd">    internal-recon-tool</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-team-scanners</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">shop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">shop-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST_HEADERS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">User-Agent]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pmFromFile</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">team-scanners.data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">100001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l">Team scanner UA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">deny</span><span class="w">
+</span></span></span></code></pre></div><h2 id="iplist-example">IPList example</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">IPList</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">edge-ip-blocklist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">shop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">fileName</span><span class="p">:</span><span class="w"> </span><span class="l">edge-ip-blocklist.data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">content</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    203.0.113.0/24
+</span></span></span><span class="line"><span class="cl"><span class="sd">    198.51.100.50</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-edge-ips</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">shop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">shop-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REMOTE_ADDR</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ipMatchFromFile</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">edge-ip-blocklist.data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">100002</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l">Edge IP blocklist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">deny</span><span class="w">
+</span></span></span></code></pre></div><h2 id="large-lists-configmap">Large lists (ConfigMap)</h2>
+<p>For bodies larger than comfortable inline YAML, use a ConfigMap in the same
+namespace:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">fileName</span><span class="p">:</span><span class="w"> </span><span class="l">big-blocklist.data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">configMapRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">big-blocklist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">entries.txt</span><span class="w">
+</span></span></span></code></pre></div><p>Or compose multiple keys with <code>parts</code> (in order; total ≤ 2 MiB).</p>
+<h2 id="packaging-refs-on-ruleset">Packaging refs on RuleSet</h2>
+<p>Optional <strong>presence checks</strong> so a RuleSet fails early if a named list is missing
+or not Ready. Refs do <strong>not</strong> inject unused files — only basenames that appear
+in assembled SecLang are injected (budget-friendly).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shop-rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">shop-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">phraseListRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">team-scanners</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ipListRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">edge-ip-blocklist</span><span class="w">
+</span></span></span></code></pre></div><h2 id="waf-policy-for-missing-lists">WAF policy for missing lists</h2>
+<p>When SecLang references a custom basename with no Ready PhraseList/IPList:</p>
+<table>
+	<thead>
+			<tr>
+					<th><code>spec.phraseListPolicy</code></th>
+					<th>Behavior</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>FailClosed</code> (default)</td>
+					<td>Refuse ECDS publish; WAF not Ready</td>
+			</tr>
+			<tr>
+					<td><code>IgnoreUnknown</code></td>
+					<td>Drop those SecLang lines and publish the rest</td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">phraseListPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">FailClosed</span><span class="w">
+</span></span></span></code></pre></div><p>Stock CRS basenames are always filled from the operator CRS pack (unless a
+PhraseList override is admitted with <code>seclang.kubewaf.io/allow-crs-override=true</code>).</p>
+<h2 id="verify">Verify</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get phraselist,iplist -n shop
+</span></span><span class="line"><span class="cl">kubectl get secrule -n shop   <span class="c1"># Ready after operator SecLang validation</span>
+</span></span><span class="line"><span class="cl">kubectl get waf shop-waf -n shop <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.dataFilesCount} {.status.conditions[?(@.type==&#34;PhraseListsResolved&#34;)]}{&#34;\n&#34;}&#39;</span>
+</span></span></code></pre></div><p>Status highlights:</p>
+<ul>
+<li><code>status.dataFilesCount</code> / <code>dataFilesRawBytes</code> — injected files</li>
+<li>Condition <code>PhraseListsResolved</code> — discovery outcome</li>
+</ul>
+<h2 id="constraints-v1">Constraints (v1)</h2>
+<ul>
+<li>Same namespace as the WAF only</li>
+<li>One Ready owner per <code>(namespace, fileName)</code> across PhraseList <strong>and</strong> IPList</li>
+<li>Max composed body <strong>2 MiB</strong> per list / per WAF inject raw total</li>
+<li>Labels <code>seclang.kubewaf.io/phrase-list</code> / <code>ip-list</code> are optional convenience markers</li>
+</ul>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/docs/reference/crds/phraselist/">PhraseList CRD</a></li>
+<li><a href="/docs/reference/crds/iplist/">IPList CRD</a></li>
+<li><a href="/docs/security/writing-rules/">Writing security rules</a></li>
+<li><a href="/docs/users/rulesets/">Using RuleSets</a></li>
+<li><a href="/docs/reference/crds/waf/">WAF CRD</a></li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-d2b6aa89fd8d4ce9c2ed524c0c1971ba">4 - Proof-of-Work challenge</h1>
+    <div class="lead">Enable and configure the optional PoW challenge filter on a WAF resource</div>
+	<p>kubeWAF can install an optional <strong>browser proof-of-work (PoW) challenge</strong> filter
+<strong>in front of</strong> the WAF engine. Clients without a valid clearance cookie must
+solve a short CPU challenge before their traffic is evaluated by ModSecurity.</p>
+<p>This page covers <strong>only what you configure on the <code>WAF</code> CR</strong>. For the filter’s
+internal design (cookies, crypto, standalone Envoy), see the separate
+<a href="/engines/pow-proxy-wasm/">pow-proxy-wasm</a> project docs.</p>
+<pre class="mermaid">flowchart LR
+  R[Client] --&gt; CH{challenge enabled?}
+  CH --&gt;|yes| P[pow-proxy-wasm]
+  CH --&gt;|no| W[modsecurity-proxy-wasm]
+  P --&gt; W
+  W --&gt; UP[Upstream]</pre>
+<hr>
+<h2 id="when-to-enable-it">When to enable it</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Use case</th>
+					<th>Fit</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Cheap bots / scrapers without a full JS runtime</td>
+					<td>Strong</td>
+			</tr>
+			<tr>
+					<td>Absorb bursty unauthenticated traffic before expensive WAF rules</td>
+					<td>Strong</td>
+			</tr>
+			<tr>
+					<td>“Pay with CPU” gate next to rate limiting</td>
+					<td>Strong</td>
+			</tr>
+			<tr>
+					<td>Hard identity / account takeover</td>
+					<td>Weak — use auth</td>
+			</tr>
+			<tr>
+					<td>True one-time tokens with cluster-wide shared state</td>
+					<td>Not this design</td>
+			</tr>
+	</tbody>
+</table>
+<p>Place challenge <strong>after</strong> coarse rate limiting and <strong>before</strong> WAF / auth filters
+(the operator installs it immediately before the WAF filter in the chain).</p>
+<hr>
+<h2 id="enable-on-a-waf">Enable on a WAF</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">WAF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shop-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">shop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">EnvoyGateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targetRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">external</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shop-rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">challenge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># HMAC is auto-managed — no secret required for the default path</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">baseDifficulty</span><span class="p">:</span><span class="w"> </span><span class="m">18</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">minDifficulty</span><span class="p">:</span><span class="w"> </span><span class="m">12</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">maxDifficulty</span><span class="p">:</span><span class="w"> </span><span class="m">26</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">header</span><span class="p">:</span><span class="w"> </span><span class="l">x-challenge-passed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">headerValue</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>When <code>spec.challenge</code> is present and enabled, the operator:</p>
+<ol>
+<li>Resolves (or creates) the HMAC Secret</li>
+<li>Publishes a second ECDS resource for the challenge filter</li>
+<li>Inserts the challenge filter <strong>before</strong> the WAF filter in the provider slot</li>
+</ol>
+<hr>
+<h2 id="specchallenge-properties"><code>spec.challenge</code> properties</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Field</th>
+					<th>Type</th>
+					<th>Default</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>enabled</code></td>
+					<td><code>bool</code></td>
+					<td><code>true</code> when the block is present</td>
+					<td>Install the challenge filter when <code>true</code></td>
+			</tr>
+			<tr>
+					<td><code>secret</code></td>
+					<td><code>string</code></td>
+					<td>empty</td>
+					<td>Optional <strong>plaintext</strong> HMAC override (≥ 32 bytes). Dev / break-glass only</td>
+			</tr>
+			<tr>
+					<td><code>secretRef</code></td>
+					<td><code>{ name, key }</code></td>
+					<td>empty</td>
+					<td>Use an existing Secret in the <strong>same namespace</strong> as the WAF</td>
+			</tr>
+			<tr>
+					<td><code>baseDifficulty</code></td>
+					<td><code>int</code> (1–32)</td>
+					<td><code>18</code></td>
+					<td>Default PoW difficulty (leading zero bits in SHA-256)</td>
+			</tr>
+			<tr>
+					<td><code>minDifficulty</code></td>
+					<td><code>int</code> (1–32)</td>
+					<td>(filter default 12)</td>
+					<td>Lower bound for adaptive difficulty</td>
+			</tr>
+			<tr>
+					<td><code>maxDifficulty</code></td>
+					<td><code>int</code> (1–32)</td>
+					<td>(filter default 26)</td>
+					<td>Upper bound for adaptive difficulty</td>
+			</tr>
+			<tr>
+					<td><code>header</code></td>
+					<td><code>string</code></td>
+					<td>empty</td>
+					<td>Optional response header name injected after a successful pass</td>
+			</tr>
+			<tr>
+					<td><code>headerValue</code></td>
+					<td><code>string</code></td>
+					<td>empty</td>
+					<td>Value for <code>header</code></td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="difficulty-intuition">Difficulty intuition</h3>
+<p>Higher <code>baseDifficulty</code> means more client CPU before the first request succeeds.
+Rough order of magnitude (device-dependent):</p>
+<table>
+	<thead>
+			<tr>
+					<th><code>baseDifficulty</code></th>
+					<th>Expected SHA-256 tries</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>12</td>
+					<td>~4k (light)</td>
+			</tr>
+			<tr>
+					<td>18</td>
+					<td>~260k (default)</td>
+			</tr>
+			<tr>
+					<td>22</td>
+					<td>~4M</td>
+			</tr>
+			<tr>
+					<td>26</td>
+					<td>~67M (heavy)</td>
+			</tr>
+	</tbody>
+</table>
+<p>Tune under real traffic; pair with rate limits for bots that never solve.</p>
+<hr>
+<h2 id="hmac-secret-management">HMAC secret management</h2>
+<p>The challenge filter needs a shared HMAC secret on <strong>every</strong> Envoy replica.</p>
+<table>
+	<thead>
+			<tr>
+					<th>Mode</th>
+					<th>How</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>Default (recommended)</strong></td>
+					<td>Operator creates Secret <code>&lt;waf-name&gt;-challenge-hmac</code> in the WAF namespace, key <code>hmac</code> (32 random bytes, base64url). Owned by the WAF; stable across reconciles so clearance cookies keep working</td>
+			</tr>
+			<tr>
+					<td><strong>SecretRef</strong></td>
+					<td><code>secretRef: { name: my-hmac, key: hmac }</code> — bring your own Secret</td>
+			</tr>
+			<tr>
+					<td><strong>Inline</strong></td>
+					<td><code>secret: &quot;…&quot;</code> — plaintext in the CR (≥ 32 bytes; avoid in production)</td>
+			</tr>
+	</tbody>
+</table>
+<p>Priority: inline <code>secret</code> → <code>secretRef</code> → managed Secret.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Bring your own Secret</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">challenge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">secretRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">shop-challenge-hmac</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">hmac</span><span class="w">
+</span></span></span></code></pre></div><p>Rotate a <strong>managed</strong> secret by deleting it and letting the controller recreate it
+(existing browser clearances will invalidate).</p>
+<hr>
+<h2 id="status-fields">Status fields</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get waf shop-waf -n shop -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.status.challengeEnabled}{&#34; &#34;}{.status.challengeSecretName}{&#34;\n&#34;}&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># true shop-waf-challenge-hmac</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>Status field</th>
+					<th>Meaning</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>challengeEnabled</code></td>
+					<td>Challenge filter is installed for this WAF</td>
+			</tr>
+			<tr>
+					<td><code>challengeSecretName</code></td>
+					<td>Secret name used for HMAC (managed or <code>secretRef</code> name)</td>
+			</tr>
+	</tbody>
+</table>
+<p>Also check overall WAF conditions (<code>Ready</code>, <code>ReferencesResolved</code>) as usual.</p>
+<hr>
+<h2 id="what-the-operator-wires">What the operator wires</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Piece</th>
+					<th>Value</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>ECDS name (challenge)</td>
+					<td><code>kubewaf/&lt;namespace&gt;/&lt;waf-name&gt;/challenge</code></td>
+			</tr>
+			<tr>
+					<td>ECDS name (WAF)</td>
+					<td><code>kubewaf/&lt;namespace&gt;/&lt;waf-name&gt;</code></td>
+			</tr>
+			<tr>
+					<td>Default wasm path</td>
+					<td><code>GET /wasm/challenge-proxy-wasm.wasm</code> on the operator wasm server</td>
+			</tr>
+	</tbody>
+</table>
+<p>You normally do <strong>not</strong> set raw plugin JSON — the controller maps CR fields + the
+resolved HMAC into the filter config.</p>
+<p>The challenge Wasm binary is served from the operator at
+<code>/wasm/challenge-proxy-wasm.wasm</code> (also under <code>KO_DATA_PATH/wasm</code> in ko images).</p>
+<hr>
+<h2 id="minimal-examples">Minimal examples</h2>
+<h3 id="challenge--crs">Challenge + CRS</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">challenge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">baseDifficulty</span><span class="p">:</span><span class="w"> </span><span class="m">16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">app-rules</span><span class="w">
+</span></span></span></code></pre></div><h3 id="disable-without-removing-the-block">Disable without removing the block</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">challenge</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></div><hr>
+<h2 id="troubleshooting-operator-view">Troubleshooting (operator view)</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Symptom</th>
+					<th>What to check</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>challengeEnabled=false</code> but you expected true</td>
+					<td><code>spec.challenge</code> missing or <code>enabled: false</code></td>
+			</tr>
+			<tr>
+					<td>Filter never loads</td>
+					<td>Operator serves <code>/wasm/challenge-proxy-wasm.wasm</code>; check ECDS status</td>
+			</tr>
+			<tr>
+					<td>Always challenge page in browser</td>
+					<td>Cookies blocked; clock skew; see <a href="/engines/pow-proxy-wasm/troubleshooting/">pow-proxy-wasm troubleshooting</a></td>
+			</tr>
+			<tr>
+					<td>Clearance works then fails after ~30 min</td>
+					<td>Expected clearance lifetime — re-solve</td>
+			</tr>
+			<tr>
+					<td>Wrong Secret</td>
+					<td><code>status.challengeSecretName</code>; Secret exists and is ≥ 32 bytes when BYO</td>
+			</tr>
+	</tbody>
+</table>
+<p>General data-plane checks: <a href="/docs/platform/troubleshooting/">Troubleshooting</a>,
+<a href="/docs/platform/dataplane-ecds/">Data plane (ECDS)</a>.</p>
+<hr>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="/docs/reference/crds/waf/">WAF CRD reference</a> — full field list</li>
+<li><a href="/docs/platform/engine/">WAF engine</a> — ModSecurity wasm and CRS</li>
+<li><a href="/engines/pow-proxy-wasm/">pow-proxy-wasm</a> — filter internals, standalone Envoy, security model</li>
+</ul>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/kubewaf" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="X / Twitter" aria-label="X / Twitter">
+    <a target="_blank" rel="noopener" href="https://x.com/kubewaf" aria-label="X / Twitter">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="pow-proxy-wasm" aria-label="pow-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/pow-proxy-wasm" aria-label="pow-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Website repo" aria-label="Website repo">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/website" aria-label="Website repo">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2026
+    <span class="td-footer__authors">Buzz-IT GmbH and kubeWAF contributors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script defer src="/js/click-to-copy.js" crossorigin="anonymous"></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "kubewaf-website",
+  "version": "0.1.0",
+  "description": "kubeWAF website and documentation (Hugo + Docsy, Kubernetes-style)",
+  "private": true,
+  "scripts": {
+    "build": "hugo --gc --minify",
+    "serve": "hugo server --bind 0.0.0.0 --buildFuture",
+    "clean": "rm -rf public resources/_gen"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "docsy": "github:google/docsy#semver:0.11.0",
+    "postcss": "^8.4.49",
+    "postcss-cli": "^11.0.0"
+  }
+}

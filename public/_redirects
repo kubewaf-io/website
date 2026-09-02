@@ -1,0 +1,157 @@
+# Netlify / GitHub Pages compatible redirects
+# Role-first IA: get-started | platform | users | security | reference | contribute
+
+# ---------------------------------------------------------------------------
+# Canonical docs entry
+# ---------------------------------------------------------------------------
+/docs            /docs/home/   301
+/docs/           /docs/home/   301
+/documentation   /docs/home/   301
+/documentation/  /docs/home/   301
+
+# ---------------------------------------------------------------------------
+# Previous Hugo IA (concepts / setup / tasks / tutorials)
+# ---------------------------------------------------------------------------
+/docs/concepts/why-kubewaf/*     /docs/get-started/why-kubewaf/:splat     301
+/docs/concepts/why-kubewaf       /docs/get-started/why-kubewaf/           301
+/docs/concepts/core-concepts/*   /docs/get-started/core-concepts/:splat   301
+/docs/concepts/core-concepts     /docs/get-started/core-concepts/         301
+/docs/concepts/architecture/*    /docs/get-started/architecture/:splat    301
+/docs/concepts/architecture      /docs/get-started/architecture/          301
+/docs/concepts/*                 /docs/get-started/:splat                 301
+/docs/concepts                   /docs/get-started/                       301
+
+/docs/setup/quickstart/*         /docs/get-started/quickstart/:splat      301
+/docs/setup/quickstart           /docs/get-started/quickstart/            301
+/docs/setup/installation/*       /docs/platform/installation/:splat       301
+/docs/setup/installation         /docs/platform/installation/             301
+/docs/setup/*                    /docs/platform/:splat                    301
+/docs/setup                      /docs/platform/                          301
+
+/docs/tutorials/protect-a-service/*  /docs/users/protect-a-service/:splat 301
+/docs/tutorials/protect-a-service    /docs/users/protect-a-service/       301
+/docs/tutorials/*                    /docs/users/:splat                   301
+/docs/tutorials                      /docs/users/                          301
+
+/docs/tasks/writing-rules/*      /docs/security/writing-rules/:splat      301
+/docs/tasks/writing-rules        /docs/security/writing-rules/            301
+/docs/tasks/using-crs/*          /docs/security/using-crs/:splat          301
+/docs/tasks/using-crs            /docs/security/using-crs/                301
+/docs/users/using-crs/*          /docs/security/using-crs/:splat          301
+/docs/users/using-crs            /docs/security/using-crs/                301
+/docs/tasks/rulesets/*           /docs/users/rulesets/:splat              301
+/docs/tasks/rulesets             /docs/users/rulesets/                    301
+/docs/tasks/challenge/*          /docs/users/challenge/:splat             301
+/docs/tasks/challenge             /docs/users/challenge/                    301
+/docs/tasks/engine/*              /docs/platform/engine/:splat              301
+/docs/tasks/engine               /docs/platform/engine/                    301
+/docs/tasks/dataplane-ecds/*     /docs/platform/dataplane-ecds/:splat     301
+/docs/tasks/dataplane-ecds       /docs/platform/dataplane-ecds/           301
+/docs/tasks/envoy-gateway/*      /docs/platform/providers/envoy-gateway/:splat 301
+/docs/tasks/envoy-gateway        /docs/platform/providers/envoy-gateway/   301
+/docs/tasks/istio/*              /docs/platform/providers/istio/:splat     301
+/docs/tasks/istio                 /docs/platform/providers/istio/           301
+/docs/tasks/cilium/*             /docs/platform/providers/cilium/:splat    301
+/docs/tasks/cilium                /docs/platform/providers/cilium/          301
+/docs/tasks/observability/*       /docs/platform/observability/:splat       301
+/docs/tasks/observability         /docs/platform/observability/             301
+/docs/platform/probes/*           /docs/platform/observability/probes/:splat 301
+/docs/platform/probes             /docs/platform/observability/probes/       301
+/docs/tasks/troubleshooting/*     /docs/platform/troubleshooting/:splat     301
+/docs/tasks/troubleshooting       /docs/platform/troubleshooting/           301
+/docs/tasks/*                     /docs/users/:splat                        301
+/docs/tasks                      /docs/users/                              301
+
+/docs/reference/seclang-structure/*  /docs/security/seclang-structure/:splat 301
+/docs/reference/seclang-structure    /docs/security/seclang-structure/       301
+/docs/reference/seclang-crs-gaps/*   /docs/contribute/seclang-crs-gaps/:splat 301
+/docs/reference/seclang-crs-gaps     /docs/contribute/seclang-crs-gaps/      301
+
+/docs/contribute/ai/*            /docs/security/ai/:splat                 301
+/docs/contribute/ai               /docs/security/ai/                       301
+
+# ---------------------------------------------------------------------------
+# MkDocs / flat paths
+# ---------------------------------------------------------------------------
+/docs/getting-started/quickstart/*   /docs/get-started/quickstart/:splat  301
+/docs/getting-started/quickstart     /docs/get-started/quickstart/        301
+/docs/getting-started/installation/* /docs/platform/installation/:splat   301
+/docs/getting-started/installation   /docs/platform/installation/         301
+/docs/getting-started/*              /docs/get-started/:splat             301
+/docs/getting-started                /docs/get-started/                   301
+
+/docs/operator/writing-rules/*   /docs/security/writing-rules/:splat      301
+/docs/operator/writing-rules     /docs/security/writing-rules/            301
+/docs/operator/using-crs/*       /docs/security/using-crs/:splat          301
+/docs/operator/using-crs         /docs/security/using-crs/                301
+/docs/operator/rulesets/*        /docs/users/rulesets/:splat              301
+/docs/operator/rulesets          /docs/users/rulesets/                    301
+/docs/operator/envoy-gateway/*   /docs/platform/providers/envoy-gateway/:splat 301
+/docs/operator/envoy-gateway     /docs/platform/providers/envoy-gateway/   301
+/docs/operator/istio/*           /docs/platform/providers/istio/:splat     301
+/docs/operator/istio              /docs/platform/providers/istio/           301
+/docs/operator/cilium/*          /docs/platform/providers/cilium/:splat    301
+/docs/operator/cilium             /docs/platform/providers/cilium/          301
+/docs/operator/observability/*    /docs/platform/observability/:splat       301
+/docs/operator/observability      /docs/platform/observability/             301
+/docs/operator/dataplane-ecds/*   /docs/platform/dataplane-ecds/:splat      301
+/docs/operator/dataplane-ecds    /docs/platform/dataplane-ecds/            301
+/docs/operator/*                  /docs/users/:splat                        301
+/docs/operator                   /docs/users/                              301
+
+/docs/guides/*                   /docs/users/:splat                        301
+/docs/guides                     /docs/users/                              301
+/docs/troubleshooting            /docs/platform/troubleshooting/            301
+/docs/troubleshooting/           /docs/platform/troubleshooting/            301
+/docs/ai/*                       /docs/security/ai/:splat                  301
+/docs/ai                         /docs/security/ai/                        301
+/docs/contributing               /docs/contribute/contributing/             301
+
+# ---------------------------------------------------------------------------
+# Fumadocs multi-root (/docs/kubewaf/...)
+# ---------------------------------------------------------------------------
+/docs/kubewaf/getting-started/quickstart/*   /docs/get-started/quickstart/:splat  301
+/docs/kubewaf/getting-started/quickstart     /docs/get-started/quickstart/        301
+/docs/kubewaf/getting-started/installation/* /docs/platform/installation/:splat   301
+/docs/kubewaf/getting-started/installation   /docs/platform/installation/         301
+/docs/kubewaf/getting-started/*              /docs/get-started/:splat             301
+/docs/kubewaf/concepts/*                     /docs/get-started/:splat             301
+/docs/kubewaf/operator/writing-rules/*       /docs/security/writing-rules/:splat  301
+/docs/kubewaf/operator/writing-rules         /docs/security/writing-rules/        301
+/docs/kubewaf/operator/using-crs/*           /docs/security/using-crs/:splat      301
+/docs/kubewaf/operator/using-crs             /docs/security/using-crs/            301
+/docs/kubewaf/operator/rulesets/*            /docs/users/rulesets/:splat          301
+/docs/kubewaf/operator/rulesets              /docs/users/rulesets/                301
+/docs/kubewaf/operator/envoy-gateway/*       /docs/platform/providers/envoy-gateway/:splat 301
+/docs/kubewaf/operator/envoy-gateway         /docs/platform/providers/envoy-gateway/   301
+/docs/kubewaf/operator/istio/*               /docs/platform/providers/istio/:splat 301
+/docs/kubewaf/operator/istio                 /docs/platform/providers/istio/       301
+/docs/kubewaf/operator/cilium/*              /docs/platform/providers/cilium/:splat 301
+/docs/kubewaf/operator/cilium                /docs/platform/providers/cilium/      301
+/docs/kubewaf/operator/observability/*       /docs/platform/observability/:splat   301
+/docs/kubewaf/operator/observability         /docs/platform/observability/         301
+/docs/kubewaf/operator/challenge/*           /docs/users/challenge/:splat          301
+/docs/kubewaf/operator/challenge             /docs/users/challenge/                301
+/docs/kubewaf/operator/engine/*              /docs/platform/engine/:splat          301
+/docs/kubewaf/operator/engine                /docs/platform/engine/                301
+/docs/kubewaf/operator/dataplane-ecds/*      /docs/platform/dataplane-ecds/:splat  301
+/docs/kubewaf/operator/dataplane-ecds        /docs/platform/dataplane-ecds/        301
+/docs/kubewaf/operator/*                     /docs/users/:splat                    301
+/docs/kubewaf/guides/*                       /docs/users/:splat                    301
+/docs/kubewaf/ai/*                           /docs/security/ai/:splat              301
+/docs/kubewaf/contributing                   /docs/contribute/contributing/         301
+/docs/kubewaf/troubleshooting                /docs/platform/troubleshooting/        301
+/docs/kubewaf/reference/seclang-structure/*  /docs/security/seclang-structure/:splat 301
+/docs/kubewaf/reference/seclang-structure    /docs/security/seclang-structure/     301
+/docs/kubewaf/reference/*                    /docs/reference/:splat                301
+/docs/kubewaf                               /docs/home/                           301
+/docs/kubewaf/                              /docs/home/                           301
+/docs/kubewaf/*                             /docs/:splat                          301
+
+# ---------------------------------------------------------------------------
+# Engines moved out of /docs
+# ---------------------------------------------------------------------------
+/docs/modsecurity-proxy-wasm/*  /engines/modsecurity-proxy-wasm/:splat  301
+/docs/modsecurity-proxy-wasm    /engines/modsecurity-proxy-wasm/        301
+/docs/pow-proxy-wasm/*          /engines/pow-proxy-wasm/:splat          301
+/docs/pow-proxy-wasm            /engines/pow-proxy-wasm/                301

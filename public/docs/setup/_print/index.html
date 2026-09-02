@@ -1,0 +1,654 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="http://localhost:1313/docs/setup/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Setup | kubeWAF</title>
+<meta name="description" content="Install kubeWAF and get a protected workload running.">
+<meta property="og:url" content="http://localhost:1313/docs/setup/">
+  <meta property="og:site_name" content="kubeWAF">
+  <meta property="og:title" content="Setup">
+  <meta property="og:description" content="Install kubeWAF and get a protected workload running.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="website">
+
+  <meta itemprop="name" content="Setup">
+  <meta itemprop="description" content="Install kubeWAF and get a protected workload running.">
+  <meta itemprop="wordCount" content="24">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Setup">
+  <meta name="twitter:description" content="Install kubeWAF and get a protected workload running.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<script defer
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand navbar-brand--wordmark" href="/"><span class="navbar-brand__logo navbar-logo" aria-hidden="true"><svg width="213.20622" height="225.15996" viewBox="0 0 213.20622 225.15996" id="svg27" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004 14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188z" id="path2"/><defs id="defs3"><linearGradient id="gradient_0" gradientUnits="userSpaceOnUse" x1="589.20081" y1="512.99628" x2="473.38596" y2="388.51822" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0A0C4F" id="stop2"/><stop offset="1" stop-color="#424C6F" id="stop3"/></linearGradient></defs><path fill="url(#gradient_0)" d="m146.13586 3.6211486c14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188.579-.989-.35-3.624-.685-5.088 3.1519998-3.601 8.4379998-6.474 11.7719998-10.964 3.511-4.728 5.299-9.939 8.869-14.283 1.33-1.618 1.625-1.858 2.935-3.791 1.796 15.303 3.771 27.301 11.548 41.106 13.404 23.794 38.907 40.066 64.864998 47.128 27.544-10.416 57.667-29.432 67.578-58.957 8.793-26.197 8.932-61.471001 9.499-89.134001-17.076-8.488-32.759-11.597-50.901-15.833l-.126-.497c-1.374-.767-3.677-.688-5.525-.919l.764-1.178c-.587-1.575-1.504-1.835-3.084-3.068-9.059.323-21.261-.311-30.474998-.565 1.929-.296 3.998-.437 5.952998-.616l-.14-.096c6.957-.98 12.41-.539 19.168-.463 4.19.048 14.55.918 17.224-2.371 2.818-3.467 8.229-8.143 8.254-12.8900004-1.412-2.418-1.036-2.038.24-4.344z" id="path3" style="fill:url(#gradient_0)"/><path fill="#151a56" d="m140.89786 206.83415 2.842.098c1.306 1.205.891.843 1.195 3.095-2.621-.593-3.366-.476-4.037-3.193z" id="path4"/><defs id="defs5"><linearGradient id="gradient_1" gradientUnits="userSpaceOnUse" x1="483.04602" y1="411.67349" x2="428.73672" y2="346.27155" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#404872" id="stop4"/><stop offset="1" stop-color="#5C638E" id="stop5"/></linearGradient></defs><path fill="url(#gradient_1)" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004-1.276 2.306-1.652 1.926-.24 4.344-.025 4.7470004-5.436 9.4230004-8.254 12.8900004-2.674 3.289-13.034 2.419-17.224 2.371-6.758-.076-12.211-.517-19.168.463l.14.096c-1.954998.179-4.023998.32-5.952998.616 9.213998.254 21.415998.888 30.474998.565 1.58 1.233 2.497 1.493 3.084 3.068l-.764 1.178c1.848.231 4.151.152 5.525.919l.126.497c-8.914-.925-16.804-2.06-25.819-2.27-21.555998-.5-61.921998 7.853-79.789998 19.033-.107 12.39.254 24.78 1.082 37.143.425 5.977 1.803 16.338001 1.938 21.784001-1.31 1.933-1.605 2.173-2.935 3.791-3.57 4.344-5.358 9.555-8.869 14.283-3.334 4.49-8.62 7.363-11.7719998 10.964.335 1.464 1.264 4.099.685 5.088z" id="path5" style="fill:url(#gradient_1)"/><defs id="defs7"><linearGradient id="gradient_2" gradientUnits="userSpaceOnUse" x1="554.13184" y1="491.51929" x2="456.88196" y2="380.24194" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0C0F4D" id="stop6"/><stop offset="1" stop-color="#50597D" id="stop7"/></linearGradient></defs><path fill="url(#gradient_2)" d="m46.459862 53.001149c38.293.588 73.198998 14.136 97.676998 44.661 8.014 9.994001 17.46 27.879001 19.116 40.659001-2.767 4.997-9.384 13.211-13.174 17.527-3.151 3.452-5.084 5.489-8.592 8.527-3.549-22.113-10.347-39.586-26.174-55.94C96.179862 88.665149 69.149862 78.193149 41.785862 77.806149c-.562-8.163-.672-16.21-1.39-24.439z" id="path7" style="fill:url(#gradient_2)"/><defs id="defs9"><linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="531.65125" y1="508.89108" x2="449.51163" y2="423.61743" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0D114E" id="stop8"/><stop offset="1" stop-color="#40486E" id="stop9"/></linearGradient></defs><path fill="url(#gradient_3)" d="m42.262862 89.112149c45.934-.866 82.826998 30.710001 87.945998 76.825001.247 2.222.42 4.456.611 6.683l-6.23 3.427c-5.431 2.765-11.039 5.572-16.894 7.311-6.631-35.416-24.351998-63.049-63.311998-65.17-.954-9.866-1.793-19.172001-2.121-29.076001z" id="path9" style="fill:url(#gradient_3)"/><defs id="defs11"><linearGradient id="gradient_4" gradientUnits="userSpaceOnUse" x1="555.38397" y1="458.08862" x2="518.14459" y2="365.63565" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#13184A" id="stop10"/><stop offset="1" stop-color="#454D77" id="stop11"/></linearGradient></defs><path fill="url(#gradient_4)" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343 16.075.106 40.719 7.133 55.579 13.522-.047 20.932-1.039 41.851-2.974 62.694001-16.209-33.277001-40.661-56.289001-76.064998-68.406001-5.876-1.979-11.87-3.588-17.947-4.817 5.561-1.166 12.429-2.071 18.133-2.65z" id="path11" style="fill:url(#gradient_4)"/><path fill="#464b75" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343l-.882.036c-7.937.374-13.967 5.056-19.234998 1.156-.916-.678-2.019-.729-3.157-.849z" id="path12"/><defs id="defs13"><linearGradient id="gradient_5" gradientUnits="userSpaceOnUse" x1="375.65991" y1="706.92682" x2="292.69623" y2="613.95709"><stop offset="0" stop-color="#567BED" id="stop12"/><stop offset="1" stop-color="#7AA1F6" id="stop13"/></linearGradient></defs></svg></span><span class="navbar-brand__name" aria-label="kubeWAF">
+      <span class="navbar-brand__kube">kube</span><span class="navbar-brand__waf">WAF</span>
+    </span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/home/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/engines/"><span>Engines</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/docs/setup/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Setup</h1>
+<div class="lead">Install kubeWAF and get a protected workload running.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-98796f7a5a40c5fc5d0a3749fdfd2d82">Quick Start</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-3cb0a456c66ff9338fe67883b9b8bb9e">Installation</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>Install the operator, load Wasm modules, and walk through a minimal protected service.</p>
+
+
+<div class="pageinfo pageinfo-primary">
+<p><strong>Recommended path:</strong> <a href="/docs/setup/installation/">Installation</a> → <a href="/docs/setup/quickstart/">Quick start</a> → provider guide under <a href="/docs/tasks/">Tasks</a>.</p>
+
+</div>
+
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="">
+    
+	<h1 id="pg-98796f7a5a40c5fc5d0a3749fdfd2d82">1 - Quick Start</h1>
+    <div class="lead">Deploy a protected service end to end with kubeWAF</div>
+	<p>Get a working WAF-protected HTTP service in under 10 minutes.</p>
+<h2 id="assumptions">Assumptions</h2>
+<ul>
+<li>You have <a href="/docs/setup/installation/">installed the operator</a> with a wasm binary (<code>dataplane.wasmSourceURL</code> or similar)</li>
+<li>You use <strong>Envoy Gateway</strong> for this walkthrough (Istio/Cilium: see <a href="/docs/tasks/dataplane-ecds/">provider guides</a>)</li>
+<li>Envoy Gateway <strong>extensionManager</strong> points at kubeWAF port <strong>5005</strong> (<a href="/docs/tasks/envoy-gateway/#configure-envoy-gateway-extension-server">setup</a>)</li>
+</ul>
+<h2 id="1-install-envoy-gateway-if-not-already-present">1. Install Envoy Gateway (if not already present)</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm install eg oci://docker.io/envoyproxy/gateway-helm <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --version v1.8.0 <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --namespace envoy-gateway-system <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --create-namespace
+</span></span></code></pre></div><p>Wait for it to be ready:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl <span class="nb">wait</span> --timeout<span class="o">=</span>5m -n envoy-gateway-system deployment/envoy-gateway --for<span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available
+</span></span></code></pre></div><p>Configure the EG Extension Server as described in the <a href="/docs/tasks/envoy-gateway/">Envoy Gateway guide</a>, then restart Envoy Gateway.</p>
+<h2 id="2-create-a-simple-backend-application">2. Create a simple Backend Application</h2>
+<p>We'll use a basic <code>httpbin</code> pod as our protected backend.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># backend.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Namespace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Pod</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">kennethreitz/httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div><p>Apply it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f backend.yaml
+</span></span></code></pre></div><h2 id="3-create-a-gateway-and-httproute-standard-gateway-api">3. Create a Gateway and HTTPRoute (standard Gateway API)</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># gateway.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gatewayClassName</span><span class="p">:</span><span class="w"> </span><span class="l">eg</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">listeners</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">allowedRoutes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">from</span><span class="p">:</span><span class="w"> </span><span class="l">Same</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parentRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hostnames</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="s2">&#34;demo.local&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">rules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">matches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">path</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">PathPrefix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">backendRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">httpbin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div><p>Apply:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f gateway.yaml
+</span></span></code></pre></div><h2 id="4-define-a-simple-security-rule">4. Define a Simple Security Rule</h2>
+<p>Let's create a rule that blocks requests containing a known malicious pattern in the <code>User-Agent</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># rule-block-bad-ua.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-bad-user-agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">demo-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secLangRules</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">100001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Blocked malicious User-Agent&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ERROR&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;attack-generic&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST_HEADERS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">collection</span><span class="p">:</span><span class="w"> </span><span class="l">User-Agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">(?:nikto|sqlmap|nessus|openvas)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">deny</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">status</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">statusActionType</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;403&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Malicious scanner detected&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>Apply the rule:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f rule-block-bad-ua.yaml
+</span></span></code></pre></div><h2 id="5-group-the-rule-into-a-ruleset">5. Group the Rule into a RuleSet</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># ruleset-demo.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">demo-waf</span><span class="w">
+</span></span></span></code></pre></div><p>Apply:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f ruleset-demo.yaml
+</span></span></code></pre></div><h2 id="6-attach-waf-policy-to-your-route">6. Attach WAF Policy to Your Route</h2>
+<h2 id="6-attach-waf-policy-to-your-gateway">6. Attach WAF Policy to Your Gateway</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># waf-policy.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">WAF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-waf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">engine</span><span class="p">:</span><span class="w"> </span><span class="l">ModSecurity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">EnvoyGateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">parentRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">targetRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">demo-rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logLevel</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span></span></span></code></pre></div><p>Apply:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f waf-policy.yaml
+</span></span><span class="line"><span class="cl">kubectl get waf demo-waf -n demo -o yaml   <span class="c1"># Ready, ecdsResourceName, slotKind=ExtensionServer</span>
+</span></span></code></pre></div><h2 id="7-test-the-protection">7. Test the Protection</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Find the Envoy proxy Service created by Envoy Gateway</span>
+</span></span><span class="line"><span class="cl">kubectl get svc -n envoy-gateway-system
+</span></span></code></pre></div><p>Send a normal request:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -H <span class="s2">&#34;Host: demo.local&#34;</span> http://&lt;envoy-svc-or-port-forward&gt;/get
+</span></span></code></pre></div><p>Blocked User-Agent:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -H <span class="s2">&#34;Host: demo.local&#34;</span> -H <span class="s2">&#34;User-Agent: sqlmap/1.0&#34;</span> http://&lt;envoy&gt;/get -I
+</span></span></code></pre></div><p>You should receive <strong>403 Forbidden</strong> from the WAF (modsecurity-proxy-wasm).</p>
+<h2 id="8-enable-the-owasp-core-rule-set-optional">8. Enable the OWASP Core Rule Set (optional)</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl patch waf demo-waf -n demo --type merge -p <span class="s1">&#39;{&#34;spec&#34;:{&#34;crsEnable&#34;:true}}&#39;</span>
+</span></span></code></pre></div><p>The operator publishes a new ECDS snapshot (no slot rewrite). CRS setup ordering and optional <code>spec.crs</code> tuning are applied automatically.</p>
+<h2 id="what-just-happened">What just happened?</h2>
+<pre class="mermaid">sequenceDiagram
+  participant You
+  participant API as Kubernetes
+  participant KW as kubeWAF
+  participant EG as Envoy Gateway
+  participant Envoy
+
+  You-&gt;&gt;API: SecRule &#43; RuleSet &#43; WAF
+  API-&gt;&gt;KW: reconcile
+  KW-&gt;&gt;KW: ECDS publish &#43; Extension Server index
+  EG-&gt;&gt;KW: xDS hooks
+  EG-&gt;&gt;Envoy: listener with config_discovery
+  Envoy-&gt;&gt;KW: ECDS &#43; wasm HTTP
+  Note over Envoy: sqlmap UA → 403</pre>
+<ol>
+<li>Structured <code>SecRule</code> in Git-friendly YAML</li>
+<li>Grouped into a <code>RuleSet</code></li>
+<li><code>WAF</code> attached to the Gateway</li>
+<li>Config pushed over <strong>ECDS</strong>; EG Extension Server installed the filter stub</li>
+<li>modsecurity-proxy-wasm blocks scanners before the app</li>
+</ol>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li><a href="/docs/concepts/architecture/">Architecture diagrams</a></li>
+<li><a href="/docs/tasks/writing-rules/">Writing rules</a> · <a href="/docs/tasks/using-crs/">CRS</a></li>
+<li>Other providers: <a href="/docs/tasks/istio/">Istio</a> · <a href="/docs/tasks/cilium/">Cilium</a></li>
+<li><a href="/docs/reference/crds/waf/">WAF CRD reference</a></li>
+</ul>
+<p>Congratulations — you have a Kubernetes-native, multi-gateway WAF path.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-3cb0a456c66ff9338fe67883b9b8bb9e">2 - Installation</h1>
+    <div class="lead">Install the kubeWAF operator on a Kubernetes cluster with Helm</div>
+	<p>This guide covers installing the kubeWAF operator on a Kubernetes cluster.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>Kubernetes <strong>1.25+</strong></li>
+<li><code>kubectl</code> and <strong>Helm 3.8+</strong></li>
+<li>A data plane you will protect:
+<ul>
+<li><strong>Envoy Gateway</strong> (recommended starting point), and/or</li>
+<li><strong>Istio</strong>, and/or</li>
+<li><strong>Cilium</strong> (CEC slot; Wasm enforcement depends on build)</li>
+</ul>
+</li>
+</ul>
+<h2 id="recommended-helm">Recommended: Helm</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm repo add kubewaf https://kubewaf-io.github.io/charts
+</span></span><span class="line"><span class="cl">helm repo update
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">helm install kubewaf kubewaf/kubewaf <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --namespace kubewaf-system <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --create-namespace <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --set dataplane.modsecurityWasmSourceURL<span class="o">=</span>https://example.com/modsecurity-proxy-wasm.wasm <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>  --set dataplane.challengeWasmSourceURL<span class="o">=</span>https://example.com/challenge-proxy-wasm.wasm
+</span></span></code></pre></div>
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Wasm modules</h4>
+
+    Envoy fetches Wasm over HTTP. Provide source URLs <strong>or</strong> mount files under
+<code>/wasm</code> for <strong>modsecurity-proxy-wasm</strong> and optional <strong>challenge</strong> (PoW).
+Monorepo: <code>make wasm-build</code> → <code>dist/wasm/</code>.<br>
+See <a href="/docs/tasks/engine/">WAF engine</a>, <a href="/docs/tasks/challenge/">challenge</a>, and <a href="/docs/tasks/dataplane-ecds/#wasm-binary-delivery-multi-module">Data plane</a>.
+
+</div>
+
+<h3 id="verify">Verify</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods -n kubewaf-system
+</span></span><span class="line"><span class="cl">kubectl get svc -n kubewaf-system
+</span></span><span class="line"><span class="cl">kubectl get crd <span class="p">|</span> grep -E <span class="s1">&#39;kubewaf|seclang&#39;</span>
+</span></span></code></pre></div><p>Pods should be Ready (default <strong>2 replicas</strong>). Service should expose:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Port</th>
+          <th>Name</th>
+          <th>Purpose</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>18001</td>
+          <td>ecds</td>
+          <td>ECDS gRPC</td>
+      </tr>
+      <tr>
+          <td>5005</td>
+          <td>extension</td>
+          <td>Envoy Gateway Extension Server</td>
+      </tr>
+      <tr>
+          <td>18002</td>
+          <td>wasm</td>
+          <td>Multi-module <code>.wasm</code> HTTP</td>
+      </tr>
+  </tbody>
+</table>
+<p>CRDs:</p>
+<ul>
+<li><code>secrules.seclang.kubewaf.io</code></li>
+<li><code>secactions.seclang.kubewaf.io</code></li>
+<li><code>rulesets.waf.kubewaf.io</code></li>
+<li><code>wafs.waf.kubewaf.io</code></li>
+<li><code>wafinstances.waf.kubewaf.io</code></li>
+</ul>
+<h3 id="envoy-gateway-only-enable-extension-server">Envoy Gateway only: enable Extension Server</h3>
+<p>After install, configure Envoy Gateway to call kubeWAF on port <strong>5005</strong>.
+See <a href="/docs/tasks/envoy-gateway/#configure-envoy-gateway-extension-server">Envoy Gateway guide</a>.</p>
+<h2 id="helm-values-overview">Helm values overview</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">leaderElection</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">podDisruptionBudget</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minAvailable</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">dataplane</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ecds</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">18001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">extensionServer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">5005</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wasmServe</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">18002</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Product modules (paths or source URLs)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">modsecurityWasmFile</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/wasm/modsecurity-proxy-wasm.wasm&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">challengeWasmFile</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/wasm/challenge-proxy-wasm.wasm&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">modsecurityWasmSourceURL</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">challengeWasmSourceURL</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">image</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w"> </span><span class="l">ghcr.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l">kubewaf-io/kubewaf</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logLevel</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span></span></span></code></pre></div><p>Full reference: <a href="https://github.com/kubewaf-io/kubewaf/blob/main/charts/kubewaf/values.yaml">charts/kubewaf/values.yaml</a>.</p>
+<h2 id="ha-notes">HA notes</h2>
+<pre class="mermaid">flowchart LR
+  SVC[Service] --&gt; P1[Pod leader]
+  SVC --&gt; P2[Pod follower]
+  EN[Envoy] --&gt; SVC</pre>
+<ul>
+<li>Every pod serves ECDS + wasm + EG hooks</li>
+<li>Leader writes status and platform slots</li>
+<li>See <a href="/docs/concepts/architecture/#operator-internals">Architecture · Multi-replica</a></li>
+</ul>
+<h2 id="alternative-kustomize">Alternative: kustomize</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -k https://github.com/kubewaf-io/kubewaf/config/crd
+</span></span><span class="line"><span class="cl">kubectl apply -k https://github.com/kubewaf-io/kubewaf/config/default
+</span></span></code></pre></div><p>You must expose dataplane ports and pass wasm flags yourself; Helm is preferred.</p>
+<h2 id="upgrading">Upgrading</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm upgrade kubewaf kubewaf/kubewaf -n kubewaf-system
+</span></span></code></pre></div><p>If upgrading from versions that created <code>EnvoyExtensionPolicy</code>, delete those
+objects and re-apply <code>WAF</code> CRs (<a href="/docs/tasks/dataplane-ecds/#migration-from-envoyextensionpolicy">migration</a>).</p>
+<h2 id="uninstalling">Uninstalling</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm uninstall kubewaf -n kubewaf-system
+</span></span><span class="line"><span class="cl"><span class="c1"># Optionally: kubectl delete crd …  (if you manage CRD lifecycle separately)</span>
+</span></span></code></pre></div><h2 id="next-steps">Next steps</h2>
+<ol>
+<li><a href="/docs/setup/quickstart/">Quick start</a></li>
+<li><a href="/docs/tasks/dataplane-ecds/">Data plane setup</a></li>
+<li>Provider guide: <a href="/docs/tasks/envoy-gateway/">Envoy Gateway</a> · <a href="/docs/tasks/istio/">Istio</a> · <a href="/docs/tasks/cilium/">Cilium</a></li>
+</ol>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/kubewaf" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="X / Twitter" aria-label="X / Twitter">
+    <a target="_blank" rel="noopener" href="https://x.com/kubewaf" aria-label="X / Twitter">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="pow-proxy-wasm" aria-label="pow-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/pow-proxy-wasm" aria-label="pow-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Website repo" aria-label="Website repo">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/website" aria-label="Website repo">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2026
+    <span class="td-footer__authors">Buzz-IT GmbH and kubeWAF contributors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script defer src="/js/click-to-copy.js" crossorigin="anonymous"></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>

@@ -1,0 +1,6 @@
+---
+title: "{{ replace .File.ContentBaseName "-" " " | title }}"
+description: ""
+weight: 50
+content_type: concept
+---

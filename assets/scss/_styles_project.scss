@@ -1,0 +1,871 @@
+// kubeWAF project styles — Docsy overlays
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&display=swap");
+@import "chroma_project";
+
+// ---------------------------------------------------------------------------
+// Base / chrome
+// ---------------------------------------------------------------------------
+
+.td-navbar {
+  // Dark navy chrome — primary teal is accent-only (contrast-safe white labels)
+  background: $dark;
+
+  // Custom shield + wordmark lockup
+  .navbar-brand--wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #f8fafc !important;
+    text-decoration: none;
+
+    &:hover {
+      opacity: 0.92;
+    }
+  }
+
+  .navbar-brand__name {
+    display: inline-flex;
+    align-items: baseline;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    font-size: 1.2rem;
+    line-height: 1;
+    color: #f8fafc;
+  }
+
+  .navbar-brand__kube {
+    font-weight: 500;
+    opacity: 0.92;
+  }
+
+  .navbar-brand__waf {
+    font-weight: 700;
+    letter-spacing: -0.04em;
+  }
+
+  // Original multi-color shield (not fully whitened)
+  .navbar-logo svg {
+    display: block;
+    height: 30px;
+    width: auto;
+  }
+
+  .nav-link {
+    font-weight: 500;
+  }
+}
+
+// Scrolled cover navbar should stay navy, not flip to primary teal
+.navbar-bg-onscroll {
+  background: $dark !important;
+}
+
+code,
+kbd,
+pre,
+.td-content pre,
+.chroma {
+  font-family: "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+// Soften GitHub page-meta rail (keep utility, reduce visual noise)
+.td-page-meta {
+  a {
+    font-size: 0.8125rem;
+    color: var(--bs-secondary-color) !important;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--bs-link-color) !important;
+    }
+
+    i {
+      opacity: 0.75;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Docs portal cards
+// ---------------------------------------------------------------------------
+
+.docs-portal {
+  .card {
+    border: 1px solid var(--bs-border-color);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease,
+      transform 0.15s ease;
+    height: 100%;
+    background: var(--bs-body-bg);
+
+    &:hover {
+      border-color: rgba($primary, 0.45);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .card-title {
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+  }
+}
+
+.root-doc-card {
+  border-top: 3px solid $primary;
+}
+
+// ---------------------------------------------------------------------------
+// Marketing homepage
+// ---------------------------------------------------------------------------
+
+.td-home {
+  // Full-bleed marketing sections (Docsy wraps main in .container-fluid gutters)
+  .td-outer.container-fluid,
+  .td-outer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    --bs-gutter-x: 0;
+  }
+
+  .td-main {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  // Override Docsy block section padding (higher specificity than .td-default main section)
+  .td-default main section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  main {
+    padding-top: 0;
+    // Match hero so no white flash/gap under the fixed navbar
+    background: #070b14;
+  }
+
+  .hero-k8s {
+    // Mesh glows — layered soft orbs on deep navy (no grid, no hard teal wash)
+    background:
+      radial-gradient(
+        ellipse 60% 50% at 12% 42%,
+        rgba(15, 118, 110, 0.22) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 88% 28%,
+        rgba(13, 148, 136, 0.14) 0%,
+        transparent 52%
+      ),
+      radial-gradient(
+        ellipse 42% 38% at 72% 82%,
+        rgba(30, 58, 138, 0.16) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 35% 30% at 40% 90%,
+        rgba(15, 118, 110, 0.08) 0%,
+        transparent 50%
+      ),
+      #0b1220;
+    color: #f8fafc;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    // Clear fixed navbar — must beat .td-default main > section:first-of-type
+    padding: 7rem 0 4.5rem !important;
+
+    @include media-breakpoint-up(md) {
+      padding: 8.5rem 0 5.5rem !important;
+    }
+
+    // No decorative pseudo layers needed — mesh lives on background
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    // Two-column on large screens; centered stack below
+    .hero-grid {
+      display: grid;
+      gap: 2.75rem;
+      align-items: center;
+
+      @include media-breakpoint-up(lg) {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        gap: 3.25rem 3.5rem;
+        min-height: 22rem;
+      }
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .hero-aside {
+      min-width: 0;
+    }
+
+    h1 {
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 14ch;
+    }
+
+    .lead {
+      color: rgba(248, 250, 252, 0.82);
+      max-width: 36rem;
+      font-size: 1.15rem;
+    }
+
+    // Mobile / tablet: center the whole hero so the right side isn’t empty
+    @include media-breakpoint-down(lg) {
+      text-align: center;
+
+      .hero-brand {
+        justify-content: center;
+      }
+
+      h1 {
+        max-width: 16ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .lead {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-ctas {
+        justify-content: center;
+      }
+
+      .hero-aside {
+        display: flex;
+        justify-content: center;
+      }
+
+      .hero-install {
+        width: 100%;
+        max-width: 34rem;
+        text-align: left; // code stays left-aligned for readability
+      }
+    }
+
+    .btn-primary {
+      background-color: $primary;
+      border-color: $primary;
+      color: #fff;
+      font-weight: 600;
+      padding-inline: 1.25rem;
+
+      &:hover {
+        background-color: lighten($primary, 4%);
+        border-color: lighten($primary, 4%);
+        color: #fff;
+      }
+    }
+
+    // Visible secondary CTAs on dark hero (outline, not slate-on-slate)
+    .btn-outline-hero {
+      color: #f8fafc;
+      border: 1px solid rgba(248, 250, 252, 0.35);
+      background: rgba(248, 250, 252, 0.04);
+      font-weight: 500;
+      padding-inline: 1.15rem;
+
+      &:hover {
+        color: #0b1220;
+        background: #f8fafc;
+        border-color: #f8fafc;
+      }
+    }
+
+    // Brand lockup above headline
+    .hero-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .hero-brand__mark {
+      display: block;
+      width: 72px;
+      height: auto;
+    }
+
+    .hero-brand__wordmark {
+      display: inline-flex;
+      align-items: baseline;
+      font-size: 2.35rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #f8fafc;
+
+      .wm-kube {
+        font-weight: 500;
+        opacity: 0.92;
+      }
+
+      .wm-waf {
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      .hero-brand__mark {
+        width: 56px;
+      }
+
+      .hero-brand__wordmark {
+        font-size: 1.85rem;
+      }
+    }
+
+    // Light install code strip (product-landing style)
+    .hero-install {
+      width: 100%;
+      max-width: none;
+    }
+
+    .hero-install__meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem 1rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-install__hint {
+      margin: 0.75rem 0 0;
+      font-size: 0.8rem;
+      color: rgba(248, 250, 252, 0.45);
+      letter-spacing: 0.01em;
+    }
+
+    .hero-install__label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(248, 250, 252, 0.55);
+    }
+
+    .hero-install__docs {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #5eead4;
+      text-decoration: none;
+
+      &:hover {
+        color: #99f6e4;
+        text-decoration: underline;
+      }
+    }
+
+    .hero-install__strip {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid rgba(248, 250, 252, 0.85);
+      box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.12),
+        0 16px 40px rgba(15, 23, 42, 0.22);
+    }
+
+    .hero-install__code {
+      flex: 1 1 auto;
+      margin: 0 !important;
+      padding: 1.15rem 1.15rem !important;
+      background: #f8fafc !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      color: #0f172a !important;
+      font-family: "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas,
+        monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      overflow-x: auto;
+      white-space: pre;
+      min-width: 0;
+
+      code {
+        color: inherit;
+        background: transparent;
+        font-family: inherit;
+        font-size: inherit;
+        padding: 0;
+      }
+    }
+
+    .hero-install__copy {
+      flex: 0 0 auto;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.2rem;
+      min-width: 4.25rem;
+      padding: 0.65rem 0.75rem;
+      border: 0;
+      border-left: 1px solid #e2e8f0;
+      background: #fff;
+      color: #334155;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+
+      i {
+        font-size: 0.95rem;
+      }
+
+      &:hover {
+        background: #f1f5f9;
+        color: $primary;
+      }
+
+      &.is-copied {
+        color: $primary;
+        background: #ecfdf5;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      .hero-install__strip {
+        flex-direction: column;
+      }
+
+      .hero-install__copy {
+        flex-direction: row;
+        gap: 0.4rem;
+        min-width: 0;
+        border-left: 0;
+        border-top: 1px solid #e2e8f0;
+        padding: 0.55rem 0.85rem;
+      }
+
+      .hero-install__code {
+        font-size: 0.72rem;
+      }
+    }
+  }
+
+  .home-features {
+    padding: 4rem 0 3.5rem !important;
+    background: var(--bs-body-bg);
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bs-secondary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.75rem;
+    }
+  }
+
+  .feature-tile {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.85rem;
+    padding: 1.5rem 1.4rem;
+    height: 100%;
+    background: var(--bs-body-bg);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease,
+      transform 0.15s ease;
+
+    &:hover {
+      border-color: rgba($primary, 0.4);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.65rem;
+      background: rgba($primary, 0.1);
+      color: $primary;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--bs-secondary-color);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+  }
+
+  // Developer path: protect your app
+  .home-protect {
+    padding: 4rem 0 3.5rem !important;
+    background: var(--bs-tertiary-bg);
+    border-top: 1px solid var(--bs-border-color);
+    border-bottom: 1px solid var(--bs-border-color);
+    scroll-margin-top: 5rem; // clear fixed navbar for #protect-your-app
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--bs-secondary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .home-protect__lead {
+    max-width: 40rem;
+    margin: 0 0 1.75rem;
+    color: var(--bs-secondary-color);
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+
+  .home-protect__step {
+    height: 100%;
+    padding: 1.25rem 1.2rem;
+    border-radius: 0.75rem;
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--bs-secondary-color);
+      line-height: 1.5;
+    }
+  }
+
+  .home-protect__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    margin-bottom: 0.65rem;
+    border-radius: 999px;
+    background: rgba($primary, 0.12);
+    color: $primary;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .home-protect__panel {
+    border-radius: 0.85rem;
+    border: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+
+  .home-protect__panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    padding: 1rem 1.15rem;
+    border-bottom: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+  }
+
+  .home-protect__panel-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--bs-secondary-color);
+    margin-bottom: 0.25rem;
+  }
+
+  .home-protect__panel-desc {
+    font-size: 0.9rem;
+    color: var(--bs-secondary-color);
+    max-width: 36rem;
+  }
+
+  .home-protect__code {
+    margin: 0 !important;
+    padding: 1.1rem 1.15rem !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #0b1220 !important;
+    color: #e2e8f0 !important;
+    font-family: "Source Code Pro", SFMono-Regular, Menlo, Monaco, Consolas,
+      monospace;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    overflow-x: auto;
+    max-height: 28rem;
+
+    code {
+      color: inherit;
+      background: transparent;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0;
+    }
+
+    &--sm {
+      max-height: none;
+      border-radius: 0.5rem !important;
+      padding: 0.9rem 1rem !important;
+      font-size: 0.75rem;
+    }
+  }
+
+  .home-protect__verify-card {
+    height: 100%;
+    padding: 1.15rem 1.2rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--bs-border-color);
+    background: var(--bs-body-bg);
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+  }
+
+  .home-protect__links {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--bs-body-color);
+
+    li {
+      margin-bottom: 0.45rem;
+      font-size: 0.95rem;
+    }
+
+    a {
+      font-weight: 500;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .home-protect__copy.is-copied {
+    color: $primary;
+    border-color: $primary;
+  }
+
+  .home-roots {
+    padding: 3.5rem 0 4.5rem !important;
+    background: var(--bs-body-bg);
+
+    .root-tile {
+      display: block;
+      height: 100%;
+      border: 1px solid var(--bs-border-color);
+      border-radius: 0.85rem;
+      padding: 1.5rem;
+      background: var(--bs-body-bg);
+      text-decoration: none;
+      color: inherit;
+      border-top: 3px solid $primary;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease,
+        transform 0.15s ease;
+
+      &:hover {
+        border-color: rgba($primary, 0.45);
+        border-top-color: $primary;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        transform: translateY(-2px);
+        color: inherit;
+      }
+
+      .root-icon {
+        color: $primary;
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+      }
+
+      h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        margin: 0;
+        color: var(--bs-secondary-color);
+        font-size: 0.95rem;
+      }
+
+      .root-cta {
+        display: inline-block;
+        margin-top: 1rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $primary;
+      }
+    }
+  }
+}
+
+// Footer stays deep navy (already uses dark/secondary in Docsy)
+.td-footer {
+  background-color: $dark;
+}
+
+// ---------------------------------------------------------------------------
+// Docs content polish
+// ---------------------------------------------------------------------------
+
+.td-content {
+  // Slightly tighter heading tracking
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  // Tables
+  table {
+    font-size: 0.95rem;
+  }
+
+  // Code blocks: radius + quieter border
+  .highlight {
+    border-radius: 0.5rem;
+    overflow: hidden;
+
+    pre {
+      border-radius: 0.5rem;
+      border-color: var(--bs-border-color) !important;
+    }
+  }
+
+  pre:not(.mermaid) {
+    border-radius: 0.5rem;
+  }
+
+  // Mermaid diagrams
+  pre.mermaid,
+  .mermaid {
+    background: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+}
+
+// Sidebar active link: clearer brand accent
+.td-sidebar-nav a.active {
+  color: $primary !important;
+  font-weight: 600;
+}
+
+// Breadcrumb links use brand color (not Bootstrap blue)
+.td-breadcrumbs a {
+  color: var(--bs-link-color);
+}
+
+// Outline secondary buttons readable in dark mode
+[data-bs-theme="dark"] {
+  .btn-outline-secondary {
+    --bs-btn-color: #cbd5e1;
+    --bs-btn-border-color: #475569;
+    --bs-btn-hover-color: #0b1220;
+    --bs-btn-hover-bg: #e2e8f0;
+    --bs-btn-hover-border-color: #e2e8f0;
+  }
+
+  .td-home .feature-tile,
+  .td-home .home-roots .root-tile,
+  .td-home .home-protect__step,
+  .td-home .home-protect__panel,
+  .td-home .home-protect__verify-card,
+  .docs-portal .card {
+    background: var(--bs-secondary-bg);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .td-home .home-protect {
+    background: #161b22;
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  .td-home .feature-tile .feature-icon {
+    background: rgba($primary, 0.18);
+    color: #5eead4;
+  }
+}
+
+// Primary buttons: white text on teal (not dark-on-mint)
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #{$primary};
+  --bs-btn-border-color: #{$primary};
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #{lighten($primary, 5%)};
+  --bs-btn-hover-border-color: #{lighten($primary, 5%)};
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #{darken($primary, 3%)};
+  --bs-btn-active-border-color: #{darken($primary, 3%)};
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #{$primary};
+  --bs-btn-disabled-border-color: #{$primary};
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #{$primary};
+  --bs-btn-border-color: #{$primary};
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #{$primary};
+  --bs-btn-hover-border-color: #{$primary};
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #{$primary};
+  --bs-btn-active-border-color: #{$primary};
+}

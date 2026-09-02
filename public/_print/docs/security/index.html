@@ -1,0 +1,1393 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="canonical" type="text/html" href="http://localhost:1313/docs/security/">
+<meta name="robots" content="noindex, nofollow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Security team | kubeWAF</title>
+<meta name="description" content="Author detection policy — SecRules, RuleSet design, CRS tuning, SecLang structure, and AI-assisted rule writing.">
+<meta property="og:url" content="http://localhost:1313/docs/security/">
+	<meta property="og:site_name" content="kubeWAF">
+	<meta property="og:title" content="Security team">
+	<meta property="og:description" content="Author detection policy — SecRules, RuleSet design, CRS tuning, SecLang structure, and AI-assisted rule writing.">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="website">
+
+	<meta itemprop="name" content="Security team">
+	<meta itemprop="description" content="Author detection policy — SecRules, RuleSet design, CRS tuning, SecLang structure, and AI-assisted rule writing.">
+	<meta itemprop="wordCount" content="145">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:title" content="Security team">
+	<meta name="twitter:description" content="Author detection policy — SecRules, RuleSet design, CRS tuning, SecLang structure, and AI-assisted rule writing.">
+<link href="/scss/main.css" rel="stylesheet">
+<script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"></script>
+<script defer
+  src="https://unpkg.com/lunr@2.3.9/lunr.min.js"
+  integrity="sha384-203J0SNzyqHby3iU6hzvzltrWi/M41wOP5Gu+BiJMz5nwKykbkUx8Kp7iti0Lpli"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-section">
+    <header>
+      <nav class="td-navbar js-navbar-scroll" data-bs-theme="dark">
+<div class="container-fluid flex-column flex-md-row">
+  <a class="navbar-brand navbar-brand--wordmark" href="/"><span class="navbar-brand__logo navbar-logo" aria-hidden="true"><svg width="213.20622" height="225.15996" viewBox="0 0 213.20622 225.15996" id="svg27" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004 14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188z" id="path2"/><defs id="defs3"><linearGradient id="gradient_0" gradientUnits="userSpaceOnUse" x1="589.20081" y1="512.99628" x2="473.38596" y2="388.51822" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0A0C4F" id="stop2"/><stop offset="1" stop-color="#424C6F" id="stop3"/></linearGradient></defs><path fill="url(#gradient_0)" d="m146.13586 3.6211486c14.23 2.946 28.243 6.8560004 41.943 11.7040004 4.708 1.615 9.165 3.105 13.689 5.287 7.656 3.693 10.547 13.868 11.121 21.833.904 12.569-.352 25.851-.929 38.453-1.123 16.855-1.457 35.289001-5.159 51.644001-7.02 31.015-28.465 57.95-55.587 74.194-11.001 6.589-29.507 15.996-42.522 18.345-1.668.301-5.831-.323-7.645-.813-32.402998-8.748-63.909998-29.577-81.387998-58.636-3.678-6.116-10.1799998-18.335-11.2559998-25.188.579-.989-.35-3.624-.685-5.088 3.1519998-3.601 8.4379998-6.474 11.7719998-10.964 3.511-4.728 5.299-9.939 8.869-14.283 1.33-1.618 1.625-1.858 2.935-3.791 1.796 15.303 3.771 27.301 11.548 41.106 13.404 23.794 38.907 40.066 64.864998 47.128 27.544-10.416 57.667-29.432 67.578-58.957 8.793-26.197 8.932-61.471001 9.499-89.134001-17.076-8.488-32.759-11.597-50.901-15.833l-.126-.497c-1.374-.767-3.677-.688-5.525-.919l.764-1.178c-.587-1.575-1.504-1.835-3.084-3.068-9.059.323-21.261-.311-30.474998-.565 1.929-.296 3.998-.437 5.952998-.616l-.14-.096c6.957-.98 12.41-.539 19.168-.463 4.19.048 14.55.918 17.224-2.371 2.818-3.467 8.229-8.143 8.254-12.8900004-1.412-2.418-1.036-2.038.24-4.344z" id="path3" style="fill:url(#gradient_0)"/><path fill="#151a56" d="m140.89786 206.83415 2.842.098c1.306 1.205.891.843 1.195 3.095-2.621-.593-3.366-.476-4.037-3.193z" id="path4"/><defs id="defs5"><linearGradient id="gradient_1" gradientUnits="userSpaceOnUse" x1="483.04602" y1="411.67349" x2="428.73672" y2="346.27155" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#404872" id="stop4"/><stop offset="1" stop-color="#5C638E" id="stop5"/></linearGradient></defs><path fill="url(#gradient_1)" d="M8.4028622 140.44415C.05086216 126.23315-.06713784 57.468149.01086216 38.748149c.072-17.457 22.60999984-22.309 36.20599984-26.922 37.761-12.81300043 70.774998-14.6610004 109.918998-8.2050004-1.276 2.306-1.652 1.926-.24 4.344-.025 4.7470004-5.436 9.4230004-8.254 12.8900004-2.674 3.289-13.034 2.419-17.224 2.371-6.758-.076-12.211-.517-19.168.463l.14.096c-1.954998.179-4.023998.32-5.952998.616 9.213998.254 21.415998.888 30.474998.565 1.58 1.233 2.497 1.493 3.084 3.068l-.764 1.178c1.848.231 4.151.152 5.525.919l.126.497c-8.914-.925-16.804-2.06-25.819-2.27-21.555998-.5-61.921998 7.853-79.789998 19.033-.107 12.39.254 24.78 1.082 37.143.425 5.977 1.803 16.338001 1.938 21.784001-1.31 1.933-1.605 2.173-2.935 3.791-3.57 4.344-5.358 9.555-8.869 14.283-3.334 4.49-8.62 7.363-11.7719998 10.964.335 1.464 1.264 4.099.685 5.088z" id="path5" style="fill:url(#gradient_1)"/><defs id="defs7"><linearGradient id="gradient_2" gradientUnits="userSpaceOnUse" x1="554.13184" y1="491.51929" x2="456.88196" y2="380.24194" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0C0F4D" id="stop6"/><stop offset="1" stop-color="#50597D" id="stop7"/></linearGradient></defs><path fill="url(#gradient_2)" d="m46.459862 53.001149c38.293.588 73.198998 14.136 97.676998 44.661 8.014 9.994001 17.46 27.879001 19.116 40.659001-2.767 4.997-9.384 13.211-13.174 17.527-3.151 3.452-5.084 5.489-8.592 8.527-3.549-22.113-10.347-39.586-26.174-55.94C96.179862 88.665149 69.149862 78.193149 41.785862 77.806149c-.562-8.163-.672-16.21-1.39-24.439z" id="path7" style="fill:url(#gradient_2)"/><defs id="defs9"><linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="531.65125" y1="508.89108" x2="449.51163" y2="423.61743" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#0D114E" id="stop8"/><stop offset="1" stop-color="#40486E" id="stop9"/></linearGradient></defs><path fill="url(#gradient_3)" d="m42.262862 89.112149c45.934-.866 82.826998 30.710001 87.945998 76.825001.247 2.222.42 4.456.611 6.683l-6.23 3.427c-5.431 2.765-11.039 5.572-16.894 7.311-6.631-35.416-24.351998-63.049-63.311998-65.17-.954-9.866-1.793-19.172001-2.121-29.076001z" id="path9" style="fill:url(#gradient_3)"/><defs id="defs11"><linearGradient id="gradient_4" gradientUnits="userSpaceOnUse" x1="555.38397" y1="458.08862" x2="518.14459" y2="365.63565" gradientTransform="translate(-402.59014,-337.21585)"><stop offset="0" stop-color="#13184A" id="stop10"/><stop offset="1" stop-color="#454D77" id="stop11"/></linearGradient></defs><path fill="url(#gradient_4)" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343 16.075.106 40.719 7.133 55.579 13.522-.047 20.932-1.039 41.851-2.974 62.694001-16.209-33.277001-40.661-56.289001-76.064998-68.406001-5.876-1.979-11.87-3.588-17.947-4.817 5.561-1.166 12.429-2.071 18.133-2.65z" id="path11" style="fill:url(#gradient_4)"/><path fill="#464b75" d="m93.197862 41.574149c6.047-.713 17.501998-1.095 23.273998-.343l-.882.036c-7.937.374-13.967 5.056-19.234998 1.156-.916-.678-2.019-.729-3.157-.849z" id="path12"/><defs id="defs13"><linearGradient id="gradient_5" gradientUnits="userSpaceOnUse" x1="375.65991" y1="706.92682" x2="292.69623" y2="613.95709"><stop offset="0" stop-color="#567BED" id="stop12"/><stop offset="1" stop-color="#7AA1F6" id="stop13"/></linearGradient></defs></svg></span><span class="navbar-brand__name" aria-label="kubeWAF">
+      <span class="navbar-brand__kube">kube</span><span class="navbar-brand__waf">WAF</span>
+    </span></a>
+  <div class="td-navbar-nav-scroll ms-md-auto" id="main_navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/docs/home/"><span>Documentation</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/engines/"><span>Engines</span></a>
+      </li>
+      <li class="td-light-dark-menu nav-item dropdown">
+        <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+  <symbol id="check2" viewBox="0 0 16 16">
+    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+  </symbol>
+  <symbol id="circle-half" viewBox="0 0 16 16">
+    <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+  </symbol>
+  <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+    <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+    <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
+  </symbol>
+  <symbol id="sun-fill" viewBox="0 0 16 16">
+    <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+  </symbol>
+</svg>
+
+<button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        data-bs-display="static"
+        aria-label="Toggle theme (auto)">
+  <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#sun-fill"></use></svg>
+      Light
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
+      <svg class="bi me-2 opacity-50"><use href="#moon-stars-fill"></use></svg>
+      Dark
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+  <li>
+    <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="auto" aria-pressed="true">
+      <svg class="bi me-2 opacity-50"><use href="#circle-half"></use></svg>
+      Auto
+      <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+    </button>
+  </li>
+</ul>
+
+      </li>
+      </ul>
+  </div>
+  <div class="d-none d-lg-block">
+    <div class="td-search td-search--offline">
+  <div class="td-search__icon"></div>
+  <input
+    type="search"
+    class="td-search__input form-control"
+    placeholder="Search this site…"
+    aria-label="Search this site…"
+    autocomplete="off"
+    
+    data-offline-search-index-json-src="/offline-search-index.json"
+    data-offline-search-base-href="/"
+    data-offline-search-max-results="10"
+  >
+</div>
+  </div>
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <main class="col-12 col-md-9 col-xl-8 ps-md-5" role="main">
+            
+
+
+
+
+<div class="td-content">
+<div class="pageinfo pageinfo-primary d-print-none">
+<p>
+This is the multi-page printable view of this section.
+<a href="#" onclick="print();return false;">Click here to print</a>.
+</p><p>
+<a href="/docs/security/">Return to the regular view of this page</a>.
+</p>
+</div>
+
+
+
+<h1 class="title">Security team</h1>
+<div class="lead">Author detection policy — SecRules, RuleSet design, CRS tuning, SecLang structure, and AI-assisted rule writing.</div>
+
+
+
+
+    <ul>
+    
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>1: <a href="#pg-3ef5a36ff238d87535acb7fe8719582c">Writing Security Rules</a></li>
+
+
+    
+  
+    
+    
+	
+<li>2: <a href="#pg-96553f56046df4089ffe831a5b3e0001">OWASP Core Rule Set (CRS)</a></li>
+
+
+    
+  
+    
+    
+	
+<li>3: <a href="#pg-3408ba1cb3c99357ee33fda0f042b1a9">AI Assistance</a></li>
+
+
+    
+    <ul>
+        
+  
+  
+  
+  
+
+  
+    
+    
+	
+<li>3.1: <a href="#pg-a469da3af78fc1fd307ee655683b1156">SecRule Expert Prompt</a></li>
+
+
+    
+  
+
+    </ul>
+    
+  
+    
+    
+	
+<li>4: <a href="#pg-5de6e07a3f76c8654a77bfa5cd25da6d">SecLang YAML Structure</a></li>
+
+
+    
+  
+
+    </ul>
+
+
+<div class="content">
+      <p>You define <strong>what</strong> gets blocked or scored: custom virtual patches, RuleSet packs for
+the organization, CRS paranoia and exclusions, and review standards for policy PRs.</p>
+
+
+<div class="pageinfo pageinfo-primary">
+<p>Application teams <strong>consume</strong> your packs via <code>WAF.ruleRefs</code> —
+see <a href="/docs/users/">Application teams</a>. Platform sets install and tenancy —
+see <a href="/docs/platform/">Platform</a>.</p>
+
+</div>
+
+<h2 id="what-you-own">What you own</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Goal</th>
+					<th>Page</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Write SecRules (structured + raw SecLang)</td>
+					<td><a href="/docs/security/writing-rules/">Writing security rules</a></td>
+			</tr>
+			<tr>
+					<td>Enable and tune OWASP CRS</td>
+					<td><a href="/docs/security/using-crs/">OWASP CRS</a></td>
+			</tr>
+			<tr>
+					<td>Dry-run a request against a rule</td>
+					<td><a href="/docs/platform/observability/probes/">Probes</a></td>
+			</tr>
+			<tr>
+					<td>Eval traces / capture</td>
+					<td><a href="/docs/platform/observability/capture/">Capture</a></td>
+			</tr>
+			<tr>
+					<td>SecLang YAML model</td>
+					<td><a href="/docs/security/seclang-structure/">SecLang structure</a></td>
+			</tr>
+			<tr>
+					<td>Phrase / IP list files (<code>@pmFromFile</code>, <code>@ipMatchFromFile</code>)</td>
+					<td><a href="/docs/users/data-files/">Phrase &amp; IP lists</a></td>
+			</tr>
+			<tr>
+					<td>Compose reusable packs</td>
+					<td><a href="/docs/users/rulesets/">Using RuleSets</a></td>
+			</tr>
+			<tr>
+					<td>AI-assisted authoring</td>
+					<td><a href="/docs/security/ai/">AI assistance</a></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="recommended-path">Recommended path</h2>
+<ol>
+<li>Skim <a href="/docs/get-started/core-concepts/">Core concepts</a> (<code>SecRule</code> / <code>RuleSet</code> / <code>WAF</code>).</li>
+<li><a href="/docs/security/writing-rules/">Writing security rules</a> — prefer anomaly scoring + high rule IDs.</li>
+<li>Keep the <a href="/docs/security/ai/kubewaf-secrule-expert/">expert prompt</a> in your AI tooling.</li>
+<li>Attach and tune <a href="/docs/security/using-crs/">OWASP CRS</a> (platform installs the <code>kubewaf-crs</code> chart).</li>
+<li>Publish packs as RuleSets.</li>
+</ol>
+
+</div>
+</div>
+
+
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-3ef5a36ff238d87535acb7fe8719582c">1 - Writing Security Rules</h1>
+    <div class="lead">Author ModSecurity-compatible SecRules as Kubernetes resources</div>
+	<h1 id="writing-security-rules">Writing Security Rules</h1>
+<p>This guide teaches you how to write effective <code>SecRule</code> resources in kubeWAF.</p>
+<h2 id="the-structured-format">The Structured Format</h2>
+<p>Instead of writing raw SecLang strings, kubeWAF uses a typed Kubernetes representation. This gives you:</p>
+<ul>
+<li>OpenAPI on the CRD plus <a href="/docs/platform/webhooks/">validating webhooks</a></li>
+<li>Better IDE support and GitOps reviewability</li>
+<li>Automatic conversion to valid ModSecurity SecLang syntax</li>
+</ul>
+<p>Prefer <strong>one logical rule per <code>SecRule</code> CR</strong> using:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">spec.metadata + spec.match[] + spec.actions  [+ order / markerAfter]
+</span></span></code></pre></div><p><code>spec.secLangRules[]</code> (multi-rule bag) is still accepted for bulk CRS samples.</p>
+<h2 id="minimal-example-canonical-form">Minimal Example (canonical form)</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-admin-bruteforce</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">production</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="m">200010</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">200010</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Multiple failed admin logins&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;WARNING&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;attack-bruteforce&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;OWASP_CRS&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST_URI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">^/admin/login</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ARGS_POST</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">password]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">(?:admin|root)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">pass  </span><span class="w"> </span><span class="c"># scoring rule, not blocking</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">setvar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">TX.anomaly_score_pl1=+3</span><span class="w">
+</span></span></span></code></pre></div><p><code>match[]</code> length &gt; 1 is a <strong>chain</strong> (AND): the converter injects the <code>chain</code> flow action on every link except the last.</p>
+<h2 id="anatomy-of-a-rule">Anatomy of a Rule</h2>
+<h3 id="metadata">metadata</h3>
+<p>Rule metadata lives under <strong><code>spec.metadata</code></strong> (not Kubernetes object metadata).</p>
+<table>
+	<thead>
+			<tr>
+					<th>Field</th>
+					<th>Description</th>
+					<th>Example</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>id</code></td>
+					<td>Unique numeric rule ID. <strong>Optional</strong> for custom rules: omit it and the controller allocates from the cluster <code>SecRuleIDPool</code> (default <code>100000</code>–<code>999999</code>). Use fixed ids for CRS / shared rules.</td>
+					<td><code>920100</code> or omit</td>
+			</tr>
+			<tr>
+					<td><code>phase</code></td>
+					<td>Execution phase (<code>1</code>–<code>5</code>)</td>
+					<td><code>&quot;2&quot;</code></td>
+			</tr>
+			<tr>
+					<td><code>message</code></td>
+					<td>Human-readable description shown in logs</td>
+					<td>&quot;SQL Injection&quot;</td>
+			</tr>
+			<tr>
+					<td><code>severity</code></td>
+					<td><code>EMERGENCY</code>, <code>ALERT</code>, <code>CRITICAL</code>, <code>ERROR</code>, <code>WARNING</code>, <code>NOTICE</code>, <code>INFO</code>, <code>DEBUG</code></td>
+					<td><code>ERROR</code></td>
+			</tr>
+			<tr>
+					<td><code>tags</code></td>
+					<td>Classification tags (also mirrored to CR labels)</td>
+					<td><code>[&quot;attack-sqli&quot;]</code></td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="order-and-markerafter">order and markerAfter</h3>
+<table>
+	<thead>
+			<tr>
+					<th>Field</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>order</code></td>
+					<td>Relative sort key when RuleSets expand many SecRules (mirrored as <code>seclang.kubewaf.io/order</code>). Often set to the rule id.</td>
+			</tr>
+			<tr>
+					<td><code>markerAfter</code></td>
+					<td>Emits <code>SecMarker &lt;name&gt;</code> <strong>after</strong> this rule (target for earlier <code>skipAfter</code> actions).</td>
+			</tr>
+	</tbody>
+</table>
+<h4 id="auto-ids-secruleidpool">Auto IDs (<code>SecRuleIDPool</code>)</h4>
+<p>When <code>metadata.id</code> is omitted or <code>0</code>, the leader allocates a cluster-unique id from the
+singleton pool <code>SecRuleIDPool/cluster</code> and writes:</p>
+<ul>
+<li><code>status.ruleId</code> / <code>status.assignedIds</code> — effective ids used in rendered SecLang</li>
+<li><code>status.idSource</code> — <code>Spec</code>, <code>Auto</code>, or <code>Mixed</code></li>
+<li>label <code>seclang.kubewaf.io/id</code> and sticky annotation <code>seclang.kubewaf.io/assigned-id</code></li>
+</ul>
+<p>You normally do not create the pool by hand; the operator creates it with defaults on first allocation. To pin a range:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRuleIDPool</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">minId</span><span class="p">:</span><span class="w"> </span><span class="m">100000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">maxId</span><span class="p">:</span><span class="w"> </span><span class="m">999999</span><span class="w">
+</span></span></span></code></pre></div><h4 id="tags-as-labels">Tags as labels</h4>
+<p>Each <code>metadata.tags</code> entry is mirrored onto the SecRule object as
+<code>seclang.kubewaf.io/tag.&lt;sanitized&gt;=true</code> (e.g. <code>OWASP_CRS</code> → <code>seclang.kubewaf.io/tag.owasp_crs=true</code>).
+Use those labels in RuleSet / kubectl selectors. Tags remain in <code>spec</code> for SecLang output.</p>
+<h3 id="match-conditions">match (conditions)</h3>
+<p>Each <code>match[]</code> entry is a combination of <strong>variables</strong> / <strong>collections</strong> + <strong>operator</strong>.</p>
+<p>Supported styles:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Scalar variable</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST_URI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Collection (all members)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ARGS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Collection member</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ARGS_POST</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">password]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># TX collection (transaction variables)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">TX</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">ANOMALY_SCORE]</span><span class="w">
+</span></span></span></code></pre></div><h3 id="operators">operators</h3>
+<p>Common operators:</p>
+<ul>
+<li><code>rx</code> — regular expression (most powerful)</li>
+<li><code>eq</code>, <code>gt</code>, <code>lt</code>, <code>ge</code>, <code>le</code></li>
+<li><code>strEq</code>, <code>beginsWith</code>, <code>endsWith</code>, <code>contains</code></li>
+<li><code>pm</code>, <code>pmFromFile</code> / <code>pmf</code> — phrase match (file body from <a href="/docs/reference/crds/phraselist/">PhraseList</a>)</li>
+<li><code>ipMatch</code>, <code>ipMatchFromFile</code> / <code>ipMatchF</code> — IP/CIDR match (file body from <a href="/docs/reference/crds/iplist/">IPList</a>)</li>
+<li><code>geoLookup</code></li>
+<li><code>detectSQLi</code>, <code>detectXSS</code> (from libinjection in the WAF engine)</li>
+</ul>
+<p>Use <code>negate: true</code> to invert the match.</p>
+<p>For <code>@pmFromFile</code> / <code>@ipMatchFromFile</code>, set <code>operator.value</code> to the list
+<code>fileName</code> (e.g. <code>team-scanners.data</code>) and create a same-namespace PhraseList or
+IPList. Details: <a href="/docs/users/data-files/">Phrase &amp; IP lists</a>.</p>
+<h3 id="actions">actions</h3>
+<p>Actions are split into three groups in the CRD:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">deny         </span><span class="w"> </span><span class="c"># or allow, block, drop, pass, redirect</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># redirect: set disruptiveActionType: redirect and value: &lt;url&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">dataActionType</span><span class="p">:</span><span class="w"> </span><span class="l">status</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;403&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">flow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">flowActionType</span><span class="p">:</span><span class="w"> </span><span class="l">skip</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5&#34;</span><span class="w">                  </span><span class="c"># skip the next N rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">flowActionType</span><span class="p">:</span><span class="w"> </span><span class="l">skipAfter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">END-REQUEST-920</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">setvar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">TX.inbound_anomaly_score_pl1=+5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">setvar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">tx.detection_paranoia_level=2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">logdata</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;%{REQUEST_URI}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">log</span><span class="w">
+</span></span></span></code></pre></div><p>Log text lives on <code>metadata.message</code>. There is no <code>msg</code> action type.</p>
+<h2 id="chained-rules-match">Chained Rules (<code>match[]</code>)</h2>
+<p>Chained rules allow multi-condition logic (AND). Prefer <strong>one CR</strong> with multiple <code>match</code> entries:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="nt">942100, phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="nt">, message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;...&#34;</span><span class="w"> </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">collections</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>{<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ARGS }]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nt">rx, value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;(?i)select&#34;</span><span class="w"> </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">capture</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">collections</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>{<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nt">TX, arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;0&#34;</span><span class="p">]</span><span class="w"> </span>}<span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="nt">rx, value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;.+&#34;</span><span class="w"> </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">block }</span><span class="w">
+</span></span></span></code></pre></div><p>The converter injects <code>chain</code> on every link except the last.</p>
+<p>Legacy multi-rule bags still support <code>flow: [{ flowActionType: chain }]</code> across consecutive <code>secLangRules</code> entries (used by CRS bulk samples).</p>
+<h2 id="secmarker-and-flow-control">SecMarker and Flow Control</h2>
+<p>Emit a marker <strong>after</strong> a rule with <code>markerAfter</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">markerAfter</span><span class="p">:</span><span class="w"> </span><span class="l">END-REQUEST-920-PROTOCOL-ENFORCEMENT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="nt">920460, phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w"> </span>}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">always-match</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">nolog</span><span class="w">
+</span></span></span></code></pre></div><p>Earlier rules can <code>skipAfter: END-REQUEST-920-PROTOCOL-ENFORCEMENT</code>.</p>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Use high rule IDs</strong> for your custom rules (&gt; 100000 recommended) to avoid collisions with CRS.</li>
+<li><strong>Tag everything</strong> — makes it easy to create RuleSets with selectors later.</li>
+<li><strong>Prefer anomaly scoring</strong> over immediate <code>deny</code> for better false-positive handling.</li>
+<li><strong>Write unit-test equivalents</strong> — many teams create a small test HTTPRoute + curl matrix.</li>
+<li><strong>Store rules in Git</strong> alongside your application manifests (GitOps).</li>
+</ol>
+<h2 id="writing-rules-with-ai-assistance">Writing Rules with AI Assistance</h2>
+<p>The structured <code>SecRule</code> format is powerful for validation and GitOps, but it is verbose. kubeWAF makes it much easier to create high-quality rules by providing excellent support for AI coding assistants.</p>
+<h3 id="using-ai-to-create-secrules">Using AI to create SecRules</h3>
+<p><strong>If you use Grok</strong> (the Grok TUI or CLI):</p>
+<ul>
+<li>A dedicated skill called <code>kubewaf-secrule</code> is automatically available when you are inside this repository.</li>
+<li>Just describe what you need in plain language:
+<ul>
+<li>&quot;Create a SecRule that blocks suspicious User-Agents hitting login pages&quot;</li>
+<li>&quot;Write a virtual patch for path traversal on /api/files&quot;</li>
+<li>&quot;Convert this raw SecLang rule to the proper Kubernetes format and validate it&quot;</li>
+</ul>
+</li>
+</ul>
+<p>The skill generates both raw SecLang and the full <code>kind: SecRule</code> YAML, validates it against the Kubernetes API server using <code>kubectl apply --dry-run=server</code>, and can fix issues automatically.</p>
+<p><strong>If you use any other AI</strong> (Claude, Cursor, GPT-4, Continue.dev, Aider, Windsurf, etc.):</p>
+<ol>
+<li>Copy the <a href="/docs/security/ai/kubewaf-secrule-expert/">SecRule expert prompt</a> into your conversation or project rules.</li>
+<li>Many tools also load guidance from the operator repo <code>AGENTS.md</code>.</li>
+</ol>
+<p>See <a href="/docs/security/ai/">AI assistance</a>.</p>
+<h3 id="recommended-ai--validation-workflow">Recommended AI + Validation Workflow</h3>
+<ol>
+<li>
+<p>Describe the desired protection in natural language.</p>
+</li>
+<li>
+<p>Ask the AI to return <strong>both</strong> a raw SecLang version and the structured <code>SecRule</code> YAML.</p>
+</li>
+<li>
+<p><strong>Always validate</strong> the generated resource before using it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f my-new-rule.yaml --dry-run<span class="o">=</span>server
+</span></span></code></pre></div><p>This sends the object to the real API server and exercises the CRD schema (plus any validating webhooks).</p>
+</li>
+<li>
+<p>Let the AI also generate a matching <code>RuleSet</code> that wires the new rule into your WAF policy.</p>
+</li>
+</ol>
+<p>This combination gives you the speed of natural language with the safety of proper Kubernetes validation.</p>
+<h2 id="converting-existing-modsecurity-rules">Converting Existing ModSecurity Rules</h2>
+<p>If you have existing <code>.conf</code> files in SecLang syntax, you can:</p>
+<ol>
+<li>Use the <code>crs-converter</code> tool (see <a href="/docs/security/using-crs/">OWASP CRS</a>)</li>
+<li>Or manually translate them into the structured YAML format</li>
+</ol>
+<p>The converter produces high-fidelity <code>SecRule</code> objects that you can further edit.</p>
+<h2 id="validation--status">Validation &amp; Status</h2>
+<p>After applying a <code>SecRule</code>, check its status:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get secrule block-bad-ua -o yaml
+</span></span></code></pre></div><p>The <code>.status.secRuleString</code> field contains the exact SecLang that will be sent to modsecurity-proxy-wasm.</p>
+<p>If conversion fails, the <code>Ready</code> condition will be <code>False</code> with a helpful message.</p>
+<h2 id="next">Next</h2>
+<p>Now that you can write individual rules, learn how to <a href="/docs/users/rulesets/">organize them with RuleSets</a>.
+Dry-run a request: <a href="/docs/platform/observability/probes/">Probes</a>.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-96553f56046df4089ffe831a5b3e0001">2 - OWASP Core Rule Set (CRS)</h1>
+    <div class="lead">Enable and tune the OWASP Core Rule Set with kubeWAF</div>
+	<h1 id="owasp-core-rule-set-crs">OWASP Core Rule Set (CRS)</h1>
+<p>The <a href="https://coreruleset.org/">OWASP Core Rule Set</a> is the default baseline
+kubeWAF can attach to a <code>WAF</code>. <strong>Path B</strong> (structured <code>SecRule</code> CRs via
+<code>kubewaf-crs</code>) is the default. <strong>Path A</strong> (<code>crsEnable: true</code>) emits engine
+virtual includes and needs the full-catalog wasm.</p>
+
+
+<div class="alert alert-warning" role="alert">
+<h4 class="alert-heading">Beta: start in DetectionOnly</h4>
+
+    On first CRS attach, set <code>spec.mode: DetectionOnly</code> so you observe scores without
+denying traffic. Flip to <code>Blocking</code> after tuning. See <a href="/docs/get-started/beta/">Beta status</a>
+and <a href="/docs/platform/engine/">WAF engine</a>.
+
+</div>
+
+<h2 id="two-paths">Two paths</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Path</th>
+					<th>What the operator emits</th>
+					<th>What you need</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>B (default)</strong></td>
+					<td>Your RuleSet SecLang + optional <code>spec.crs</code> setup/exclusions</td>
+					<td><code>kubewaf-crs</code> (or other SecRule RuleSets). Default operator wasm is path-b.</td>
+			</tr>
+			<tr>
+					<td><strong>A</strong></td>
+					<td><code>Include @crs-setup-conf</code> + <code>Include @owasp_crs/*.conf</code> plus <code>spec.crs</code></td>
+					<td>Full-catalog wasm (<code>*-full</code> / <code>make wasm-build-full</code>). Not the default image.</td>
+			</tr>
+	</tbody>
+</table>
+<p><code>spec.crs</code> (paranoia, thresholds, remove-by-id/tag) applies on both paths. <code>crsEnable</code> is only the engine-include switch.</p>
+<h2 id="enabling-crs">Enabling CRS</h2>
+<h3 id="path-b--structured-rulesets-recommended-for-gitops">Path B — structured RuleSets (recommended for GitOps)</h3>
+<p>No engine <code>Include @owasp_crs</code>. Attach a RuleSet of SecRules (full CRS samples or an optimized profile) and optionally tune with <code>spec.crs</code> <strong>without</strong> <code>crsEnable</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">WAF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">protect-api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paranoiaLevel</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">inboundAnomalyThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">removeById</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">942100</span><span class="p">]</span><span class="w">          </span><span class="c"># optional exclusions after loaded CRs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ruleset-api              </span><span class="w"> </span><span class="c"># or full CRS RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targetRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-app</span><span class="w">
+</span></span></span></code></pre></div><p>Directive order (Path B): defaults → <strong>setup SecAction</strong> (<code>spec.crs</code>) → RuleSet SecLang → <strong>exclusions</strong>.</p>
+<h3 id="path-a--engine-includes">Path A — engine includes</h3>
+<p>Only when the operator image embeds the <strong>full</strong> CRS catalog. Default path-b wasm
+does not contain <code>@crs-setup-conf</code> / <code>@owasp_crs</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">WAF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">protect-all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paranoiaLevel</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-custom-rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targetRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">my-app</span><span class="w">
+</span></span></span></code></pre></div><p>Custom rules and embedded CRS run together. Anomaly scoring sees scores from both.</p>
+<h2 id="crs-version--samples">CRS Version &amp; Samples</h2>
+<p>kubeWAF ships converted rules for <strong>CRS v4.27.0</strong> (aligned with
+modsecurity-proxy-wasm’s embedded CRS). The <strong>platform team</strong> installs the
+<code>kubewaf-crs</code> chart after the operator — see
+<a href="/docs/platform/installation/#crs-as-kubernetes-objects-optional">Installation</a>.</p>
+<p>That chart installs stock CRS <code>PhraseList</code>s and profile RuleSets. <strong>On by
+default:</strong> <code>crs-core</code>, <code>ruleset-api</code>, <code>ruleset-backend</code> (plus extras).
+<code>php</code>, <code>java</code>, <code>golang</code>, <code>dotnet</code>, and <code>frontend</code> are off until platform enables
+them (<code>--set profiles.php.enabled=true</code>, …).</p>
+<p>Re-convert newer releases with <code>bin/crs-converter</code> (see
+<a href="/docs/contribute/seclang-crs-gaps/">SecLang CRS gaps</a>).</p>
+<p>The converted rules (and <code>config/samples/crs/</code> in the operator repo) are labeled:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">app.kubernetes.io/part-of</span><span class="p">:</span><span class="w"> </span><span class="l">coreruleset</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">coreruleset/version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;4.27.0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">coreruleset/file</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST-920-PROTOCOL-ENFORCEMENT.conf</span><span class="w">
+</span></span></span></code></pre></div><h2 id="optimized-stack-rulesets">Optimized stack RuleSets</h2>
+<p>Full CRS is thorough but CPU-heavy. For Path B (structured SecRules), kubeWAF
+ships <strong>profile RuleSets</strong> that compose a shared core with only the CRS files
+that matter for that stack:</p>
+<table>
+	<thead>
+			<tr>
+					<th>RuleSet</th>
+					<th>Default</th>
+					<th>Workload</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>crs-core</code></td>
+					<td>on</td>
+					<td>Protocol, init, scanners, anomaly scoring (compose into others)</td>
+			</tr>
+			<tr>
+					<td><code>ruleset-api</code></td>
+					<td>on</td>
+					<td>JSON REST APIs (no XSS pack)</td>
+			</tr>
+			<tr>
+					<td><code>ruleset-backend</code></td>
+					<td>on</td>
+					<td>Language-agnostic backends</td>
+			</tr>
+			<tr>
+					<td><code>ruleset-php</code></td>
+					<td>off</td>
+					<td>PHP apps — <code>--set profiles.php.enabled=true</code></td>
+			</tr>
+			<tr>
+					<td><code>ruleset-java</code></td>
+					<td>off</td>
+					<td>Java / Spring — <code>--set profiles.java.enabled=true</code></td>
+			</tr>
+			<tr>
+					<td><code>ruleset-golang</code></td>
+					<td>off</td>
+					<td>Go — <code>--set profiles.golang.enabled=true</code></td>
+			</tr>
+			<tr>
+					<td><code>ruleset-dotnet</code></td>
+					<td>off</td>
+					<td>ASP.NET — <code>--set profiles.dotnet.enabled=true</code></td>
+			</tr>
+			<tr>
+					<td><code>ruleset-frontend</code></td>
+					<td>off</td>
+					<td>SPA / HTML UI — <code>--set profiles.frontend.enabled=true</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>From an operator checkout (platform usually does this, or you consume the Helm profiles):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f config/samples/crs/          <span class="c1"># SecRules</span>
+</span></span><span class="line"><span class="cl">kubectl apply -f config/samples/crs/optimized-rulesets.yaml
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">WAF</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">payments-api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paranoiaLevel</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">inboundAnomalyThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">targetRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">gateway.networking.k8s.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPRoute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">payments</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ruleset-api</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">waf.kubewaf.io</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1beta1</span><span class="w">
+</span></span></span></code></pre></div><p>Details and inclusion tables: <code>config/samples/crs/README.md</code>. See also <code>config/samples/crs/waf-api.yaml</code>.</p>
+<p>A convenient <code>RuleSet</code> that selects the entire CRS is also provided:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># config/samples/crs/crs-ruleset.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">RuleSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ruleset-crs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ruleRefs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default    </span><span class="w"> </span><span class="c"># change as needed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matchLabels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">coreruleset/version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;4.27.0&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>You can reference this RuleSet or create your own selector-based one.</p>
+<h2 id="paranoia-levels--thresholds">Paranoia Levels &amp; Thresholds</h2>
+<p>CRS v4 uses <strong>paranoia levels</strong> (1–4). Higher levels = more aggressive detection but higher chance of false positives.</p>
+<p>The initialization rules (usually <code>REQUEST-901-INITIALIZATION</code>) set:</p>
+<ul>
+<li><code>tx.detection_paranoia_level</code></li>
+<li><code>tx.inbound_anomaly_score_threshold</code></li>
+<li><code>tx.outbound_anomaly_score_threshold</code></li>
+</ul>
+<p>You can override these values with your own <code>SecRule</code> that runs early in phase 1 and sets the TX variables.</p>
+<p><strong>Preferred for simple tuning: the declarative <code>crs:</code> block on the WAF</strong></p>
+<p>kubeWAF supports <strong>declarative CRS tuning</strong> directly on the <code>WAF</code> resource.
+Use this for paranoia, thresholds, and common false-positive exclusions because:</p>
+<ul>
+<li>The operator guarantees correct directive ordering: Path B is setup → RuleSet SecLang → exclusions. Path A inserts <code>Include @owasp_crs</code> before exclusions.</li>
+<li>No need to hand-author early <code>SecAction</code> / <code>SecRule</code> objects just for tuning.</li>
+<li>The intent is visible and reviewable at the WAF policy level.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crsEnable</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">crs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paranoiaLevel</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">                 </span><span class="c"># sets both detection + blocking</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">inboundAnomalyThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">outboundAnomalyThreshold</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">removeById</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="m">942100</span><span class="p">,</span><span class="w"> </span><span class="m">941100</span><span class="p">]</span><span class="w">     </span><span class="c"># drop noisy rules entirely</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">removeByTag</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;attack-php&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">updateTargetById</span><span class="p">:</span><span class="w">                </span><span class="c"># surgical variable exclusions (most common FP fix)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">920273</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">removeTargets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ARGS:json_blob&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">942100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">removeTargets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;ARGS:csrf_token&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;REQUEST_COOKIES:sessionid&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><p>See <code>config/samples/waf_v1beta1_waf_crs_tuned.yaml</code> for a full example.</p>
+<p>A phase-1 <code>SecRule</code> / <code>SecAction</code> with <code>setvar</code> still works when you need extra early logic.</p>
+<h2 id="using-the-crs-converter-tool">Using the CRS Converter Tool</h2>
+<p>If you want to upgrade to a newer CRS release or customize the conversion:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Build the tool</span>
+</span></span><span class="line"><span class="cl">make crs-converter
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Convert a full CRS checkout (default: one SecRule CR per logical rule)</span>
+</span></span><span class="line"><span class="cl">bin/crs-converter <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --input<span class="o">=</span>/path/to/coreruleset/rules <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --output-dir<span class="o">=</span>config/samples/crs-new <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --crs-version<span class="o">=</span>4.4.0 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --namespace<span class="o">=</span>platform-security <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --mode<span class="o">=</span>one
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Legacy multi-rule bag (one CR per .conf file with secLangRules[]):</span>
+</span></span><span class="line"><span class="cl">bin/crs-converter ... --mode<span class="o">=</span>bag
+</span></span></code></pre></div><p>The tool (<code>-mode=one</code>, default):</p>
+<ul>
+<li>Parses the original <code>.conf</code> files using <code>crslang</code></li>
+<li>Emits <strong>one <code>SecRule</code> CR per logical rule</strong> (canonical <code>metadata</code> + <code>match[]</code> + <code>actions</code>)</li>
+<li>Groups ModSecurity chains into a single CR (<code>match</code> length &gt; 1)</li>
+<li>Sets <code>spec.order</code> from the rule id (RuleSet assembly sorts by order/id)</li>
+<li>Emits <code>spec.markerAfter</code> on the last rule of each group (skipAfter targets)</li>
+<li>Multi-document YAML per source file; labels: <code>coreruleset/file</code>, <code>coreruleset/version</code>, <code>seclang.kubewaf.io/id</code>, tags</li>
+<li>Use <code>-mode=bag</code> for the older one-CR-per-file packaging</li>
+</ul>
+<h2 id="mixing-crs-with-custom-rules">Mixing CRS with Custom Rules</h2>
+<p>RuleSet expansion sorts SecRules by <code>spec.order</code> (else rule id), then name.</p>
+<p>A typical effective combination:</p>
+<ol>
+<li>Early initialization rules (your overrides)</li>
+<li>CRS rules (via <code>crsEnable</code> or explicit RuleSet)</li>
+<li>Your own &quot;allow-list&quot; or &quot;exception&quot; rules (using <code>SecAction</code> + <code>ctl:ruleRemoveById</code>)</li>
+<li>Final blocking / anomaly scoring rules</li>
+</ol>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<p>CRS contains ~300–400 rules. Most of them are cheap regex or byte checks. On modern hardware the overhead per request is usually &lt; 1–2 ms.</p>
+<p>If you are extremely latency-sensitive:</p>
+<ul>
+<li>Start with paranoia level 1 + higher anomaly threshold</li>
+<li>Exclude rules you know are irrelevant (e.g., PHP-specific rules in a Java shop)</li>
+<li>Use <code>SecAction</code> + <code>ctl:ruleRemoveById</code> or <code>ctl:ruleRemoveByTag</code></li>
+</ul>
+<h2 id="troubleshooting-crs">Troubleshooting CRS</h2>
+<p><strong>Too many false positives?</strong></p>
+<ul>
+<li>Lower the paranoia level</li>
+<li>Raise the anomaly score threshold</li>
+<li>Add exclusion rules early</li>
+</ul>
+<p><strong>Nothing is being blocked?</strong></p>
+<ul>
+<li>Path B: the profile RuleSet is referenced (<code>ruleset-api</code>, …)</li>
+<li>Path A: <code>crsEnable: true</code> <strong>and</strong> full-catalog wasm</li>
+<li>Check the WAF logs (Envoy Gateway logs + WASM filter logs)</li>
+<li>Verify the <code>ReferencesResolved</code> condition on your <code>WAF</code></li>
+</ul>
+<p><strong>I want only part of CRS</strong></p>
+<p>Create a custom RuleSet that selects only the files you care about:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">matchExpressions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">coreruleset/file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="l">In</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">values</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;REQUEST-920-PROTOCOL-ENFORCEMENT.conf&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;REQUEST-942-APPLICATION-ATTACK-SQLI.conf&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://coreruleset.org/docs/">OWASP CRS Documentation</a></li>
+<li><a href="https://github.com/coreruleset/coreruleset">CRS GitHub</a></li>
+<li><a href="https://coreruleset.org/docs/2-how-crs-works/paranoia_levels/">Paranoia Levels Explained</a></li>
+</ul>
+<p>Next: <a href="/docs/platform/providers/envoy-gateway/">attach these rules on Envoy Gateway</a>.</p>
+
+</div>
+
+
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-3408ba1cb3c99357ee33fda0f042b1a9">3 - AI Assistance</h1>
+    <div class="lead">AI-assisted SecRule authoring with kubeWAF expert prompts</div>
+	<p>This directory contains resources that help <strong>any AI coding assistant</strong> (Grok, Claude, GPT, Cursor, Gemini, Continue.dev, Aider, etc.) write high-quality, valid <code>SecRule</code> resources for kubeWAF.</p>
+<h2 id="quick-start-for-any-llm">Quick Start for Any LLM</h2>
+<p>Copy the entire content of <a href="/docs/security/ai/kubewaf-secrule-expert/">kubewaf-secrule-expert</a> and paste it at the beginning of your conversation (or add it to your custom instructions / project rules).</p>
+<p>Then simply describe what you want to block or detect in natural language.</p>
+<p>Example prompt after loading the expert:</p>
+<blockquote>
+<p>&quot;Create a rule that blocks requests coming from known bad ASNs trying to access /admin or /wp-login.php. Use anomaly scoring instead of immediate deny.&quot;</p>
+</blockquote>
+<h2 id="files">Files</h2>
+<table>
+	<thead>
+			<tr>
+					<th>File</th>
+					<th>Purpose</th>
+					<th>Best For</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>kubewaf-secrule-expert.md</code></td>
+					<td>Master portable expert instructions + examples + guardrails</td>
+					<td><strong>Any AI</strong> (Claude, Cursor, Grok, GPT, etc.) – copy &amp; paste or load as context</td>
+			</tr>
+			<tr>
+					<td><code>AGENTS.md</code> (at repo root)</td>
+					<td>Project-level rules that many AI tools auto-detect</td>
+					<td>Cursor, Claude Code, Aider, Continue, Windsurf, etc. when working inside this repo</td>
+			</tr>
+			<tr>
+					<td><code>.grok/skills/kubewaf-secrule/SKILL.md</code></td>
+					<td>Native Grok skill (auto-activates on relevant requests)</td>
+					<td>Users of the Grok TUI / CLI</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="recommended-workflow">Recommended Workflow</h2>
+<ol>
+<li><strong>Best quality (recommended)</strong>: Use a strong frontier model (Claude 4, GPT-4.1, Grok 4, etc.) + the expert context.</li>
+<li><strong>When you want raw SecLang</strong> (simpler for humans and AIs): Ask the AI to output classic ModSecurity <code>SecRule</code> syntax first, then use the included conversion helpers or <code>cmd/crs-converter</code> to turn it into a proper <code>SecRule</code> CR.</li>
+<li><strong>Fully offline / air-gapped</strong>: Load <code>kubewaf-secrule-expert.md</code> into a local model
+(7B–9B class or better) with the same validation step below. There is no separate
+“small model guide” yet — the expert prompt + dry-run is the supported path.</li>
+</ol>
+<p>See the main guide <a href="/docs/security/writing-rules/#writing-rules-with-ai-assistance">Writing Security Rules</a> for more context and examples of the AI-assisted flow.</p>
+<h2 id="validation-is-mandatory">Validation Is Mandatory</h2>
+<p>Any AI-generated rule should be validated:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># After the AI produces a SecRule YAML file</span>
+</span></span><span class="line"><span class="cl">kubectl apply -f my-rule.yaml --dry-run<span class="o">=</span>server -o yaml
+</span></span><span class="line"><span class="cl"><span class="c1"># or run the project&#39;s conversion logic</span>
+</span></span></code></pre></div><p>The expert instructions teach AIs to produce output that survives this check.</p>
+<h2 id="contributing-improvements">Contributing Improvements</h2>
+<p>If you find that certain prompts produce bad rules, or you have great new examples/patterns, please improve <code>kubewaf-secrule-expert.md</code> and the skill. The goal is to make the &quot;AI as SecRule co-author&quot; experience reliable and delightful.</p>
+
+</div>
+
+
+
+    
+      
+  
+  
+  
+  
+
+  
+  
+
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-a469da3af78fc1fd307ee655683b1156">3.1 - SecRule Expert Prompt</h1>
+    <div class="lead">Portable expert instructions for generating high-quality SecRules</div>
+	<p>You are an <strong>expert author of security rules for kubeWAF</strong>, a Kubernetes-native WAF that uses a structured Kubernetes representation of ModSecurity SecLang rules (enforced by <strong>modsecurity-proxy-wasm</strong>).</p>
+<p>Your goal is to help users create correct, effective, and maintainable <code>SecRule</code> Custom Resources.</p>
+<h2 id="core-philosophy">Core Philosophy</h2>
+<p>kubeWAF gives users <strong>two good paths</strong>:</p>
+<ol>
+<li><strong>Structured YAML</strong> (<code>kind: SecRule</code>) — the native, validated, GitOps-friendly form. Verbose but reviewable and type-safe.</li>
+<li><strong>Raw SecLang</strong> — the classic ModSecurity syntax users already know. Much shorter and easier for humans and LLMs to write correctly.</li>
+</ol>
+<p><strong>Strong recommendation</strong>:</p>
+<ul>
+<li>For quick &quot;I just want it to work&quot; cases → generate clean <strong>raw SecLang</strong> first.</li>
+<li>For production GitOps rules that will live in the cluster → produce the full <strong>structured <code>SecRule</code> YAML</strong>.</li>
+</ul>
+<p>Always offer both options and explain the trade-off.</p>
+<h2 id="golden-rules-never-break-these">Golden Rules (Never Break These)</h2>
+<ol>
+<li><strong>Never invent identifiers</strong>. Only use variable names, operator names, action types, and transformation names that actually exist in the CRD and the Go types under <code>api/seclang/v1beta1/</code>.</li>
+<li>Use <strong>rule IDs &gt; 100000</strong> for all custom/user rules (CRS uses the 9xxxx and lower ranges). You may <strong>omit <code>metadata.id</code></strong> on custom rules; the operator allocates from cluster-scoped <code>SecRuleIDPool/cluster</code> (default 100000–999999) and records <code>status.ruleId</code> / <code>status.assignedIds</code>. Prefer explicit ids when the user needs a stable documented id in Git.</li>
+<li><strong>Prefer anomaly scoring</strong> over immediate <code>deny</code>. Emit <code>pass</code> + <code>setvar</code> on <code>TX.*_anomaly_score_*</code> unless the user explicitly asks for a hard block.</li>
+<li>Always include good <code>msg</code>, <code>severity</code>, and relevant <code>tags</code>. Tags stay in <code>spec.metadata.tags</code>; the controller also mirrors them to CR labels <code>seclang.kubewaf.io/tag.&lt;sanitized&gt;=true</code>.</li>
+<li>Phase 2 is the most common for request body / argument inspection. Phase 1 is used for early decisions and initialization.</li>
+<li>When the user describes a problem in natural language, first clarify the <strong>intent</strong> (detect only vs block, paranoia level impact, false-positive tolerance) before generating.</li>
+<li><strong>Keep rule metadata in <code>spec.metadata</code></strong> (canonical one-rule-per-CR form with <code>match[]</code> + <code>actions</code>). Do not invent top-level K8s fields for msg/severity/phase; only tags (and id/phase/order) are additionally mirrored as object labels. Prefer <code>match[]</code> chains over multi-entry <code>secLangRules</code> bags for new custom rules.</li>
+</ol>
+<h2 id="common-high-quality-patterns-you-should-know">Common High-Quality Patterns You Should Know</h2>
+<h3 id="1-simple-detection--anomaly-score-most-custom-rules">1. Simple detection + anomaly score (most custom rules)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Structured form example (preferred for GitOps) — one rule per CR</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">seclang.kubewaf.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">SecRule</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">block-suspicious-ua</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">production</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="m">100010</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">100010</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Suspicious User-Agent detected&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">WARNING</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;attack-recon&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;custom&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST_HEADERS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">User-Agent]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">(?i)(curl|wget|python-requests|go-http-client)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">pass</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">setvar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">TX.anomaly_score_pl1=+2</span><span class="w">
+</span></span></span></code></pre></div><p>Raw SecLang equivalent (much shorter):</p>
+<pre tabindex="0"><code class="language-sec" data-lang="sec">SecRule REQUEST_HEADERS:User-Agent &#34;@rx (?i)(curl|wget|python-requests)&#34; \
+  &#34;id:100010,phase:1,pass,msg:&#39;Suspicious User-Agent&#39;,severity:WARNING, \
+   setvar:TX.anomaly_score_pl1=+2,tag:attack-recon&#34;
+</code></pre><h3 id="2-virtual-patch--quick-block-when-user-really-wants-a-hard-deny">2. Virtual patch / quick block (when user really wants a hard deny)</h3>
+<p>Use <code>disruptiveActionType: deny</code> and <code>data: [{ dataActionType: status, value: &quot;403&quot; }]</code>.</p>
+<h3 id="3-initialization--configuration-rules-phase-1-always-match">3. Initialization / configuration rules (phase 1, always-match)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">always-match</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">setvar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">tx.detection_paranoia_level=2</span><span class="w">
+</span></span></span></code></pre></div><h3 id="4-chained-rules-and-logic">4. Chained rules (AND logic)</h3>
+<p>Use multiple <code>spec.match[]</code> entries on <strong>one</strong> SecRule CR. The converter injects <code>chain</code> on every link except the last. Optional per-link <code>match[i].actions</code> for capture/setvar on intermediate links; final disruptive action lives in <code>spec.actions</code>.</p>
+<h2 id="output-style-guidelines">Output Style Guidelines</h2>
+<ul>
+<li>When producing <strong>structured YAML</strong>, make it valid enough that <code>kubectl apply --dry-run=server</code> would accept it.</li>
+<li>When producing <strong>raw SecLang</strong>, make it valid ModSecurity SecLang syntax.</li>
+<li>After generating, always show the user how they can validate it themselves.</li>
+<li>If the rule is complex, also emit a small comment block explaining the logic and why certain choices were made (good for Git history).</li>
+<li>Offer to also create or update a matching <code>RuleSet</code> that includes the new rule.</li>
+<li>When the rule uses <code>@pmFromFile</code> / <code>@ipMatchFromFile</code>, also emit the matching <code>PhraseList</code> or <code>IPList</code> YAML (same namespace, matching <code>fileName</code>).</li>
+</ul>
+<h2 id="important-constants-reference-most-used">Important Constants Reference (Most Used)</h2>
+<p><strong>Common variables</strong> (use exactly these strings):
+<code>REQUEST_URI</code>, <code>REQUEST_METHOD</code>, <code>REQUEST_BODY</code>, <code>REMOTE_ADDR</code>, <code>RESPONSE_STATUS</code>, <code>MATCHED_VAR</code>. Collections: <code>REQUEST_HEADERS</code> (e.g. <code>arguments: [User-Agent]</code>), <code>ARGS</code>, <code>ARGS_GET</code>, <code>ARGS_POST</code>, <code>FILES</code>, <code>FILES_NAMES</code>, <code>TX</code>, <code>REQUEST_HEADERS_NAMES</code>. There is no <code>USER_AGENT</code> name.</p>
+<p><strong>Common operators</strong>:
+<code>rx</code> (most powerful), <code>strEq</code>, <code>contains</code>, <code>beginsWith</code>, <code>endsWith</code>, <code>eq</code>, <code>gt</code>, <code>ipMatch</code>, <code>ipMatchFromFile</code>, <code>detectSQLi</code>, <code>detectXSS</code>, <code>pm</code>, <code>pmFromFile</code> / <code>pmf</code>, <code>within</code>.</p>
+<p>Scalars use <code>variables[].name</code>. Collection members use <code>collections[].name</code> + <code>arguments</code> (there is no <code>variables[].collection</code>). <code>ARGS</code> / <code>ARGS_GET</code> / <code>ARGS_POST</code> / <code>REQUEST_HEADERS</code> are collections.</p>
+<p><strong>List files</strong> (Path B / ModSecurity):</p>
+<ul>
+<li>Phrase tokens → create a same-namespace <code>PhraseList</code> (<code>seclang.kubewaf.io/v1beta1</code>) and set <code>operator.name: pmFromFile</code>, <code>value: &lt;fileName&gt;</code> (e.g. <code>team-scanners.data</code>). No <code>format</code> field.</li>
+<li>IPs/CIDRs → create a same-namespace <code>IPList</code> and use <code>operator.name: ipMatchFromFile</code>. Never put IP lists on PhraseList.</li>
+<li>Optional RuleSet packaging: <code>phraseListRefs</code> / <code>ipListRefs</code> (presence only). Inject is always on for ModSecurity.</li>
+</ul>
+<p><strong>Disruptive actions</strong> (only one per rule/chain):
+<code>deny</code>, <code>block</code>, <code>pass</code>, <code>allow</code>, <code>drop</code>, <code>redirect</code>.</p>
+<p><strong>Frequent non-disruptive actions</strong> (YAML key <code>non-disruptive</code>):
+<code>setvar</code>, <code>logdata</code>, <code>log</code>, <code>nolog</code>, <code>ctl</code>, <code>capture</code>.</p>
+<p><code>msg</code>, <code>tag</code>, and <code>severity</code> live on <code>spec.metadata</code>, not as action types. HTTP status is <code>data: [{ dataActionType: status, value: &quot;403&quot; }]</code>. Redirect is <code>disruptiveActionType: redirect</code> with <code>value: &lt;url&gt;</code>.</p>
+<p><strong>Severity values</strong> (exact):
+<code>EMERGENCY</code>, <code>ALERT</code>, <code>CRITICAL</code>, <code>ERROR</code>, <code>WARNING</code>, <code>NOTICE</code>, <code>INFO</code>, <code>DEBUG</code>.</p>
+<p>When in doubt, ask the user or read the real definitions from:</p>
+<ul>
+<li><code>api/seclang/v1beta1/secrule_variables.go</code></li>
+<li><code>api/seclang/v1beta1/secrule_operator.go</code></li>
+<li><code>api/seclang/v1beta1/secrule_actions.go</code></li>
+</ul>
+<h2 id="validation-steps-you-should-recommend-always-do-this">Validation Steps You Should Recommend (Always Do This)</h2>
+<p><strong>Never give the user a SecRule without telling them how to validate it.</strong></p>
+<h3 id="primary-validation-works-with-any-cluster">Primary validation (works with any cluster)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f my-rule.yaml --dry-run<span class="o">=</span>server
+</span></span></code></pre></div><ul>
+<li>This sends the object to the real Kubernetes API server.</li>
+<li>It exercises the CRD schema + any validating webhooks registered for <code>seclang.kubewaf.io</code>.</li>
+<li>Success = the resource is accepted.</li>
+<li>Failure = you get the exact error the apiserver would return.</li>
+</ul>
+<h3 id="deeper-validation-when-working-inside-the-kubewaf-repo">Deeper validation (when working inside the kubewaf repo)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Raw → structured round-trip (CRS converter)</span>
+</span></span><span class="line"><span class="cl">go run ./cmd/crs-converter ...
+</span></span></code></pre></div><p><code>kubectl apply --dry-run=server</code> already runs the validating webhooks.</p>
+<h3 id="recommended-response-pattern">Recommended response pattern</h3>
+<p>After generating a rule, always output something like:</p>
+<blockquote>
+<p><strong>Validation command for you:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl apply -f the-rule.yaml --dry-run<span class="o">=</span>server
+</span></span></code></pre></div><p>Run this <strong>before</strong> you commit or apply the rule for real. It exercises the CRD schema and the validating webhooks.</p>
+</blockquote>
+<p>Also recommend checking the rendered SecLang after creation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get secrule &lt;name&gt; -o yaml <span class="p">|</span> grep -A <span class="m">20</span> <span class="s1">&#39;secRuleString:&#39;</span>
+</span></span></code></pre></div><p>This shows exactly what modsecurity-proxy-wasm will receive.</p>
+<h2 id="example-user-requests-and-how-to-respond">Example User Requests and How to Respond</h2>
+<p>User: &quot;Block curl and wget hitting my login pages&quot;</p>
+<p>→ Offer both a small raw SecLang one-liner and the full structured <code>SecRule</code> object. Suggest tagging + anomaly score. Ask if they also want IP reputation or rate limiting.</p>
+<p>User: &quot;I need a virtual patch for a specific vulnerable endpoint&quot;</p>
+<p>→ Produce a tight <code>REQUEST_URI</code> + <code>REQUEST_HEADERS</code> or body match with <code>deny</code>, good logdata, and a clear <code>msg</code>.</p>
+<p>User: &quot;Rate limit expensive endpoints per IP&quot;</p>
+<p>→ Explain that pure rate limiting in SecLang is possible but usually done with <code>setvar</code> + <code>expirevar</code> + <code>&amp;IP.something</code> collections or external correlation. Give a solid starting pattern.</p>
+<h2 id="tone--collaboration">Tone &amp; Collaboration</h2>
+<ul>
+<li>Be direct and security-pragmatic.</li>
+<li>Default to &quot;detect + score&quot; unless the user says &quot;hard block&quot;.</li>
+<li>Always mention false-positive risk and how to tune (tags, paranoia, anomaly thresholds).</li>
+<li>When the rule would benefit from CRS integration, say so and show how to combine it via a <code>RuleSet</code>.</li>
+</ul>
+<p>You now have all the knowledge needed to be an outstanding kubeWAF SecRule co-author for any user and any AI frontend.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+    
+	
+  
+    
+    
+	
+    
+
+<div class="td-content" style="page-break-before: always">
+    
+	<h1 id="pg-5de6e07a3f76c8654a77bfa5cd25da6d">4 - SecLang YAML Structure</h1>
+    <div class="lead">Structured SecLang representation used by kubeWAF CRDs</div>
+	<p>Prefer the one-rule form on <code>SecRule</code>: <code>spec.metadata</code> + <code>spec.match[]</code> +
+<code>spec.actions</code>. <code>match[]</code> uses the same condition shape as the bag below.</p>
+<p><code>spec.secLangRules[]</code> is the multi-rule bag (CRS samples). Fields here apply to
+both.</p>
+<h2 id="one-rule-form">One-rule form</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">order</span><span class="p">:</span><span class="w"> </span><span class="m">100001</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">markerAfter</span><span class="p">:</span><span class="w"> </span><span class="l">END-CUSTOM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w"> </span><span class="l">SecRuleMetadata</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">match</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="l">Condition       </span><span class="w"> </span><span class="c"># length &gt; 1 = chain</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w"> </span><span class="l">SecRuleActions</span><span class="w">
+</span></span></span></code></pre></div><h2 id="multi-rule-bag-seclangrules">Multi-rule bag (<code>secLangRules[]</code>)</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">metadata</span><span class="p">:</span><span class="w"> </span><span class="l">SecRuleMetadata</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="l">Condition</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w"> </span><span class="l">SecRuleActions</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">chainedRule</span><span class="p">:</span><span class="w"> </span><span class="l">bool</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">secMarker</span><span class="p">:</span><span class="w"> </span><span class="l">string</span><span class="w">
+</span></span></span></code></pre></div><h2 id="metadata">Metadata</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">942100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;SQL Injection Attack Detected&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">CRITICAL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">attack-sqli</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">OWASP_CRS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">paranoia-level/2</span><span class="w">
+</span></span></span></code></pre></div><p>Supported severities: <code>EMERGENCY</code>, <code>ALERT</code>, <code>CRITICAL</code>, <code>ERROR</code>, <code>WARNING</code>, <code>NOTICE</code>, <code>INFO</code>, <code>DEBUG</code>.</p>
+<h2 id="conditions">Conditions</h2>
+<p>A condition describes <strong>when</strong> the rule should trigger.</p>
+<h3 id="variable-form">Variable Form</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">REQUEST_URI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ARGS_GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">id]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rx</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">(?:union|select|--)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">negate</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></div><h3 id="collection--tx-form-common-in-crs">Collection / TX Form (common in CRS)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">collections</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">TX</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">DETECTION_PARANOIA_LEVEL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">operator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">lt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="always-match-initialization-rules">Always-Match (initialization rules)</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">always-match</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><h2 id="operators">Operators</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Name</th>
+					<th>Example Value</th>
+					<th>Notes</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>rx</code></td>
+					<td><code>(?i)select.*from</code></td>
+					<td>Most common</td>
+			</tr>
+			<tr>
+					<td><code>strEq</code>, <code>contains</code>, <code>beginsWith</code>, <code>endsWith</code></td>
+					<td><code>admin</code></td>
+					<td>String ops</td>
+			</tr>
+			<tr>
+					<td><code>eq</code>, <code>gt</code>, <code>ge</code>, <code>lt</code>, <code>le</code></td>
+					<td><code>5</code></td>
+					<td>Numeric</td>
+			</tr>
+			<tr>
+					<td><code>ipMatch</code></td>
+					<td><code>192.168.0.0/16,10.0.0.0/8</code></td>
+					<td></td>
+			</tr>
+			<tr>
+					<td><code>pm</code> / <code>pmFromFile</code></td>
+					<td><code>team-scanners.data</code></td>
+					<td>File body from <a href="/docs/reference/crds/phraselist/">PhraseList</a></td>
+			</tr>
+			<tr>
+					<td><code>ipMatchFromFile</code></td>
+					<td><code>edge-ip-blocklist.data</code></td>
+					<td>File body from <a href="/docs/reference/crds/iplist/">IPList</a></td>
+			</tr>
+			<tr>
+					<td><code>detectSQLi</code></td>
+					<td>(no value)</td>
+					<td>Uses libinjection</td>
+			</tr>
+			<tr>
+					<td><code>detectXSS</code></td>
+					<td>(no value)</td>
+					<td></td>
+			</tr>
+			<tr>
+					<td><code>geoLookup</code></td>
+					<td>(no value)</td>
+					<td>Requires GeoIP data in Wasm image</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="actions">Actions</h2>
+<h3 id="disruptive-actions">Disruptive Actions</h3>
+<p>These decide whether the request continues:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">deny   </span><span class="w"> </span><span class="c"># redirect uses value: &lt;url&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">dataActionType</span><span class="p">:</span><span class="w"> </span><span class="l">status</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;403&#34;</span><span class="w">
+</span></span></span></code></pre></div><h3 id="flow-control">Flow Control</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">flow</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">flowActionType</span><span class="p">:</span><span class="w"> </span><span class="l">skip</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;5&#34;</span><span class="w">                </span><span class="c"># skip the next N rules</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">flowActionType</span><span class="p">:</span><span class="w"> </span><span class="l">skipAfter</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">END-REQUEST-920   </span><span class="w"> </span><span class="c"># skip to marker</span><span class="w">
+</span></span></span></code></pre></div><h3 id="non-disruptive-actions">Non-Disruptive Actions</h3>
+<p>These modify state or logging without stopping evaluation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">setvar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">TX.inbound_anomaly_score_pl1=+5</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">logdata</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;%{MATCHED_VAR}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">ctl</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">ruleRemoveById=942100</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">nolog</span><span class="w">
+</span></span></span></code></pre></div><p>Log text is <code>metadata.message</code>. There is no <code>msg</code> action type.</p>
+<h2 id="chaining">Chaining</h2>
+<p>To express &quot;condition A AND condition B&quot;:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">metadata</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">942100</span><span class="p">,</span><span class="w"> </span><span class="l">... }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">condition A ]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">pass }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">chainedRule</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">metadata</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="l">... same id ... }</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">condition B ]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">disruptive</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">disruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">block }</span><span class="w">
+</span></span></span></code></pre></div><p>The converter automatically emits the <code>chain</code> action on the first part.</p>
+<h2 id="secmarker">SecMarker</h2>
+<p>A marker rule looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">secMarker</span><span class="p">:</span><span class="w"> </span><span class="l">END-REQUEST-920-PROTOCOL-ENFORCEMENT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">phase</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">conditions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">always-match</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">actions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">non-disruptive</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">nonDisruptiveActionType</span><span class="p">:</span><span class="w"> </span><span class="l">nolog</span><span class="w">
+</span></span></span></code></pre></div><p>Later rules can <code>skipAfter: END-REQUEST-920-PROTOCOL-ENFORCEMENT</code>.</p>
+<h2 id="complete-realistic-example">Complete Realistic Example</h2>
+<p>See the CRS samples in the repository (<code>config/samples/crs/</code>) — they are the best reference for complex real-world rules including heavy use of <code>TX</code> variables, <code>ctl</code> actions, and chaining.</p>
+<h2 id="conversion-guarantees">Conversion Guarantees</h2>
+<p>The controller uses the same <code>crslang</code> library that the CRS converter uses. The generated <code>.status.secRuleString</code> is what the WAF engine compiles (modsecurity-proxy-wasm).</p>
+<p>If you ever want to debug &quot;why isn't my rule matching?&quot;, copy the <code>secRuleString</code> value and exercise it against a local Envoy + modsecurity-proxy-wasm setup (see that module’s tests).</p>
+<h2 id="full-crd-schema">Full CRD Schema</h2>
+<p>For every possible field and validation rule, see the generated CRD:</p>
+<ul>
+<li><a href="https://github.com/kubewaf-io/kubewaf/blob/main/config/crd/bases/seclang.kubewaf.io_secrules.yaml">seclang.kubewaf.io_secrules.yaml</a></li>
+</ul>
+<p>Next: read the <a href="/docs/platform/troubleshooting/">Troubleshooting</a> page.</p>
+
+</div>
+
+
+
+    
+	
+  
+
+
+
+          </main>
+        </div>
+      </div>
+      <footer class="td-footer row d-print-none">
+  <div class="container-fluid">
+    <div class="row mx-md-2">
+      <div class="td-footer__left col-6 col-sm-4 order-sm-1">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="GitHub" aria-label="GitHub">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/kubewaf" aria-label="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="X / Twitter" aria-label="X / Twitter">
+    <a target="_blank" rel="noopener" href="https://x.com/kubewaf" aria-label="X / Twitter">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__right col-6 col-sm-4 order-sm-3">
+        <ul class="td-footer__links-list">
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/modsecurity-proxy-wasm" aria-label="modsecurity-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="pow-proxy-wasm" aria-label="pow-proxy-wasm">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/pow-proxy-wasm" aria-label="pow-proxy-wasm">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+  <li class="td-footer__links-item" data-bs-toggle="tooltip" title="Website repo" aria-label="Website repo">
+    <a target="_blank" rel="noopener" href="https://github.com/kubewaf-io/website" aria-label="Website repo">
+      <i class="fab fa-github"></i>
+    </a>
+  </li>
+  
+</ul>
+
+      </div><div class="td-footer__center col-12 col-sm-4 py-2 order-sm-2">
+        <span class="td-footer__copyright">&copy;
+    2026
+    <span class="td-footer__authors">Buzz-IT GmbH and kubeWAF contributors</span></span><span class="td-footer__all_rights_reserved">All Rights Reserved</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/js/main.js"></script>
+<script defer src="/js/click-to-copy.js" crossorigin="anonymous"></script>
+<script src='/js/tabpane-persist.js'></script>
+
+  </body>
+</html>
